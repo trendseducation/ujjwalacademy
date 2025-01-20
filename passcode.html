@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passcode Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #6200ea, #03dac6);
+            color: #fff;
+        }
+        .passcode-container {
+            background: #fff;
+            color: #333;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .passcode-container h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .passcode-container input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        .passcode-container button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            background-color: #6200ea;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .passcode-container button:hover {
+            background-color: #3700b3;
+        }
+	    /* Spinner styling */
+    #spinner {
+      display: none;
+      border: 8px solid #6b6a6a;
+      border-top: 8px solid #33ff00;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 2s linear infinite;
+      position: absolute;
+      top: 45%;
+      left: 45%;
+      transform: translate(-50%, -50%);
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .hidden {
+      display: none;
+      )
+    </style>
+    <script>
+        const appScriptURL = "https://script.google.com/macros/s/AKfycbwuVbc3PRsb0vyI7DASgDUnJI45Qf9lDZBJXLsRaGvL2Qr6Aov_-wVfTclZ4-Na-SAl/exec";
+const TIMEOUT_DURATION = 2 * 60 * 1000; // 20 seconds session timeout
+const PASSCODE_PAGE_URL = "passcode.html";
+const DEFAULT_PAGE_URL = "avdexp.html"; // Default page to redirect if no referrer
+
+// Function to handle authentication after submitting passcode
+async function authenticate() {
+  const passcodeInput = document.getElementById("passcode").value;
+
+  // Show the spinner while the data is being fetched
+  document.getElementById("spinner").style.display = "block";
+
+  try {
+    // Fetch the passcode from App Script
+    const response = await fetch(`${appScriptURL}?action=getPasscode`);
+    if (!response.ok) {
+      throw new Error("Failed to fetch passcode.");
+    }
+    const fetchedPasscode = await response.text();
+
+    // Hide the spinner after the request completes
+    document.getElementById("spinner").style.display = "none";
+
+    // Check if the input matches the fetched passcode
+    if (passcodeInput === fetchedPasscode) {
+      // Store authentication status and session expiration
+      const now = new Date().getTime();
+      const expiration = now + TIMEOUT_DURATION; // Set session expiration
+      localStorage.setItem("authenticated", "true");
+      localStorage.setItem("expiration", expiration);
+
+      // Redirect to the previous page or default to index.html
+      const referrer = document.referrer || DEFAULT_PAGE_URL;
+      location.href = referrer;
+    } else {
+      alert("Invalid passcode. Please try again.");
+    }
+  } catch (error) {
+    console.error("Error during passcode validation:", error);
+    document.getElementById("spinner").style.display = "none"; // Hide spinner on error
+    alert("An error occurred. Please try again later.");
+  }
+}
+
+// Check authentication status on page load
+function checkAuthentication() {
+  const authenticated = localStorage.getItem("authenticated") === "true";
+  const expiration = parseInt(localStorage.getItem("expiration"), 10);
+  const now = new Date().getTime();
+
+  // If session is expired or not authenticated, redirect to passcode page
+  if (!authenticated || now > expiration) {
+    localStorage.setItem("timeoutRedirectURL", window.location.href); // Save current page for redirection
+    location.href = PASSCODE_PAGE_URL;
+  }
+}
+
+// Start session timeout countdown
+function startSessionTimeout() {
+  const expiration = parseInt(localStorage.getItem("expiration"), 10);
+  const now = new Date().getTime();
+  const remainingTime = expiration - now;
+
+  // If time has already expired, redirect immediately
+  if (remainingTime <= 0) {
+    alert("Session expired. Redirecting to Passcode page.");
+    location.href = PASSCODE_PAGE_URL;
+    return;
+  }
+
+  // Set a timeout for the remaining session duration
+  setTimeout(() => {
+    alert("Session expired. Redirecting to Passcode page.");
+    location.href = PASSCODE_PAGE_URL;
+  }, remainingTime);
+}
+
+// Handle form submission on passcode page
+document.addEventListener("DOMContentLoaded", () => {
+  const passcodeForm = document.getElementById("passcode-form");
+  if (passcodeForm) {
+    passcodeForm.addEventListener("submit", (event) => {
+      event.preventDefault(); // Prevent form default submission
+      authenticate(); // Call the authentication function
+    });
+  }
+
+  // On protected pages, check authentication and start session timeout
+  if (window.location.pathname.endsWith(DEFAULT_PAGE_URL)) {
+    checkAuthentication(); // Ensure the user is authenticated
+    startSessionTimeout(); // Start session timeout countdown
+  }
+});
+
+
+    </script>
+</head>
+<body>
+	<div class="passcode-container" style= "justify-content: center; align-items: center;">
+        <h1>Enter Passcode</h1>
+        <input type="password" id="passcode" placeholder="Enter Passcode" />
+        <button onclick="authenticate()">Submit</button>
+    </div>
+	<!-- Spinner (initially hidden) -->
+  <div id="spinner"></div>
+</body>
+</html>
