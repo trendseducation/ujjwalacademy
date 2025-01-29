@@ -396,8 +396,8 @@
             <input type="text" id="editTran" title="Enter Transaction No">
 			<label for="editAmt">Amount</label>
 			<input type="number" id="editAmt" title="Enter your Expenses Amount">
-			<label for="editNote">note<span style="color: red;"> *</span></label>
-            <input type="text" id="editNote" required title="Enter a Note">
+			<label for="editNote">Note</label>
+            <input type="text" id="editNote" title="Enter a Note">
 			
             <button type="submit" class="submit-btn">Update</button>
         </form>
@@ -564,7 +564,7 @@
                 const updatesParam = encodeURIComponent(JSON.stringify(updates));
                 const response = await fetch(`${scriptURL}?action=updateData&updates=${updatesParam}`);
                 const result = await response.json();
-                alert(result.message);
+                
                 showTab('tableView');
                 fetchData();
             } catch (error) {
