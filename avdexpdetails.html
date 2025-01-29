@@ -503,7 +503,7 @@
                 try {
                     const response = await fetch(`${scriptURL}?action=deleteRow&row=${selectedRowData}`);
                     const result = await response.json();
-                    alert(result.message);
+                    
                     fetchData();
                     showTab('tableView');
                 } catch (error) {
