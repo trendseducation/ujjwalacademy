@@ -40,6 +40,16 @@
             --header-height: 80px;
         }
 
+        /* Dark Mode Variables */
+        .dark-mode {
+            --dark: #f8f9fa;
+            --light: #121212;
+            --white: #1e1e1e;
+            --light-gray: #2d2d2d;
+            --gray: #a0a0a0;
+            --primary-light: #1a237e;
+        }
+
         /* Base Styles */
         * {
             margin: 0;
@@ -53,6 +63,7 @@
             line-height: 1.7;
             background-color: var(--light);
             overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         h1, h2, h3, h4, h5 {
@@ -176,7 +187,7 @@
             background: var(--white);
             color: white;
             box-shadow: var(--shadow-md);
-			border: 2px solid black;
+            border: 2px solid black;
         }
 
         .btn-white:hover {
@@ -204,6 +215,10 @@
             transition: var(--transition);
         }
 
+        .dark-mode header {
+            background-color: rgba(30, 30, 30, 0.95);
+        }
+
         .header-container {
             display: flex;
             justify-content: space-between;
@@ -225,8 +240,8 @@
             font-size: 1.8rem;
             color: var(--secondary);
         }
-		
-		.logos {
+        
+        .logos {
             font-size: auto;
             font-weight: 700;
             color: var(--primary);
@@ -234,11 +249,35 @@
             align-items: center;
             font-family: 'Playfair Display', serif;
         }
-		
-		.logos i {
+        
+        .logos i {
             margin-right: 12px;
             font-size: auto;
             color: var(--secondary);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--light-gray);
+        }
+
+        .theme-toggle i {
+            font-size: 1.2rem;
+            color: var(--dark);
+        }
+
+        .dark-mode .theme-toggle i {
+            color: var(--white);
         }
 
         /* Search Bar Styles */
@@ -251,7 +290,11 @@
             width: 300px;
             transition: var(--transition);
             box-shadow: var(--shadow-sm);
-			border: 1px solid #000; /* Black border added here */
+            border: 1px solid #000;
+        }
+
+        .dark-mode .search-bar {
+            border-color: var(--gray);
         }
 
         .search-bar input {
@@ -261,6 +304,7 @@
             padding: 5px;
             outline: none;
             font-family: inherit;
+            color: var(--dark);
         }
 
         .search-bar i {
@@ -285,15 +329,19 @@
             top: var(--header-height);
             left: 0;
             width: 100%;
-            background: white;
+            background: var(--white);
             padding: 15px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             z-index: 999;
             transform: translateY(-100%);
             transition: transform 0.3s ease;
-            display: block; /* Ensure it's always in the DOM */
+            display: block;
             opacity: 0;
             visibility: hidden;
+        }
+
+        .dark-mode .mobile-search-container {
+            background: var(--white);
         }
 
         .mobile-search-container.active {
@@ -306,10 +354,15 @@
             width: 100%;
             display: flex;
             align-items: center;
-            background-color: #f1f5f9;
+            background-color: var(--light);
             border-radius: 8px;
             padding: 10px 15px;
-			border: 2px solid #000; /* Black border added here */
+            border: 2px solid #000;
+        }
+
+        .dark-mode .mobile-search-container .search-bar {
+            background-color: var(--light-gray);
+            border-color: var(--gray);
         }
 
         .mobile-search-container .search-bar input {
@@ -319,11 +372,74 @@
             padding: 5px;
             outline: none;
             font-family: 'Poppins', sans-serif;
+            color: var(--dark);
         }
 
         .mobile-search-container .search-bar i {
-            color: #64748b;
+            color: var(--gray);
             margin-right: 10px;
+        }
+
+        /* Search Results Dropdown */
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: var(--white);
+            border-radius: var(--rounded-md);
+            box-shadow: var(--shadow-lg);
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            margin-top: 5px;
+        }
+
+        .dark-mode .search-results {
+            background: var(--light-gray);
+            border: 1px solid var(--gray);
+        }
+
+        .search-results.active {
+            display: block;
+        }
+
+        .search-result-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .dark-mode .search-result-item {
+            border-bottom-color: var(--gray);
+        }
+
+        .search-result-item:hover {
+            background-color: var(--primary-light);
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-result-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
+        .search-result-url {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .highlight {
+            background-color: yellow;
+            color: black;
+            padding: 0 2px;
+            border-radius: 2px;
         }
 
         /* Adjust main content when search is active */
@@ -381,10 +497,15 @@
             padding: 10px 0;
         }
 
+        .dark-mode .dropdown-menu {
+            background: var(--light-gray);
+        }
+
         .dropdown-menu li a {
             display: flex;
             padding: 10px 20px;
             transition: var(--transition);
+            color: var(--dark);
         }
 
         .dropdown-menu li a:hover {
@@ -424,6 +545,10 @@
             padding: 30px;
             display: flex;
             flex-direction: column;
+        }
+
+        .dark-mode .mobile-nav {
+            background: var(--light-gray);
         }
 
         .mobile-nav.active {
@@ -612,6 +737,10 @@
             background-color: var(--white);
         }
 
+        .dark-mode .about {
+            background-color: var(--light);
+        }
+
         .about-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -682,6 +811,10 @@
             background-color: var(--light);
         }
 
+        .dark-mode .courses {
+            background-color: var(--white);
+        }
+
         .courses-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -696,6 +829,10 @@
             box-shadow: var(--shadow-md);
             transition: var(--transition);
             position: relative;
+        }
+
+        .dark-mode .course-card {
+            background: var(--light-gray);
         }
 
         .course-card:hover {
@@ -757,6 +894,10 @@
             border-top: 1px solid var(--light-gray);
         }
 
+        .dark-mode .course-meta {
+            border-top-color: var(--gray);
+        }
+
         .course-price {
             font-size: 1.3rem;
             font-weight: 700;
@@ -773,6 +914,10 @@
         /* Faculty Section */
         .faculty {
             background-color: var(--white);
+        }
+
+        .dark-mode .faculty {
+            background-color: var(--light);
         }
 
         .faculty-container {
@@ -792,6 +937,10 @@
             transition: var(--transition);
             position: relative;
             z-index: 1;
+        }
+
+        .dark-mode .faculty-card {
+            background: var(--light-gray);
         }
 
         .faculty-card::before {
@@ -929,6 +1078,10 @@
             color: var(--dark);
             position: relative;
             margin: 0 15px;
+        }
+
+        .dark-mode .testimonial-card {
+            background: var(--light-gray);
         }
 
         .testimonial-card::before {
@@ -1205,6 +1358,128 @@
             transform: translateY(-3px);
         }
 
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: var(--rounded-xl);
+            width: 100%;
+            max-width: 500px;
+            box-shadow: var(--shadow-xl);
+            position: relative;
+        }
+
+        .dark-mode .modal-content {
+            background-color: var(--light-gray);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--primary);
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--rounded-md);
+            font-family: inherit;
+            transition: var(--transition);
+            background-color: var(--light);
+            color: var(--dark);
+        }
+
+        .dark-mode .form-control {
+            background-color: var(--white);
+            border-color: var(--gray);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            border: none;
+            padding: 12px 25px;
+            border-radius: var(--rounded-md);
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            transition: var(--transition);
+        }
+
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .success-message i {
+            font-size: 3rem;
+            color: var(--success);
+            margin-bottom: 20px;
+        }
+
+        .success-message h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--success);
+        }
+
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -1375,6 +1650,11 @@
                 bottom: 20px;
                 right: 20px;
             }
+
+            .modal-content {
+                padding: 20px;
+                margin: 0 15px;
+            }
         }
     </style>
 </head>
@@ -1389,7 +1669,12 @@
             
             <div class="search-bar">
                 <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search courses, faculty...">
+                <input type="text" id="searchInput" placeholder="Search courses, faculty...">
+                <div class="search-results" id="searchResults"></div>
+            </div>
+            
+            <div class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
             </div>
             
             <i class="fas fa-search search-icon-mobile"></i>
@@ -1408,6 +1693,7 @@
                     <li><a href="gallery.html">Gallery</a></li>
                     <li><a href="blog.html">Blog</a></li>
                     <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#">Login</a></li>
                 </ul>
                 <button class="menu-toggle">
                     <i class="fas fa-bars"></i>
@@ -1420,7 +1706,8 @@
     <div class="mobile-search-container">
         <div class="search-bar">
             <i class="fas fa-search"></i>
-            <input type="text" placeholder="Search courses, faculty...">
+            <input type="text" id="mobileSearchInput" placeholder="Search courses, faculty...">
+            <div class="search-results" id="mobileSearchResults"></div>
         </div>
     </div>
 
@@ -1452,14 +1739,48 @@
             <li><a href="gallery.html">Gallery</a></li>
             <li><a href="blog.html">Blog</a></li>
             <li><a href="contact.html">Contact</a></li>
-        </ul>
-        
-        <div class="mobile-nav-footer">
-            <div class="contact-item">
-                <i class="fas fa-phone-alt"></i>
-                <span>+91 9876543210</span>
+            <li><a href="#">Login</a></li>
+            <div class="mobile-nav-footer">
+                <div class="contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>+91 9876543210</span>
+                </div>
+                <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="openEnrollModal()">Enroll Now</button>
             </div>
-            <a href="contact.html" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Contact Us</a>
+        </ul>
+    </div>
+
+    <!-- Enroll Modal -->
+    <div class="modal" id="enrollModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeEnrollModal()">&times;</span>
+            <div class="modal-form">
+                <h2 class="modal-title">Enrollment Form</h2>
+                <form id="enrollForm">
+                    <div class="form-group">
+                        <label for="fullName">Full Name <span style="color: var(--accent);">*</span></label>
+                        <input type="text" id="fullName" class="form-control" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email ID</label>
+                        <input type="email" id="email" class="form-control" placeholder="Enter your email address">
+                    </div>
+                    <div class="form-group">
+                        <label for="mobile">Mobile Number <span style="color: var(--accent);">*</span></label>
+                        <input type="tel" id="mobile" class="form-control" placeholder="Enter your mobile number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" class="form-control" placeholder="Any additional information"></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">Submit Enrollment</button>
+                </form>
+            </div>
+            <div class="success-message">
+                <i class="fas fa-check-circle"></i>
+                <h3>Thank You!</h3>
+                <p>Your enrollment has been submitted successfully. We will contact you soon.</p>
+            </div>
         </div>
     </div>
 
@@ -1473,7 +1794,7 @@
                 
                 <div class="hero-buttons">
                     <a href="#courses" class="btn btn-white">Explore Courses</a>
-                    <a href="#faculty" class="btn btn-outline">Meet Our Faculty</a>
+                    <button class="btn btn-outline" onclick="openEnrollModal()">Enroll Now</button>
                 </div>
                 
                 <div class="hero-stats">
@@ -1539,7 +1860,7 @@
                             </div>
                         </div>
                         
-                        <a href="#" class="btn btn-primary">Learn More About Us</a>
+                        <button class="btn btn-primary" onclick="openEnrollModal()">Enroll Now</button>
                     </div>
                 </div>
             </div>
@@ -1567,7 +1888,7 @@
                                 <span class="course-duration"><i class="far fa-clock"></i> 12 Months</span>
                             </div>
                             
-                            <a href="#" class="btn btn-outline" style="width: 100%; margin-top: 20px; text-align: center;">Enroll Now</a>
+                            <button class="btn btn-outline" style="width: 100%; margin-top: 20px; text-align: center;" onclick="openEnrollModal()">Enroll Now</button>
                         </div>
                     </div>
                     
@@ -1586,7 +1907,7 @@
                                 <span class="course-duration"><i class="far fa-clock"></i> 12 Months</span>
                             </div>
                             
-                            <a href="#" class="btn btn-outline" style="width: 100%; margin-top: 20px; text-align: center;">Enroll Now</a>
+                            <button class="btn btn-outline" style="width: 100%; margin-top: 20px; text-align: center;" onclick="openEnrollModal()">Enroll Now</button>
                         </div>
                     </div>
                     
@@ -1605,7 +1926,7 @@
                                 <span class="course-duration"><i class="far fa-clock"></i> 3 Months</span>
                             </div>
                             
-                            <a href="#" class="btn btn-outline" style="width: 100%; margin-top: 20px; text-align: center;">Enroll Now</a>
+                            <button class="btn btn-outline" style="width: 100%; margin-top: 20px; text-align: center;" onclick="openEnrollModal()">Enroll Now</button>
                         </div>
                     </div>
                 </div>
@@ -1746,7 +2067,7 @@
                 <p class="cta-subtitle" data-aos="fade-up" data-aos-delay="100">Join Ujjwal Academy today and take the first step towards academic excellence with our expert guidance and comprehensive learning programs.</p>
                 
                 <div data-aos="fade-up" data-aos-delay="200">
-                    <a href="#" class="btn btn-primary">Admission Open Now</a>
+                    <button class="btn btn-primary" onclick="openEnrollModal()">Admission Open Now</button>
                 </div>
             </div>
         </section>
@@ -1889,7 +2210,7 @@
             // Focus on input when opening
             if (mobileSearchContainer.classList.contains('active')) {
                 setTimeout(() => {
-                    mobileSearchContainer.querySelector('input').focus();
+                    document.getElementById('mobileSearchInput').focus();
                 }, 100);
             }
         });
@@ -2042,6 +2363,156 @@
         window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
             header.classList.toggle('sticky', window.scrollY > 50);
+        });
+
+        // Dark/Light Mode Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        // Check for saved user preference, if any, on load of the website
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-mode');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            // Save the current theme to localStorage
+            const currentTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+            localStorage.setItem('theme', currentTheme);
+            
+            // Update the icon
+            themeToggle.innerHTML = body.classList.contains('dark-mode') 
+                ? '<i class="fas fa-sun"></i>' 
+                : '<i class="fas fa-moon"></i>';
+        });
+
+        // Search Functionality
+        const pages = [
+            { title: "Home", url: "index.html", description: "Welcome to Ujjwal Academy - Premier Education for 11th & 12th students" },
+            { title: "Courses", url: "course.html", description: "Explore our comprehensive courses for 11th and 12th Commerce and Science streams" },
+            { title: "Our Faculty", url: "faculty.html", description: "Meet our expert faculty members with years of teaching experience" },
+            { title: "Study Materials", url: "studymaterial.html", description: "Access our curated study materials, notes, and practice papers" },
+            { title: "Gallery", url: "gallery.html", description: "View photos from our academy events and classroom sessions" },
+            { title: "Blog", url: "blog.html", description: "Read our educational blog with tips and insights for students" },
+            { title: "Contact", url: "contact.html", description: "Get in touch with Ujjwal Academy for admissions and queries" },
+            { title: "Admission Form", url: "admission.html", description: "Fill out the admission form to enroll in our courses" },
+            { title: "Computer Courses", url: "computer-courses.html", description: "Specialized computer courses for 11th and 12th students" },
+            { title: "About Faculty", url: "faculty.html", description: "Learn more about our qualified and experienced teaching staff" }
+        ];
+
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+        const mobileSearchInput = document.getElementById('mobileSearchInput');
+        const mobileSearchResults = document.getElementById('mobileSearchResults');
+
+        function highlightText(text, query) {
+            if (!query) return text;
+            const regex = new RegExp(query, 'gi');
+            return text.replace(regex, match => `<span class="highlight">${match}</span>`);
+        }
+
+        function searchPages(query, resultsContainer) {
+            if (query.length < 2) {
+                resultsContainer.style.display = 'none';
+                return;
+            }
+
+            const results = pages.filter(page =>
+                page.title.toLowerCase().includes(query.toLowerCase()) ||
+                page.description.toLowerCase().includes(query.toLowerCase())
+            );
+
+            if (results.length > 0) {
+                resultsContainer.innerHTML = results.map(page => `
+                    <div class="search-result-item" onclick="window.location.href='${page.url}'">
+                        <div class="search-result-title">${highlightText(page.title, query)}</div>
+                        <div class="search-result-url">${highlightText(page.description, query)}</div>
+                    </div>
+                `).join('');
+                resultsContainer.style.display = 'block';
+            } else {
+                resultsContainer.innerHTML = '<div class="search-result-item">No results found</div>';
+                resultsContainer.style.display = 'block';
+            }
+        }
+
+        searchInput.addEventListener('input', () => {
+            searchPages(searchInput.value.trim(), searchResults);
+        });
+
+        mobileSearchInput.addEventListener('input', () => {
+            searchPages(mobileSearchInput.value.trim(), mobileSearchResults);
+        });
+
+        // Close search results when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-bar') && !e.target.closest('.search-results')) {
+                searchResults.style.display = 'none';
+            }
+            if (!e.target.closest('.mobile-search-container .search-bar') && 
+                !e.target.closest('.mobile-search-container .search-results')) {
+                mobileSearchResults.style.display = 'none';
+            }
+        });
+
+        // Enrollment Modal
+        const enrollModal = document.getElementById('enrollModal');
+        const enrollForm = document.getElementById('enrollForm');
+        const modalForm = document.querySelector('.modal-form');
+        const successMessage = document.querySelector('.success-message');
+
+        function openEnrollModal() {
+            enrollModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeEnrollModal() {
+            enrollModal.style.display = 'none';
+            document.body.style.overflow = '';
+            // Reset form and show form again
+            enrollForm.reset();
+            modalForm.style.display = 'block';
+            successMessage.style.display = 'none';
+        }
+
+        enrollForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const mobile = document.getElementById('mobile').value;
+            const message = document.getElementById('message').value;
+            
+            // Here you would typically send this data to your backend
+            // For this example, we'll just show the success message
+            console.log('Enrollment submitted:', { fullName, email, mobile, message });
+            
+            // Show success message
+            modalForm.style.display = 'none';
+            successMessage.style.display = 'block';
+            
+            // Close modal after 3 seconds
+            setTimeout(() => {
+                closeEnrollModal();
+            }, 3000);
+        });
+
+        // Close modal when clicking outside
+        enrollModal.addEventListener('click', function(e) {
+            if (e.target === enrollModal) {
+                closeEnrollModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && enrollModal.style.display === 'flex') {
+                closeEnrollModal();
+            }
         });
     </script>
 </body>
