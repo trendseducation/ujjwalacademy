@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Ujjwal Academy</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    <style>
+        /* Modern Design System */
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --primary-light: #ebf0ff;
+            --secondary: #7209b7;
+            --accent: #f72585;
+            --dark: #14213d;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --gray-light: #dee2e6;
+            --light-gray: #e9ecef;
+            --white: #ffffff;
+            --success: #4cc9f0;
+            
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px rgba(0,0,0,0.1);
+            
+            --rounded-sm: 4px;
+            --rounded-md: 8px;
+            --rounded-lg: 12px;
+            --rounded-xl: 16px;
+            --rounded-full: 9999px;
+            
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --border-radius: 12px;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            line-height: 1.7;
+            background-color: var(--light);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .containers {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.75rem;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            color: var(--dark);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: var(--rounded-full);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--white);
+            box-shadow: var(--shadow-sm);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+            padding: 0 24px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+			margin-left: 120px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+            
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo-text span {
+            color: #f59e0b;
+        }
+
+        .desktop-nav {
+            display: flex;
+            align-items: center;
+			margin-right: 120px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            font-size: 1rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .dropdown > a {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 200px;
+            background-color: white;
+            border-radius: var(--rounded-md);
+            box-shadow: var(--shadow-md);
+            padding: 0.75rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-content li a {
+            display: block;
+            padding: 0.5rem 1.5rem;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .dropdown-content li a:hover {
+            color: var(--primary);
+            background-color: rgba(37, 99, 235, 0.1);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            background: none;
+            border: none;
+            cursor: pointer;
+			margin-right: 20px;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            max-width: 320px;
+            height: 100vh;
+            background-color: white;
+            z-index: 2000;
+            transition: var(--transition);
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .mobile-menu.active {
+            left: 0;
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .close-menu {
+            font-size: 1.5rem;
+            color: var(--gray);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-menu:hover {
+            color: var(--accent);
+            transform: rotate(90deg);
+        }
+
+        .mobile-nav {
+            padding: 1.5rem;
+        }
+
+        .mobile-nav ul {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .mobile-nav a {
+            display: block;
+            padding: 0.75rem 1rem;
+            border-radius: var(--rounded-sm);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .mobile-nav a:hover {
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+
+        .mobile-dropdown > a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mobile-dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding-left: 1rem;
+        }
+
+        .mobile-dropdown.active .mobile-dropdown-content {
+            max-height: 500px;
+        }
+
+        .mobile-dropdown-content a {
+            font-size: 0.9rem;
+            padding-left: 1.5rem;
+        }
+
+        .mobile-contact {
+            padding: 1.5rem;
+            margin-top: 1rem;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .mobile-contact h4 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .mobile-contact p {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--gray);
+        }
+
+        .mobile-contact i {
+            color: var(--primary);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1500;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 28px;
+            font-weight: 600;
+            border-radius: var(--rounded-lg);
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            z-index: -1;
+            transition: var(--transition);
+        }
+
+        .btn:hover::before {
+            transform: scale(1.05);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content Styles */
+        main {
+            flex: 1;
+            padding-top: 100px;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .contact-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .contact-info, .contact-form {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: var(--rounded-xl);
+            padding: 30px;
+            box-shadow: var(--shadow-md);
+            height: 100%;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .contact-info h2, .contact-form h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            margin-bottom: 25px;
+            color: var(--primary);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .contact-info h2::after, .contact-form h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .info-icon {
+            width: 44px;
+            height: 44px;
+            background: #f59e0b;
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+            font-size: 18px;
+        }
+
+        .info-content h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .info-content p, .info-content a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+		
+        .info-content a:hover {
+            color: var(--primary);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f59e0b;
+            color: red;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .required::after {
+            content: '*';
+            color: var(--accent);
+            margin-left: 4px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--rounded-md);
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            transition: var(--transition);
+            background-color: var(--white);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            border: none;
+            padding: 14px 30px;
+            border-radius: var(--rounded-md);
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .submit-btn i {
+            margin-left: 8px;
+            display: none;
+        }
+
+        .submit-btn.loading i {
+            display: inline-block;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .map-container {
+            border-radius: var(--rounded-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+
+        .map-container:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: var(--white);
+            padding: 15px 25px;
+            border-radius: var(--rounded-md);
+            box-shadow: var(--shadow-lg);
+            display: none;
+            z-index: 1000;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 5rem 0 2rem;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+            max-width: 1280px;
+            margin: 0 auto 3rem;
+            padding: 0 24px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--gray-light);
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+            padding-left: 5px;
+        }
+
+        .contact-info p {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            color: var(--gray-light);
+            font-size: 0.9rem;
+        }
+
+        .contact-info i {
+            color: var(--primary);
+            margin-top: 0.2rem;
+        }
+
+        .social-media {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-media a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            transition: var(--transition);
+        }
+
+        .social-media a:hover {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transform: translateY(-3px);
+        }
+
+        .newsletter input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1rem;
+            border: none;
+            border-radius: var(--rounded-md);
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+        }
+
+        .newsletter input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .newsletter button {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--rounded-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .newsletter button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray-light);
+            font-size: 0.9rem;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 24px 0;
+        }
+
+        .footer-bottom a {
+            color: var(--primary-light);
+            transition: var(--transition);
+        }
+
+        .footer-bottom a:hover {
+            color: var(--primary);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .desktop-nav {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .contact-section {
+                flex-direction: column;
+            }
+
+            .contact-info, .contact-form {
+                width: 100%;
+            }
+
+            .map-container iframe {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .header-container {
+                padding: 0 16px;
+            }
+			
+			.logo {
+			       display: flex;
+				   margin-left: 10px;
+			}
+
+            .logo-text {
+                font-size: 1.3rem;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+		
+		/* Toast styles */
+    .toast {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(135deg, #4361ee, #7209b7);
+        color: white;
+        padding: 15px 25px;
+        border-radius: 8px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        display: none;
+        z-index: 1000;
+        animation: fadeInToast 0.3s;
+        text-align: center;
+        max-width: 90%;
+    }
+    
+    @keyframes fadeInToast {
+        from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+        to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+    
+    /* Loading spinner animation */
+    .submit-btn.loading i {
+        animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="https://plus.unsplash.com/premium_photo-1677187301481-34be1be7b558?q=80&w=1223&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Ujjwal Academy Logo" class="logo-img">
+                <div class="logo-text">Ujjwal <span>Academy</span></div>
+            </div>
+            
+            <nav class="desktop-nav">
+                <ul class="nav-links">
+                    <li><a href="index.html">🏠 Home</a></li>
+                    <li class="dropdown">
+                        <a href="#">💡 Services <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-content">
+                            <li><a href="course.html">📑 Courses</a></li>
+                            <li><a href="faculty.html">👥 Faculty</a></li>
+                            <li><a href="studymaterial.html">📖 Study Materials</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="gallery.html">🎴 Gallery</a></li>
+                    <li><a href="blog.html">📝 Blog</a></li>
+                    <li class="dropdown">
+                        <a href="#">👤 Account <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-content">
+                            <li><a href="contact.html">📞 Contact Us</a></li>
+                            <li><a href="#">💻 Login</a></li>
+                        </ul>
+                    </li>
+                 <!--   <li><a href="#" class="btn btn-primary enroll-btn">⌛ Enroll Now</a></li> -->
+                </ul>
+            </nav>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="logo-text">Ujjwal <span>Academy</span></div>
+            <div class="close-menu">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+        
+        <nav class="mobile-nav">
+            <ul>
+                <li><a href="index.html">🏠 Home</a></li>
+                <li class="mobile-dropdown">
+                    <a href="#">💡 Services <i class="fas fa-chevron-down"></i></a>
+                    <div class="mobile-dropdown-content">
+                        <a href="course.html">📑 Courses</a>
+                        <a href="faculty.html">👥 Faculty</a>
+                        <a href="studymaterial.html">📖 Study Materials</a>
+                    </div>
+                </li>
+                <li><a href="gallery.html">🎴 Gallery</a></li>
+                <li><a href="blog.html">📝 Blog</a></li>
+                <li class="mobile-dropdown">
+                    <a href="#">👤 Account <i class="fas fa-chevron-down"></i></a>
+                    <div class="mobile-dropdown-content">
+                        <a href="contact.html">📞 Contact Us</a>
+                        <a href="#">💻 Login</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+		
+		<!-- <a href="#" class="btn btn-primary mobile-enroll-btn enroll-btn" style="margin: 1.5rem;">Enroll Now</a> -->
+        
+        <div class="mobile-contact">
+            <h4>Contact Us</h4>
+            <p><i class="fas fa-phone"></i> +91-9876543210</p>
+            <p><i class="fas fa-phone"></i> +91-9876543211</p>
+            <p><i class="fas fa-envelope"></i> info@ujjwalacademy.com</p>
+             <!-- <p><i class="fas fa-map-marker-alt"></i> Dhamankar Naka, Bhiwandi - 421302</p> -->
+        </div>
+    </div>
+    
+    <div class="overlay"></div>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <div class="contact-section">
+                <div class="contact-info">
+                    <div class="card">
+                        <h2>Get in Touch</h2>
+                        
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="info-content">
+                                <h3>Mobile Number</h3>
+                                <p><a href="tel:+919876543210">+91 9876543210</a></p>
+                                <p><a href="https://wa.me/919876543210">WhatsApp: +91 9876543210</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="info-content">
+                                <h3>Email ID</h3>
+                                <p><a href="mailto:info@ujjwalacademy.com">info@ujjwalacademy.com</a></p>
+                                <p><a href="mailto:admissions@ujjwalacademy.com">admissions@ujjwalacademy.com</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="info-content">
+                                <h3>Office Address</h3>
+                                <p><a href="https://maps.google.com?q=Dhamankar+Naka,Bhiwandi+421302" target="_blank">Dhamankar Naka, Bhiwandi - 421302</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="info-content">
+                                <h3>Timings</h3>
+                                <p style="color: black">Monday - Saturday: 9:00 AM – 7:00 PM</p>
+                                <p style="color: black">Sunday: Closed</p>
+                            </div>
+                        </div>
+                        
+                        <div class="social-icons">
+                            <a href="https://wa.me/919876543210" class="social-icon" target="_blank" title="WhatsApp">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                            <a href="#" class="social-icon" target="_blank" title="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="social-icon" target="_blank" title="Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="social-icon" target="_blank" title="Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="social-icon" target="_blank" title="YouTube">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <div class="card">
+                        <h2>Send Us a Message</h2>
+                        <form id="submit">
+                            <div class="form-group">
+                                <label for="name" class="required">Full Name</label>
+                                <input type="text" id="name" name="First Name" placeholder="Enter your full name" required>
+                            </div>
+							<div class="form-group">
+                                <label for="name" class="required">Full Name</label>
+                                <input type="text" id="name" name="Last Name" placeholder="Enter your full name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="mobile" class="required">Mobile Number</label>
+                                <input type="tel" id="mobile" name="Contact No" pattern="[0-9]{10}" placeholder="Enter your 10-digit mobile number" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email ID</label>
+                                <input type="email" id="email" name="Email ID" placeholder="Enter your email address">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="interest">Interested In</label>
+                                <select id="interest" name="Interested In">
+                                    <option value="">Select an option</option>
+                                    <option value="11th Science">11th Science</option>
+                                    <option value="12th Science">12th Science</option>
+                                    <option value="11th Commerce">11th Commerce</option>
+                                    <option value="12th Commerce">12th Commerce</option>
+                                    <option value="School Courses">School Courses</option>
+                                    <option value="Computer Courses">Computer Courses</option>
+                                    <option value="Crash Course">Crash Course</option>
+                                    <option value="Test Series">Test Series</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message">Your Message</label>
+                                <textarea id="message" name="Message" placeholder="Enter your query or message"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="submit-btn">
+                                Send Message
+                                <i class="fas fa-spinner"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d524.085810697444!2d73.055153295397!3d19.287559091803494!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7bd00594b4dc3%3A0xc2573087be92487d!2sUjjwal%20Academy!5e0!3m2!1sen!2sin!4v1752322971144!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </main>
+    
+    <div class="toast" id="toast">Your message has been sent successfully!</div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">🏠 Home</a></li>
+                        <li><a href="#">🕴️ About Us</a></li>
+                        <li><a href="course.html">📑 Courses</a></li>
+                        <li><a href="faculty.html">👥 Faculty</a></li>
+                        <li><a href="gallery.html">🎴 Gallery</a></li>
+                        <li><a href="contact.html">📞 Contact Us</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Our Courses</h3>
+                <ul class="footer-links">
+                    <li><a href="science.html">11th & 12th Science</a></li>
+                    <li><a href="commerce.html">11th & 12th Commerce</a></li>
+                    <li><a href="computer.html">Computer Courses</a></li>
+                    <li><a href="crash-course.html">Crash Courses</a></li>
+                    <li><a href="test-series.html">Test Series</a></li>
+                    <li><a href="study-material.html">Study Materials</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <div class="contact-info">
+                    <p><i class="fas fa-map-marker-alt"></i> Dhamankar Naka, Bhiwandi - 421302</p>
+                    <p><i class="fas fa-phone"></i> +91-9876543210</p>
+                    <p><i class="fas fa-phone"></i> +91-9876543211</p>
+                    <p><i class="fas fa-envelope"></i> info@ujjwalacademy.com</p>
+                    <p><i class="fas fa-clock"></i> Mon-Sat: 9:00 AM - 7:00 PM</p>
+                </div>
+                
+                <div class="social-media">
+                    <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for updates on courses, events, and more.</p>
+                
+                <form class="newsletter">
+                    <input type="email" placeholder="Your Email Address">
+                    <button type="submit">Subscribe</button>
+                </form>
+                
+                <div style="margin-top: 20px;">
+                    <h3>Payment Methods</h3>
+                    <div style="display: flex; gap: 10px; margin-top: 10px;">
+                        <i class="fab fa-cc-visa" style="font-size: 24px; color: var(--gray-light);"></i>
+                        <i class="fab fa-cc-mastercard" style="font-size: 24px; color: var(--gray-light);"></i>
+                        <i class="fab fa-cc-paypal" style="font-size: 24px; color: var(--gray-light);"></i>
+                        <i class="fas fa-money-bill-wave" style="font-size: 24px; color: var(--gray-light);"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Ujjwal Academy. All Rights Reserved. | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms & Conditions</a> | <a href="refund.html">Refund Policy</a></p>
+        </div>
+    </footer>
+    
+    <script>
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const closeMenu = document.querySelector('.close-menu');
+    const overlay = document.querySelector('.overlay');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.add('active');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+    
+    closeMenu.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+    
+    overlay.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+    
+    // Mobile Dropdown Toggle
+    const mobileDropdowns = document.querySelectorAll('.mobile-dropdown > a');
+    
+    mobileDropdowns.forEach(dropdown => {
+        dropdown.addEventListener('click', (e) => {
+            e.preventDefault();
+            const parent = dropdown.parentElement;
+            parent.classList.toggle('active');
+        });
+    });
+    
+    // Form Submission to Google Sheets
+    const scriptURL = "https://script.google.com/macros/s/AKfycbwD-29kpCjkWmA4G0GdHC1IXpbF7GaCpZb5NN-ufwiUO9y12QPIVRYdIHmFmeWUHEx9/exec";
+    const spreadsheetId = "1_0GhO4WBSe8NvnoKWWiRaMKd2KxlF01z48m3UZeU2VI";
+    const sheetName = "Contact_Form";
+    const form = document.getElementById('submit');
+    const submitBtn = document.querySelector('.submit-btn');
+    const toast = document.getElementById('toast');
+    
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Show loading state
+        submitBtn.classList.add('loading');
+        submitBtn.disabled = true;
+        
+        // Create FormData object and append additional parameters
+        const formData = new FormData(form);
+        formData.append('spreadsheetId', spreadsheetId);
+        formData.append('sheetName', sheetName);
+        
+        // Submit to Google Apps Script
+        fetch(scriptURL, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Hide loading state
+            submitBtn.classList.remove('loading');
+            submitBtn.disabled = false;
+            
+            // Show success message
+            Swal.fire({
+                title: 'Thank You!',
+                text: 'Your message has been submitted successfully. We will reach out to you soon!',
+                icon: 'success',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#4361ee'
+            });
+            
+            // Also show toast message
+            toast.style.display = 'block';
+            toast.textContent = 'Thank you for your submission! We will contact you soon.';
+            
+            // Hide toast after 5 seconds
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 5000);
+            
+            // Reset the form
+            form.reset();
+        })
+        .catch(error => {
+            // Hide loading state
+            submitBtn.classList.remove('loading');
+            submitBtn.disabled = false;
+            
+            // Show error message
+            Swal.fire({
+                title: 'Error!',
+                text: 'Something went wrong. Please try again later.',
+                icon: 'error',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#4361ee'
+            });
+            
+            console.error('Error:', error);
+        });
+    });
+
+    // Sticky Header
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('header');
+        if (window.scrollY > 50) {
+            header.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
+        } else {
+            header.style.boxShadow = '0 1px 2px 0 rgba(0, 0, 0, 0.05)';
+        }
+    });
+
+    // Smooth scrolling for all links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // Load SweetAlert if not already loaded
+    if (typeof Swal === 'undefined') {
+        const swalCSS = document.createElement('link');
+        swalCSS.rel = 'stylesheet';
+        swalCSS.href = 'https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css';
+        document.head.appendChild(swalCSS);
+        
+        const swalJS = document.createElement('script');
+        swalJS.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
+        document.body.appendChild(swalJS);
+    }
+</script>
+</body>
+</html>

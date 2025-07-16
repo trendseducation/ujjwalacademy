@@ -1,0 +1,2108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Showcase | Ujjwal Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <style>
+        /* Modern CSS Variables */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #f59e0b;
+            --secondary-dark: #d97706;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --success: #10b981;
+            --danger: #ef4444;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --rounded-sm: 0.25rem;
+            --rounded: 0.5rem;
+            --rounded-lg: 0.75rem;
+            --rounded-xl: 1rem;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.60rem 0.8rem;
+            border-radius: var(--rounded);
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            outline: none;
+            white-space: nowrap;
+        }
+        
+        .mobile-enroll-btn {
+            align-items: center;
+            justify-content: center;
+            margin-left: 30px;
+            width: 70%;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--secondary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            box-shadow: var(--shadow-sm);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo-text span {
+            color: #f59e0b;
+        }
+
+        .desktop-nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            font-size: 1rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .dropdown > a {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 200px;
+            background-color: white;
+            border-radius: var(--rounded);
+            box-shadow: var(--shadow-md);
+            padding: 0.75rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-content li a {
+            display: block;
+            padding: 0.5rem 1.5rem;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .dropdown-content li a:hover {
+            color: var(--primary);
+            background-color: rgba(37, 99, 235, 0.1);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            max-width: 320px;
+            height: 100vh;
+            background-color: white;
+            z-index: 2000;
+            transition: var(--transition);
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .mobile-menu.active {
+            left: 0;
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .close-menu {
+            font-size: 1.5rem;
+            color: var(--gray);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-menu:hover {
+            color: var(--danger);
+            transform: rotate(90deg);
+        }
+
+        .mobile-nav {
+            padding: 1.5rem;
+        }
+
+        .mobile-nav ul {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .mobile-nav a {
+            display: block;
+            padding: 0.75rem 1rem;
+            border-radius: var(--rounded-sm);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .mobile-nav a:hover {
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+
+        .mobile-dropdown > a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mobile-dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding-left: 1rem;
+        }
+
+        .mobile-dropdown.active .mobile-dropdown-content {
+            max-height: 500px;
+        }
+
+        .mobile-dropdown-content a {
+            font-size: 0.9rem;
+            padding-left: 1.5rem;
+        }
+
+        .mobile-contact {
+            padding: 1.5rem;
+            margin-top: 1rem;
+            border-top: 1px solid var(--gray-light);
+        }
+
+        .mobile-contact h4 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .mobile-contact p {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--gray);
+        }
+
+        .mobile-contact i {
+            color: var(--primary);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1500;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 5rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--gray-light);
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .contact-info p {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            color: var(--gray-light);
+            font-size: 0.9rem;
+        }
+
+        .contact-info i {
+            color: var(--primary);
+            margin-top: 0.2rem;
+        }
+
+        .social-media {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-media a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-media a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .newsletter input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1rem;
+            border: none;
+            border-radius: var(--rounded);
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .newsletter input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray-light);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-text {
+                font-size: 1.25rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Modern Design System */
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --primary-light: #ebf0ff;
+            --secondary: #7209b7;
+            --accent: #f72585;
+            --dark: #14213d;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --white: #ffffff;
+            --success: #4cc9f0;
+            
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px rgba(0,0,0,0.1);
+            
+            --rounded-sm: 4px;
+            --rounded-md: 8px;
+            --rounded-lg: 12px;
+            --rounded-xl: 16px;
+            --rounded-full: 9999px;
+            
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --sidebar-width: 320px;
+            --header-height: 80px;
+        }
+
+        /* Faculty Showcase Styles */
+        .faculty-showcase {
+            padding: 80px 0;
+            background-color: var(--light);
+            background-image: linear-gradient(
+                to bottom,
+                var(--primary-light) 0%,
+                rgba(255, 255, 255, 0) 100px
+            );
+        }
+
+        .faculty-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            padding: 4rem 0 3rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+        }
+
+        .faculty-header h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .faculty-header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Controls Section */
+        .controls {
+            background: var(--white);
+            border-radius: var(--rounded-xl);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .search-container {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid var(--light-gray);
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .search-container input:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.15);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--white);
+            border: 2px solid var(--light-gray);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-btn i {
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .filter-btn.active {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            color: var(--white);
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.25);
+        }
+
+        /* Faculty Grid */
+        .faculty-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        @media (max-width: 900px) {
+            .faculty-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 600px) {
+            .faculty-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Faculty Card */
+        .faculty-card {
+            background-color: var(--white);
+            border-radius: var(--rounded-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .faculty-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .faculty-img-container {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .faculty-img {
+            width: 100%;
+            height: 100%;
+            transition: var(--transition);
+        }
+
+        .faculty-card:hover .faculty-img {
+            transform: scale(1.05);
+        }
+
+        .category-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.35rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .commerce-badge {
+            color: #2b8a3e;
+            border: 1px solid #2b8a3e;
+        }
+
+        .science-badge {
+            color: #1864ab;
+            border: 1px solid #1864ab;
+        }
+
+        .computer-badge {
+            color: #a61e4d;
+            border: 1px solid #a61e4d;
+        }
+
+        .faculty-info {
+            padding: 1.75rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .faculty-name {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .faculty-subject {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .faculty-experience {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .faculty-experience i {
+            color: var(--primary-light);
+        }
+
+        .faculty-bio {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            flex-grow: 1;
+        }
+
+        .read-more-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.85rem 1.5rem;
+            background-color: var(--primary);
+            color: var(--white);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .read-more-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
+        }
+
+        .read-more-btn i {
+            font-size: 0.9rem;
+            transition: transform 0.3s ease;
+        }
+
+        .read-more-btn:hover i {
+            transform: translateX(3px);
+        }
+
+        /* No Results */
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem;
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        /* Modal Styles */
+.modal-overlay {
+     position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            backdrop-filter: blur(5px);
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+        .modal-container {
+            background-color: var(--white);
+            border-radius: var(--rounded-xl);
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 1.75rem;
+            cursor: pointer;
+            color: var(--gray);
+            transition: var(--transition);
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .modal-close:hover {
+            color: var(--dark);
+            background-color: rgba(0, 0, 0, 0.1);
+            transform: rotate(90deg);
+        }
+
+        .modal-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                grid-template-columns: 1fr;
+                padding: 2rem;
+            }
+        }
+
+        .modal-img-container {
+            border-radius: var(--rounded-xl);
+            overflow: hidden;
+            height: 100%;
+            min-height: 350px;
+        }
+
+        .modal-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .modal-text-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .modal-header {
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-name {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+            color: var(--dark);
+            line-height: 1.2;
+        }
+
+        .modal-subject {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-subject::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background-color: var(--light-gray);
+        }
+
+        .modal-experience {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-section {
+            margin-bottom: 1rem;
+        }
+
+        .modal-section h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .modal-section h3::before {
+            content: '';
+            display: block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--primary);
+        }
+
+        .modal-section p {
+            color: var(--gray);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .modal-section ul {
+            list-style-type: none;
+        }
+
+        .modal-section li {
+            position: relative;
+            padding-left: 1.75rem;
+            margin-bottom: 0.75rem;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .modal-section li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.65rem;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+        }
+
+        /* Loading State */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+            grid-column: 1 / -1;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(67, 97, 238, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .faculty-card {
+            opacity: 0;
+            animation: fadeInUp 0.6s forwards;
+        }
+
+        .faculty-card:nth-child(1) { animation-delay: 0.1s; }
+        .faculty-card:nth-child(2) { animation-delay: 0.2s; }
+        .faculty-card:nth-child(3) { animation-delay: 0.3s; }
+        .faculty-card:nth-child(4) { animation-delay: 0.4s; }
+        .faculty-card:nth-child(5) { animation-delay: 0.5s; }
+        .faculty-card:nth-child(6) { animation-delay: 0.6s; }
+        .faculty-card:nth-child(7) { animation-delay: 0.7s; }
+        .faculty-card:nth-child(8) { animation-delay: 0.8s; }
+        .faculty-card:nth-child(9) { animation-delay: 0.9s; }
+
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 80px 0;
+            }
+        }
+
+        /* Scrollbar Styles */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--light-gray);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-light);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+        
+        /* Enroll Modal Styles */
+        .enroll-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 3000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .enroll-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .enroll-modal-content {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            
+            /* Custom scrollbar */
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) var(--light-gray);
+        }
+        
+        .enroll-modal-content::-webkit-scrollbar {
+            width: 5px;
+        }
+        
+        .enroll-modal-content::-webkit-scrollbar-track {
+            background: var(--light-gray);
+            border-radius: 10px;
+        }
+        
+        .enroll-modal-content::-webkit-scrollbar-thumb {
+            background-color: var(--primary);
+            border-radius: 10px;
+        }
+
+        .enroll-close-modal {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 1.5rem;
+            color: var(--gray);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .enroll-close-modal:hover {
+            color: var(--danger);
+            transform: rotate(90deg);
+        }
+
+        .enroll-modal h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--gray-light);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+            outline: none;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .radio-option input {
+            width: auto;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* Success Message */
+        .success-message {
+            text-align: center;
+            padding: 2rem;
+            display: none;
+        }
+
+        .success-message i {
+            font-size: 4rem;
+            color: var(--success);
+            margin-bottom: 1.5rem;
+        }
+
+        .success-message h3 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            color: var(--success);
+        }
+
+        .success-message p {
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        /* Toast styles */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1000;
+            animation: fadeInToast 0.3s;
+            text-align: center;
+            max-width: 90%;
+        }
+        
+        @keyframes fadeInToast {
+            from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+        
+        /* Submit Button Styles */
+        .enroll-submit-btn {
+            width: 100%;
+            padding: 16px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .enroll-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4);
+        }
+        
+        .enroll-submit-btn:disabled {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            opacity: 0.8;
+            cursor: not-allowed;
+        }
+        
+        .btn-spinner {
+            display: none;
+        }
+        
+        .btn-spinner i {
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Success message above form */
+        .form-success-message {
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--success);
+            color: var(--success);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            display: none;
+        }
+
+        .form-success-message i {
+            margin-right: 0.5rem;
+        }
+
+        /* Required field indicator */
+        .required::after {
+            content: " *";
+            color: var(--danger);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-container">
+                <div class="logo">
+                    <img src="https://plus.unsplash.com/premium_photo-1677187301481-34be1be7b558?q=80&w=1223&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Ujjwal Academy Logo" class="logo-img">
+                    <div class="logo-text">Ujjwal <span>Academy</span></div>
+                </div>
+                
+                <nav class="desktop-nav">
+                    <ul class="nav-links">
+                        <li><a href="index.html">🏠 Home</a></li>
+                        <li class="dropdown">
+                            <a href="#">💡 Services <i class="fas fa-chevron-down"></i></a>
+                            <ul class="dropdown-content">
+                                <li><a href="course.html">📑 Courses</a></li>
+                                <li><a href="faculty.html">👥 Faculty</a></li>
+                                <li><a href="studymaterial.html">📖 Study Materials</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="gallery.html">🎴 Gallery</a></li>
+                        <li><a href="blog.html">📝 Blog</a></li>
+                        <li class="dropdown">
+                            <a href="#">👤 Account <i class="fas fa-chevron-down"></i></a>
+                            <ul class="dropdown-content">
+                                <li><a href="contact.html">📞 Contact Us</a></li>
+                                <li><a href="#">💻 Login</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#" class="btn btn-primary enroll-btn">⌛ Enroll Now</a></li>
+                    </ul>
+                </nav>
+                
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="logo-text">Ujjwal <span>Academy</span></div>
+            <div class="close-menu">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+        
+        <nav class="mobile-nav">
+            <ul>
+                <li><a href="index.html">🏠 Home</a></li>
+                <li class="mobile-dropdown">
+                    <a href="#">💡 Services <i class="fas fa-chevron-down"></i></a>
+                    <div class="mobile-dropdown-content">
+                        <a href="course.html">📑 Courses</a>
+                        <a href="faculty.html">👥 Faculty</a>
+                        <a href="studymaterial.html">📖 Study Materials</a>
+                    </div>
+                </li>
+                <li><a href="gallery.html">🎴 Gallery</a></li>
+                <li><a href="blog.html">📝 Blog</a></li>
+                <li class="mobile-dropdown">
+                    <a href="#">👤 Account <i class="fas fa-chevron-down"></i></a>
+                    <div class="mobile-dropdown-content">
+                        <a href="contact.html">📞 Contact Us</a>
+                        <a href="#">💻 Login</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="mobile-contact">
+            <h4>Contact Us</h4>
+            <p><i class="fas fa-phone"></i> +91-9876543210</p>
+            <p><i class="fas fa-phone"></i> +91-9876543211</p>
+            <p><i class="fas fa-envelope"></i> info@ujjwalacademy.com</p>
+        </div>
+        
+        <a href="#" class="btn btn-primary mobile-enroll-btn enroll-btn">Enroll Now</a>
+    </div>
+    
+    <div class="overlay"></div>
+    
+    <!-- Main Content -->
+    <main>
+        <!-- Faculty Showcase Section -->
+        <section class="faculty-showcase">
+            <div class="faculty-header">
+                <h1>Meet Our Distinguished Faculty</h1>
+                <p>Our accomplished educators bring expertise, innovation, and passion to every classroom</p>
+            </div>
+            
+            <div class="container">
+                <div class="controls">
+                    <div class="search-container">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="searchInput" placeholder="Search faculty members...">
+                    </div>
+                    
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-category="all">
+                            <i class="fas fa-users"></i> All Faculty
+                        </button>
+                        <button class="filter-btn" data-category="commerce">
+                            <i class="fas fa-chart-line"></i> Commerce
+                        </button>
+                        <button class="filter-btn" data-category="science">
+                            <i class="fas fa-flask"></i> Science
+                        </button>
+                        <button class="filter-btn" data-category="computer">
+                            <i class="fas fa-laptop-code"></i> Computer
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="faculty-grid" id="facultyGrid">
+                    <!-- Faculty cards will be inserted here by JavaScript -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Faculty Detail Modal -->
+    <div class="modal-overlay" id="facultyModalOverlay">
+        <div class="modal-container">
+            <button class="modal-close" id="facultyModalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-content" id="facultyModalContent">
+                <!-- Modal content will be inserted here by JavaScript -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">🏠 Home</a></li>
+                        <li><a href="#">🕴️ About Us</a></li>
+                        <li><a href="course.html">📑 Courses</a></li>
+                        <li><a href="faculty.html">👥 Faculty</a></li>
+                        <li><a href="gallery.html">🎴 Gallery</a></li>
+                        <li><a href="contact.html">📞 Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Courses</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">11th Science</a></li>
+                        <li><a href="#">12th Science</a></li>
+                        <li><a href="#">11th Commerce</a></li>
+                        <li><a href="#">12th Commerce</a></li>
+                        <li><a href="#">Crash Courses</a></li>
+                        <li><a href="#">Test Series</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Education Street, Knowledge City, IN 123456</p>
+                        <p><i class="fas fa-phone"></i> +91-9876543210</p>
+                        <p><i class="fas fa-phone"></i> +91-9876543211</p>
+                        <p><i class="fas fa-envelope"></i> info@ujjwalacademy.com</p>
+                    </div>
+                    
+                    <div class="social-media">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for updates on courses, events, and more.</p>
+                    
+                    <form class="newsletter">
+                        <input type="email" placeholder="Your Email Address">
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Ujjwal Academy. All Rights Reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms & Conditions</a></p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Enroll Modal -->
+    <div class="enroll-modal" id="enrollModal">
+        <div class="enroll-modal-content">
+            <span class="enroll-close-modal">&times;</span>
+            
+            <div class="contact-form">
+                <div class="card">
+                    <h2>Enrollment Form</h2>
+                    
+                    <!-- Success message that will appear above the form -->
+                    <div class="form-success-message" id="formSuccessMessage">
+                        <i class="fas fa-check-circle"></i> Thank you for your submission! We will contact you soon.
+                    </div>
+                    
+                    <form id="enrollForm">
+                        <div class="form-group">
+                            <label for="firstName" class="required">First Name</label>
+                            <input type="text" id="firstName" name="First Name" placeholder="Enter your first name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName" class="required">Last Name</label>
+                            <input type="text" id="lastName" name="Last Name" placeholder="Enter your last name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="enrollMobile" class="required">Mobile Number</label>
+                            <input type="tel" id="enrollMobile" name="Contact No" pattern="[0-9]{10}" placeholder="Enter your 10-digit mobile number" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="enrollEmail">Email ID</label>
+                            <input type="email" id="enrollEmail" name="Email ID" placeholder="Enter your email address">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="enrollInterest">Interested In</label>
+                            <select id="enrollInterest" name="Interested In">
+                                <option value="">Select an option</option>
+                                <option value="11th Science">11th Science</option>
+                                <option value="12th Science">12th Science</option>
+                                <option value="11th Commerce">11th Commerce</option>
+                                <option value="12th Commerce">12th Commerce</option>
+                                <option value="School Courses">School Courses</option>
+                                <option value="Computer Courses">Computer Courses</option>
+                                <option value="Crash Course">Crash Course</option>
+                                <option value="Test Series">Test Series</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="enrollMessage">Additional Information</label>
+                            <textarea id="enrollMessage" name="Message" placeholder="Enter any additional information"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary enroll-submit-btn">
+                            <span class="btn-text">Submit Enrollment</span>
+                            <span class="btn-spinner"><i class="fas fa-spinner"></i></span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="toast" id="toast">Your message has been sent successfully!</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // Initialize AOS (Animate On Scroll)
+    AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true,
+        offset: 100
+    });
+
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const closeMenu = document.querySelector('.close-menu');
+    const overlay = document.querySelector('.overlay');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.add('active');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+    
+    closeMenu.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+    
+// Update the overlay click handler to this:
+overlay.addEventListener('click', (e) => {
+    // Only close if clicking directly on the overlay
+    if (e.target === overlay) {
+        mobileMenu.classList.remove('active');
+        document.querySelector('.enroll-modal.active')?.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+});
+    
+    // Enroll Modal Functionality
+    const enrollBtns = document.querySelectorAll('.enroll-btn');
+    const enrollModal = document.getElementById('enrollModal');
+    const enrollCloseModal = document.querySelector('.enroll-close-modal');
+    const enrollForm = document.getElementById('enrollForm');
+    const enrollSubmitBtn = document.querySelector('.enroll-submit-btn');
+    const btnText = document.querySelector('.btn-text');
+    const btnSpinner = document.querySelector('.btn-spinner');
+    const formSuccessMessage = document.getElementById('formSuccessMessage');
+    const toast = document.getElementById('toast');
+    
+    enrollBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            enrollModal.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            // Hide success message when modal is opened
+            formSuccessMessage.style.display = 'none';
+        });
+    });
+    
+    enrollCloseModal.addEventListener('click', () => {
+        enrollModal.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+        
+        // Enroll Form Submission to Google Sheets
+        const scriptURL = "https://script.google.com/macros/s/AKfycbwD-29kpCjkWmA4G0GdHC1IXpbF7GaCpZb5NN-ufwiUO9y12QPIVRYdIHmFmeWUHEx9/exec";
+        const spreadsheetId = "1_0GhO4WBSe8NvnoKWWiRaMKd2KxlF01z48m3UZeU2VI";
+        const enrollSheetName = "Contact_Form";
+        
+        enrollForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            btnText.textContent = "Submitting...";
+            btnSpinner.style.display = 'inline-block';
+            enrollSubmitBtn.disabled = true;
+            
+            // Create FormData object and append additional parameters
+            const formData = new FormData(enrollForm);
+            formData.append('spreadsheetId', spreadsheetId);
+            formData.append('sheetName', enrollSheetName);
+            
+            // Submit to Google Apps Script
+            fetch(scriptURL, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Hide loading state
+                btnText.textContent = "Submit Enrollment";
+                btnSpinner.style.display = 'none';
+                enrollSubmitBtn.disabled = false;
+				enrollModal.style.display = "none";
+				overlay.style.display = "none";
+                
+                // Show success message
+                Swal.fire({
+                    title: 'Enrollment Submitted!',
+                    text: 'Thank you for your enrollment request. We will contact you shortly with further details.',
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#4361ee'
+                }).then((result) => {
+                    // Close modal after user clicks OK
+                    enrollModal.classList.remove('active');
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                    enrollForm.reset();
+                });
+                
+                // Also show toast message
+                toast.style.display = 'block';
+                toast.textContent = 'Thank you for your submission! We will contact you soon.';
+                
+                // Hide toast after 5 seconds
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 5000);
+            })
+            .catch(error => {
+                // Hide loading state
+                btnText.textContent = "Submit Enrollment";
+                btnSpinner.style.display = 'none';
+                enrollSubmitBtn.disabled = false;
+                
+                // Show error message
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'There was an error submitting your enrollment. Please try again later.',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#4361ee'
+                });
+                
+                console.error('Error:', error);
+            });
+        });
+        
+        // Mobile Dropdown Toggle
+        const mobileDropdowns = document.querySelectorAll('.mobile-dropdown > a');
+        
+        mobileDropdowns.forEach(dropdown => {
+            dropdown.addEventListener('click', (e) => {
+                e.preventDefault();
+                const parent = dropdown.parentElement;
+                parent.classList.toggle('active');
+            });
+        });
+
+        // Faculty Showcase Functionality
+        const facultyData = [
+            {
+                id: 1,
+                name: "Dr. Sarah Johnson",
+                subject: "Economics Professor",
+                experience: "15+ Years Experience",
+                category: "commerce",
+                image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80",
+                bio: "Dr. Johnson specializes in macroeconomic theory and policy with a focus on emerging markets. Her innovative teaching methods combine theoretical frameworks with real-world case studies, providing students with practical insights into global economic systems. She regularly consults with international organizations and has led student research teams to present at economic forums worldwide.",
+                achievements: [
+                    "PhD in Economics from Harvard University",
+                    "Author of 'Modern Economic Policies' textbook used in 50+ universities",
+                    "Lead consultant for World Bank development projects in Southeast Asia",
+                    "Recipient of the 2018 Excellence in Teaching Award",
+                    "Published 30+ peer-reviewed articles in top economic journals",
+                    "Keynote speaker at International Economic Symposium"
+                ]
+            },
+            {
+                id: 2,
+                name: "Prof. Michael Chen",
+                subject: "Accounting Specialist",
+                experience: "12+ Years Experience",
+                category: "commerce",
+                image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+                bio: "Professor Chen brings extensive industry experience to his teaching, having worked as a senior auditor for Deloitte before transitioning to academia. His courses emphasize practical accounting skills, ethical decision-making, and the latest technological tools in the field. Students particularly appreciate his case-study approach that mirrors real accounting challenges.",
+                achievements: [
+                    "Certified Public Accountant (CPA) with Big Four experience",
+                    "Developed award-winning accounting curriculum adopted by 20+ institutions",
+                    "Published groundbreaking research on forensic accounting techniques",
+                    "Featured speaker at national accounting conferences for 5 consecutive years",
+                    "Advisor to student accounting society with 100% internship placement",
+                    "Recipient of the Innovative Educator Award (2022)"
+                ]
+            },
+            {
+                id: 3,
+                name: "Dr. Emily Rodriguez",
+                subject: "Physics Professor",
+                experience: "18+ Years Experience",
+                category: "science",
+                image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+                bio: "Dr. Rodriguez's pioneering research in quantum mechanics has earned international recognition. As director of our Advanced Physics Lab, she mentors both undergraduate and graduate students in cutting-edge research projects. Her ability to explain complex concepts with clarity and enthusiasm makes her one of our most popular instructors across all science disciplines.",
+                achievements: [
+                    "PhD in Theoretical Physics from MIT (Summa Cum Laude)",
+                    "Principal investigator on $2.5M NSF-funded quantum research project",
+                    "Recipient of the prestigious Distinguished Scientist Award (2021)",
+                    "Published 50+ peer-reviewed papers in top physics journals",
+                    "Developed innovative physics curriculum now used nationwide",
+                    "Named 'Mentor of the Year' by Physics Today magazine"
+                ]
+            },
+            {
+                id: 4,
+                name: "Prof. David Kim",
+                subject: "Chemistry Teacher",
+                experience: "10+ Years Experience",
+                category: "science",
+                image: "https://images.unsplash.com/photo-1544717305-2782549b5136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+                bio: "Professor Kim revolutionizes chemistry education by connecting molecular concepts to everyday life. His research focuses on sustainable chemical processes and green chemistry applications. Students consistently praise his engaging lab demonstrations and ability to make abstract concepts tangible through creative analogies and hands-on experiments.",
+                achievements: [
+                    "Created award-winning chemistry lab experiments adopted by 30+ schools",
+                    "Author of best-selling 'Chemistry in Everyday Life' textbook series",
+                    "Recipient of the Innovation in STEM Teaching Award (2020, 2022)",
+                    "Lead researcher on EPA-funded green chemistry initiative",
+                    "Developed popular YouTube chemistry tutorial series (100k+ subscribers)",
+                    "Named one of '30 Under 30' in Science Education by Forbes"
+                ]
+            },
+            {
+                id: 5,
+                name: "Dr. James Wilson",
+                subject: "Computer Science Professor",
+                experience: "20+ Years Experience",
+                category: "computer",
+                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+                bio: "Dr. Wilson is a visionary in artificial intelligence whose work bridges academia and industry. As director of our AI Research Center, he oversees projects with real-world impact while mentoring the next generation of computer scientists. His courses blend rigorous theory with practical implementation, preparing students for careers at tech's cutting edge.",
+                achievements: [
+                    "PhD in Computer Science from Stanford University",
+                    "Holder of 5 patents in machine learning applications",
+                    "Lead consultant for AI implementations at 3 Fortune 500 companies",
+                    "Author of seminal textbook 'AI for the Modern World'",
+                    "Recipient of the ACM Distinguished Educator Award",
+                    "Founded successful AI startup acquired by Google in 2018"
+                ]
+            },
+            {
+                id: 6,
+                name: "Prof. Lisa Wong",
+                subject: "Web Development Instructor",
+                experience: "8+ Years Experience",
+                category: "computer",
+                image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80",
+                bio: "Professor Wong's dynamic approach to web development education combines cutting-edge technologies with user-centered design principles. Her industry experience as a full-stack developer informs a curriculum that emphasizes both technical skills and creative problem-solving. Students consistently rate her courses as transformative experiences that prepare them for immediate career success.",
+                achievements: [
+                    "Former lead developer at YCombinator-backed tech startup",
+                    "Created popular open-source web tools with 10k+ GitHub stars",
+                    "Featured speaker at Web Summit and JSConf conferences",
+                    "Recipient of the 'Top Coding Instructor' award (2021, 2023)",
+                    "Developed internship program with 95% job placement rate",
+                    "Authored 'Modern Web Development' course series"
+                ]
+            },
+            {
+                id: 7,
+                name: "Dr. Robert Taylor",
+                subject: "Business Administration",
+                experience: "14+ Years Experience",
+                category: "commerce",
+                image: "https://images.unsplash.com/photo-1542190891-2093d38760f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+                bio: "Dr. Taylor's expertise in strategic management comes from both academic research and hands-on corporate experience. His case-study method brings real business challenges into the classroom, while his executive coaching helps students develop leadership skills. Alumni frequently credit his mentorship as pivotal to their career success.",
+                achievements: [
+                    "Harvard Business School visiting scholar (2019-2020)",
+                    "Corporate consultant for 50+ companies across 12 industries",
+                    "Published in Harvard Business Review and MIT Sloan Review",
+                    "Developed executive education programs for 3 global corporations",
+                    "Recipient of the Outstanding Faculty Award (three times)",
+                    "Board member for two Fortune 1000 companies"
+                ]
+            },
+            {
+                id: 8,
+                name: "Dr. Patricia Moore",
+                subject: "Biology Professor",
+                experience: "16+ Years Experience",
+                category: "science",
+                image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+                bio: "Dr. Moore's groundbreaking work in marine conservation has taken her from coral reefs to classroom. She leads annual student expeditions to study endangered ecosystems while developing conservation strategies with global impact. Her passionate teaching style inspires students to pursue careers in environmental science and biological research.",
+                achievements: [
+                    "Discovered 3 new marine species in Pacific reef systems",
+                    "Principal investigator on $3.2M in conservation research grants",
+                    "Science advisor for UNESCO and two environmental NGOs",
+                    "Author of acclaimed 'Ocean Ecosystems in Crisis' report series",
+                    "Featured in National Geographic documentary series",
+                    "Recipient of the Lifetime Achievement in Science Education award"
+                ]
+            },
+            {
+                id: 9,
+                name: "Prof. Daniel Park",
+                subject: "Data Science Instructor",
+                experience: "7+ Years Experience",
+                category: "computer",
+                image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+                bio: "Professor Park bridges the gap between data theory and practical application. His industry experience at leading tech companies informs a hands-on curriculum that emphasizes real-world data challenges. Students gain experience with cutting-edge tools while developing the analytical mindset needed to extract meaningful insights from complex datasets.",
+                achievements: [
+                    "Former lead data scientist at major Silicon Valley tech company",
+                    "Created comprehensive data science curriculum adopted by 15+ schools",
+                    "Keynote speaker at PyData and ODSC conferences",
+                    "Main contributor to popular open-source data visualization libraries",
+                    "Developed internship pipeline with 100% placement rate",
+                    "Recipient of the 'Educator of the Future' award"
+                ]
+            }
+        ];
+
+ // DOM Elements
+    const facultyGrid = document.getElementById('facultyGrid');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const searchInput = document.getElementById('searchInput');
+    const facultyModalOverlay = document.getElementById('facultyModalOverlay');
+    const facultyModalClose = document.getElementById('facultyModalClose');
+    const facultyModalContent = document.getElementById('facultyModalContent');
+
+    // Current filter state
+    let currentFilter = 'all';
+    let currentSearch = '';
+    let isLoading = false;
+
+    // Initialize the page
+    function init() {
+        renderFacultyCards(facultyData);
+        setupEventListeners();
+    }
+
+    // Render faculty cards with loading state
+    function renderFacultyCards(faculty) {
+        // Show loading state
+        facultyGrid.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+        isLoading = true;
+        
+        // Simulate loading delay for better UX
+        setTimeout(() => {
+            facultyGrid.innerHTML = '';
+            
+            const filteredFaculty = faculty.filter(member => {
+                const matchesFilter = currentFilter === 'all' || member.category === currentFilter;
+                const matchesSearch = member.name.toLowerCase().includes(currentSearch.toLowerCase()) || 
+                                     member.subject.toLowerCase().includes(currentSearch.toLowerCase());
+                return matchesFilter && matchesSearch;
+            });
+            
+            if (filteredFaculty.length === 0) {
+                facultyGrid.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 1rem; color: var(--gray);"></i>
+                        <h3>No matching faculty found</h3>
+                        <p>Try adjusting your search or filter criteria</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            filteredFaculty.forEach(member => {
+                const card = document.createElement('div');
+                card.className = 'faculty-card';
+                card.dataset.category = member.category;
+                
+                // Determine badge class based on category
+                let badgeClass = '';
+                if (member.category === 'commerce') badgeClass = 'commerce-badge';
+                else if (member.category === 'science') badgeClass = 'science-badge';
+                else if (member.category === 'computer') badgeClass = 'computer-badge';
+                
+                card.innerHTML = `
+                    <div class="faculty-img-container">
+                        <img src="${member.image}" alt="${member.name}" class="faculty-img" loading="lazy">
+                        <span class="category-badge ${badgeClass}">${member.category}</span>
+                    </div>
+                    <div class="faculty-info">
+                        <h3 class="faculty-name">${member.name}</h3>
+                        <p class="faculty-subject">${member.subject}</p>
+                        <p class="faculty-experience">
+                            <i class="fas fa-clock"></i> ${member.experience}
+                        </p>
+                        <p class="faculty-bio">${member.bio}</p>
+                        <button class="read-more-btn" data-id="${member.id}">
+                            View Profile <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                `;
+                facultyGrid.appendChild(card);
+            });
+            
+            // Add click event to all read more buttons
+            document.querySelectorAll('.read-more-btn').forEach(btn => {
+                btn.addEventListener('click', () => openFacultyModal(parseInt(btn.dataset.id)));
+            });
+            
+            isLoading = false;
+        }, 600); // Simulated loading delay
+    }
+
+    // Replace the openFacultyModal function with this:
+function openFacultyModal(facultyId) {
+    const faculty = facultyData.find(member => member.id === facultyId);
+    if (!faculty) return;
+    
+    // Determine badge class based on category
+    let badgeClass = '';
+    if (faculty.category === 'commerce') badgeClass = 'commerce-badge';
+    else if (faculty.category === 'science') badgeClass = 'science-badge';
+    else if (faculty.category === 'computer') badgeClass = 'computer-badge';
+    
+    facultyModalContent.innerHTML = `
+        <div class="modal-img-container">
+            <img src="${faculty.image}" alt="${faculty.name}" class="modal-img">
+        </div>
+        <div class="modal-text-content">
+            <div class="modal-header">
+                <h2 class="modal-name">${faculty.name}</h2>
+                <span class="modal-subject">${faculty.subject} <span class="category-badge ${badgeClass}" style="margin: 0;">${faculty.category}</span></span>
+                <span class="modal-experience">
+                    <i class="fas fa-clock"></i> ${faculty.experience}
+                </span>
+            </div>
+            
+            <div class="modal-section">
+                <h3>Professional Bio</h3>
+                <p>${faculty.bio}</p>
+            </div>
+            
+            <div class="modal-section">
+                <h3>Key Achievements</h3>
+                <ul>
+                    ${faculty.achievements.map(achievement => `<li>${achievement}</li>`).join('')}
+                </ul>
+            </div>
+        </div>
+    `;
+    
+    facultyModalOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent scrolling behind modal
+}
+
+// Replace the closeFacultyModal function with this:
+function closeFacultyModal() {
+    facultyModalOverlay.classList.remove('active');
+    document.body.style.overflow = ''; // Restore scrolling
+}
+
+    // Set up event listeners
+    function setupEventListeners() {
+        // Filter buttons
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                if (isLoading) return;
+                
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                currentFilter = button.dataset.category;
+                renderFacultyCards(facultyData);
+                
+                // Smooth scroll to grid
+                facultyGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+        
+        // Search input with debounce
+        let searchTimeout;
+        searchInput.addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            currentSearch = e.target.value;
+            
+            searchTimeout = setTimeout(() => {
+                renderFacultyCards(facultyData);
+            }, 300);
+        });
+        
+        // Faculty modal close
+        facultyModalClose.addEventListener('click', closeFacultyModal);
+        facultyModalOverlay.addEventListener('click', (e) => {
+            // Only close if clicking directly on the overlay (not modal content)
+            if (e.target === facultyModalOverlay) {
+                closeFacultyModal();
+            }
+        });
+        
+        // Keyboard accessibility
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && facultyModalOverlay.classList.contains('active')) {
+                closeFacultyModal();
+            }
+        });
+    }
+
+    // Initialize the page
+    init();
+</script>
+</body>
+</html>
