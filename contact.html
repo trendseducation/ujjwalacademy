@@ -886,6 +886,49 @@
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
     }
+	/* Contact numbers */
+	#contact-card {
+    background: linear-gradient(145deg, #f0f0f0, #ffffff);
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    padding: 20px 25px;
+    margin: 20px auto;
+    max-width: 400px;
+    transition: transform 0.3s ease;
+  }
+
+  #contact-card:hover {
+    transform: translateY(-5px);
+  }
+
+  #contact-card h3 {
+    font-size: 1.4rem;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 8px;
+  }
+
+  #contact-card p {
+    font-size: 1rem;
+    margin: 8px 0;
+    color: #555;
+  }
+
+  #contact-card span {
+    font-weight: 600;
+    color: #000;
+  }
+
+  #contact-card a {
+    text-decoration: none;
+    color: #007bff;
+    margin-left: 5px;
+  }
+
+  #contact-card a:hover {
+    text-decoration: underline;
+  }
     </style>
 </head>
 <body>
@@ -963,8 +1006,8 @@
         
         <div class="mobile-contact">
             <h4>Contact Us</h4>
-            <p><i class="fas fa-phone"></i> +91-9876543210</p>
-            <p><i class="fas fa-phone"></i> +91-9876543211</p>
+            <p><i class="fas fa-phone"></i> +91-7385395285</p>
+            <p><i class="fas fa-phone"></i> +91-8530750588</p>
             <p><i class="fas fa-envelope"></i> info@ujjwalacademy.com</p>
              <!-- <p><i class="fas fa-map-marker-alt"></i> Dhamankar Naka, Bhiwandi - 421302</p> -->
         </div>
@@ -980,18 +1023,29 @@
                     <div class="card">
                         <h2>Get in Touch</h2>
                         
-                        <div class="info-item">
+                        <div class="info-item" id="contact-card">
                             <div class="info-icon">
                                 <i class="fas fa-phone-alt"></i>
                             </div>
                             <div class="info-content">
-                                <h3>Mobile Number</h3>
-                                <p><a href="tel:+919876543210">+91 9876543210</a></p>
-                                <p><a href="https://wa.me/919876543210">WhatsApp: +91 9876543210</a></p>
+                                <h3>Enquiry Number</h3>
+                                <p><span style="color: black;">Pawan Sir:</span><a href="tel:+919876543210">+91 7385395285</a></p>
+                                <p><a href="https://wa.me/919876543210">WhatsApp: +91 7385395285</a></p>
+                            </div>
+                        </div>
+						
+						<div class="info-item" id="contact-card">
+                            <div class="info-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="info-content">
+                                <h3>Office Number</h3>
+                                <p><span style="color: black;">Office:</span><a href="tel:+919876543210">+91 8530750588</a></p>
+                                <p><a href="https://wa.me/919876543210">WhatsApp: +91 7385395285</a></p>
                             </div>
                         </div>
                         
-                        <div class="info-item">
+                        <div class="info-item" id="contact-card">
                             <div class="info-icon">
                                 <i class="fas fa-envelope"></i>
                             </div>
@@ -1002,28 +1056,28 @@
                             </div>
                         </div>
                         
-                        <div class="info-item">
+                        <div class="info-item" id="contact-card">
                             <div class="info-icon">
                                 <i class="fas fa-map-marker-alt"></i>
                             </div>
                             <div class="info-content">
                                 <h3>Office Address</h3>
-                                <p><a href="https://maps.google.com?q=Dhamankar+Naka,Bhiwandi+421302" target="_blank">Dhamankar Naka, Bhiwandi - 421302</a></p>
+                                <p><a href="https://maps.app.goo.gl/6cZQd5TvnGYWuhgm7" target="_blank">Ansari Compound, Near Amrit Hospital, college road, Dhamankar Naka, Bhiwandi</a></p>
                             </div>
                         </div>
                         
-                        <div class="info-item">
+                        <div class="info-item" id="contact-card">
                             <div class="info-icon">
                                 <i class="fas fa-clock"></i>
                             </div>
                             <div class="info-content">
                                 <h3>Timings</h3>
-                                <p style="color: black">Monday - Saturday: 9:00 AM – 7:00 PM</p>
-                                <p style="color: black">Sunday: Closed</p>
+                                <p style="color: black">Monday - Saturday: 8:00 AM – 9:00 PM</p>
+                                <p style="color: black">Sunday: 8:00 AM - 2:00 PM</p>
                             </div>
                         </div>
                         
-                        <div class="social-icons">
+                        <div class="social-icons" id="contact-card">
                             <a href="https://wa.me/919876543210" class="social-icon" target="_blank" title="WhatsApp">
                                 <i class="fab fa-whatsapp"></i>
                             </a>
@@ -1121,21 +1175,22 @@
             <div class="footer-column">
                 <h3>Our Courses</h3>
                 <ul class="footer-links">
-                    <li><a href="science.html">11th & 12th Science</a></li>
-                    <li><a href="commerce.html">11th & 12th Commerce</a></li>
-                    <li><a href="computer.html">Computer Courses</a></li>
-                    <li><a href="crash-course.html">Crash Courses</a></li>
-                    <li><a href="test-series.html">Test Series</a></li>
-                    <li><a href="study-material.html">Study Materials</a></li>
+                    <li><a href="course.html">Commerce</a></li>
+                        <li><a href="course.html">Science</a></li>
+                        <li><a href="course.html">JEE / NEET</a></li>
+                        <li><a href="course.html">Computer course</a></li>
+                        <li><a href="course.html">Crash Courses</a></li>
+                        <li><a href="course.html">Test Series</a></li>
+						<li><a href="Study Material/studymaterial.html">Study Materials</a></li>
                 </ul>
             </div>
             
             <div class="footer-column">
                 <h3>Contact Info</h3>
                 <div class="contact-info">
-                    <p><i class="fas fa-map-marker-alt"></i> Dhamankar Naka, Bhiwandi - 421302</p>
-                    <p><i class="fas fa-phone"></i> +91-9876543210</p>
-                    <p><i class="fas fa-phone"></i> +91-9876543211</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Ansari Compound, Near Amrit Hospital, Dhamankar Naka, Bhiwandi</p>
+                        <p><i class="fas fa-phone"></i> +91-7385395285</p>
+                        <p><i class="fas fa-phone"></i> +91-8530750588</p>
                     <p><i class="fas fa-envelope"></i> info@ujjwalacademy.com</p>
                     <p><i class="fas fa-clock"></i> Mon-Sat: 9:00 AM - 7:00 PM</p>
                 </div>
