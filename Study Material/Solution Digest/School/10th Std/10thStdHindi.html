@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Comprehensive study materials including notes, solutions, video lectures, and more">
+  <title>Study Material Portal | Comprehensive Learning Resources</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="auth.js" defer></script>
+  <style>
+    :root {
+      --primary-color: #4CAF50;
+      --secondary-color: #388E3C;
+      --accent-color: #8BC34A;
+      --light-color: #f8f9fa;
+      --dark-color: #212529;
+      --success-color: #4CAF50;
+      --border-radius: 8px;
+      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      color: var(--dark-color);
+      background-color: #f5f7ff;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      box-shadow: var(--box-shadow);
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
+    }
+    
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .subtitle {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+    
+    .search-container {
+      margin: 30px auto;
+      max-width: 100%;
+      position: relative;
+    }
+    
+    .search-box {
+      display: flex;
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      border: 2px solid black;
+      transition: var(--transition);
+    }
+    
+    .search-box:focus-within {
+      box-shadow: 0 5px 20px rgba(76, 175, 80, 0.3);
+      transform: translateY(-2px);
+    }
+    
+    .search-box input {
+      flex: 1;
+      padding: 15px 25px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      background: transparent;
+    }
+    
+    .search-box button {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 0 25px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+    
+    .search-icon {
+      font-size: 1.2rem;
+    }
+    
+    /* Search Dropdown */
+    .search-results {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: white;
+      border-radius: 0 0 var(--border-radius) var(--border-radius);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      max-height: 300px;
+      overflow-y: auto;
+      z-index: 100;
+      display: none;
+      margin-top: 5px;
+    }
+    
+    .search-results.active {
+      display: block;
+    }
+    
+    .search-result-item {
+      padding: 12px 20px;
+      cursor: pointer;
+      transition: var(--transition);
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+    }
+    
+    .search-result-item:last-child {
+      border-bottom: none;
+    }
+    
+    .search-result-item:hover {
+      background-color: #f5f5f5;
+    }
+    
+    .search-result-item i {
+      margin-right: 10px;
+      color: var(--primary-color);
+    }
+    
+    .search-result-item .unit-badge {
+      background: var(--primary-color);
+      color: white;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      margin-left: 10px;
+    }
+    
+    .units-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+    
+    .unit-card {
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      overflow: hidden;
+      transition: var(--transition);
+      border-top: 4px solid var(--primary-color);
+    }
+    
+    .unit-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+    
+    .unit-header {
+      background: var(--primary-color);
+      color: white;
+      padding: 15px 20px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+    }
+    
+    .unit-header i {
+      margin-right: 10px;
+    }
+    
+    .exercises-list {
+      padding: 0;
+      list-style: none;
+    }
+    
+    .exercise-item {
+      border-bottom: 1px solid #eee;
+      transition: var(--transition);
+    }
+    
+    .exercise-item:last-child {
+      border-bottom: none;
+    }
+    
+    .exercise-link {
+      display: flex;
+      align-items: center;
+      padding: 15px 20px;
+      text-decoration: none;
+      color: var(--dark-color);
+      transition: var(--transition);
+    }
+    
+    .exercise-link:hover {
+      background: rgba(76, 175, 80, 0.05);
+      padding-left: 25px;
+    }
+    
+    .exercise-link i {
+      margin-right: 15px;
+      color: var(--primary-color);
+      font-size: 1.1rem;
+      min-width: 20px;
+    }
+    
+    .exercise-title {
+      flex: 1;
+      font-weight: 500;
+    }
+    
+    /* Enhanced Open Button */
+    .open-btn {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(76, 175, 80, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .open-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: var(--transition);
+    }
+    
+    .open-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(76, 175, 80, 0.4);
+    }
+    
+    .open-btn:hover::before {
+      left: 100%;
+    }
+    
+    .open-btn i {
+      margin-left: 8px;
+      font-size: 0.8rem;
+	  color: white;
+    }
+    
+    .intro-card {
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      padding: 20px;
+      margin-bottom: 30px;
+      transition: var(--transition);
+      border-left: 4px solid var(--primary-color);
+    }
+    
+    .intro-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .intro-card h2 {
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+    }
+    
+    .intro-card h2 i {
+      margin-right: 10px;
+    }
+    
+    .intro-link {
+      display: inline-flex;
+      align-items: center;
+      margin-top: 15px;
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+    
+    .intro-link:hover {
+      color: var(--secondary-color);
+      text-decoration: underline;
+    }
+    
+    .intro-link i {
+      margin-left: 8px;
+      transition: var(--transition);
+    }
+    
+    .intro-link:hover i {
+      transform: translateX(3px);
+    }
+    
+    footer {
+      background: var(--dark-color);
+    }
+    
+    .social-links {
+      margin: 20px 0;
+    }
+    
+    .social-links a {
+      color: white;
+      margin: 0 10px;
+      font-size: 1.2rem;
+      transition: var(--transition);
+      display: inline-flex;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .social-links a:hover {
+      color: white;
+      background: var(--primary-color);
+      transform: translateY(-3px);
+    }
+    
+    /* Responsive Styles */
+    @media (max-width: 992px) {
+      .units-container {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      }
+    }
+    
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .subtitle {
+        font-size: 1rem;
+      }
+      
+      .search-box input {
+        padding: 12px 20px;
+      }
+      
+      .search-box button {
+        padding: 0 20px;
+      }
+      
+      .unit-header {
+        padding: 12px 15px;
+        font-size: 1.2rem;
+      }
+      
+      .exercise-link {
+        padding: 12px 15px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .container {
+        padding: 15px;
+      }
+      
+      header {
+        padding: 15px 0;
+      }
+      
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .units-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .search-box {
+        border-radius: 8px;
+      }
+      
+      .intro-card {
+        padding: 15px;
+      }
+      
+      .intro-card h2 {
+        font-size: 1.3rem;
+      }
+      
+      .open-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <h2>Study Material Portal</h2>
+    </div>
+  </header>
+  
+  <div class="container">
+    <div class="search-container">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search for exercises, notes, or materials..." autocomplete="off">
+        <button id="searchButton">
+          <i class="fas fa-search search-icon"></i>
+        </button>
+      </div>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+    
+    <div class="intro-card">
+            <h3 style="align-items: center; background-color: white; border-radius: 10px; box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px; padding: 20px; text-align: center; color: blue;">10वीं हिंदी कुमारभारती</h3>
+            <h2><i class="fas fa-book-open"></i>हिंदी कुमारभारती परिचय</h2>
+            <p>हिंदी कुमारभारती पाठ्यक्रम की मूलभूत अवधारणाओं और अवलोकन के साथ प्रारंभ करें।</p>
+            <a href="#" class="intro-link">
+                परिचय सामग्री तक पहुंचें <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        
+        <h2 style="text-align: center; margin-bottom: 20px; color: #1a73e8;">अध्याय चुनें</h2>
+        
+        <div class="units-container">
+            <!-- पहली इकाई -->
+            <div class="unit-card" data-unit="1">
+                <div class="unit-header">
+                    <i class="fas fa-book"></i> पहली इकाई
+                </div>
+                <ul class="exercises-list">
+                    <li class="exercise-item" data-search="भारत महिमा">
+                        <a href="https://drive.google.com/file/d/1JnR_S6XiT3Hea8URj3TQW5E2r7PRIkYY/view?usp=drive_link" class="exercise-link">
+                            <i class="fas fa-file-alt"></i>
+                            <span class="exercise-title">1. भारत महिमा</span>
+                            <button class="open-btn">खोलें <i class="fas fa-external-link-alt"></i></button>
+                        </a>
+                    </li>
+                    <li class="exercise-item" data-search="लक्ष्मी">
+                        <a href="https://drive.google.com/file/d/1zNEo39M78EToH5tZh_6WuPffe6jexW4G/view?usp=drive_link" class="exercise-link">
+                            <i class="fas fa-file-alt"></i>
+                            <span class="exercise-title">2. लक्ष्मी</span>
+                            <button class="open-btn">खोलें <i class="fas fa-external-link-alt"></i></button>
+                        </a>
+                    </li>
+                    <li class="exercise-item" data-search="वह रे हमदर्द">
+                        <a href="https://drive.google.com/file/d/15BkdPvAP1Row3ZyxyspwZHm5kztKzN9d/view?usp=drive_link" class="exercise-link">
+                            <i class="fas fa-file-alt"></i>
+                            <span class="exercise-title">3. वह रे हमदर्द</span>
+                            <button class="open-btn">खोलें <i class="fas fa-external-link-alt"></i></button>
+                        </a>
+                    </li>
+                    <li class="exercise-item" data-search="मन">
+                        <a href="https://drive.google.com/file/d/1N4oVp5UbDgzprkMZNnNyDV4TaSVhHbqj/view?usp=drive_link" class="exercise-link">
+                            <i class="fas fa-file-alt"></i>
+                            <span class="exercise-title">4. मन (पूरक पठन)</span>
+                            <button class="open-btn">खोलें <i class="fas fa-external-link-alt"></i></button>
+                        </a>
+                    </li>
+                    <li class="exercise-item" data-search="गोवा जैसा मैंने देखा">
+                        <a href="https://drive.google.com/file/d/1UgkwJ9vWB7z7QrOO8dZhRimqyKNQWDjb/view?usp=drive_link" class="exercise-link">
+                            <i class="fas fa-file-alt"></i>
+                            <span class="exercise-title">5. गोवा : जैसा मैंने देखा</span>
+                            <button class="open-btn">खोलें <i class="fas fa-external-link-alt"></i></button>
+                        </a>
+                    </li>
+                    <li class="exercise-item" data-search="हगररधर नागर">
+                        <a href="https://drive.google.com/file/d/1Lg_ES-rsb8fTcmjOB-OrTsNhGE2xnqY5/view?usp=drive_link" class="exercise-link">
+                            <i class="fas fa-file-alt"></i>
+                            <span class="exercise-title">6. हगररधर नागर</span>
+                            <button class="open-btn">खोलें <i class="fas fa-external-link-alt"></i></button>
+                        </a>
+                    </li>
+                    <li class="exercise-item" data-search="खुला आकाश">
+                        <a href="https://drive.google.com/file/d/1OQyGqkEOBMPY-kdd7nKlO8-KSoKPanMB/view?usp=drive_link" class="exercise-link">
+                            <i class="fas fa-file-alt"></i>
+                            <span class="exercise-title">7. खुला आकाश (पूरक पठन)</span>
+                            <button class="open-btn">खोलें <i class="fas fa-external-link-alt"></i></button>
+                        </a>
+                    </li>
+                    <li class="exercise-item" data-search="गजल">
+                        <a href="https://drive.google.com/file/d/1PzgFlB7XBFX1KfM3VnPWVkDyxG9y5i72/view?usp=drive_link" class="exercise-link">
+                            <i class="fas fa-file-alt"></i>
+                            <span class="exercise-title">8. गजल</span>
+                            <button class="open-btn">खोलें <i class="fas fa-external-link-alt"></i></button>
+                        </a>
+                    </li>
+                    <li class="exercise-item" data-search="रीढ़ की हड्डी">
+                        <a href="https://drive.google.com/file/d/1mww7unzrCjkkMcuGByj3wclR98SJEPjg/view?usp=drive_link" class="exercise-link">
+                            <i class="fas fa-file-alt"></i>
+                            <span class="exercise-title">9. रीढ़ की हड्डी</span>
+                            <button class="open-btn">खोलें <i class="fas fa-external-link-alt"></i></button>
+                        </a>
+                    </li>
+                    <li class="exercise-item" data-search="रथे स">
+                        <a href="https://drive.google.com/file/d/1MSb8qJDLZ8rUyOAciIaNxc7jagSEiR80/view?usp=drive_link" class="exercise-link">
+                            <i class="fas fa-file-alt"></i>
+                            <span class="exercise-title">10. रथे स (पूरक पठन)</span>
+                            <button class="open-btn">खोलें <i class="fas fa-external-link-alt"></i></button>
+                        </a>
+                    </li>
+                    <li class="exercise-item" data-search="कृषक का गान">
+                        <a href="https://drive.google.com/file/d/1IGgplnC20WtiQuh9gLT30ePjTw41Y5oa/view?usp=drive_link" class="exercise-link">
+                            <i class="fas fa-file-alt"></i>
+                            <span class="exercise-title">11. कृषक का गान</span>
+                            <button class="open-btn">खोलें <i class="fas fa-external-link-alt"></i></button>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- दूसरी इकाई -->
+            <div class="unit-card" data-unit="2">
+                <div class="unit-header">
+                    <i class="fas fa-book"></i> दूसरी इकाई
+                </div>
+                <ul class="exercises-list">
+                    <li class="exercise-item" data-search="बरषहिं जलद">
+                        <a href="https://drive.google.com/file/d/16KvakoHA5zAG1iJgXoMVhbTISaAbCoo6/view?usp=drive_link" class="exercise-link">
+                            <i class="fas fa-file-alt"></i>
+                            <span class="exercise-title">1. बरषहिं जलद</span>
+                            <button class="open-btn">खोलें <i class="fas fa-external-link-alt"></i></button>
+                        </a>
+                    </li>
+                    <li class="exercise-item" data-search="दो लघुकथाएं">
+                        <a href="https://drive.google.com/file/d/17HQL-DCZigkCX6GSBzg7dkfR1c1JADd6/view?usp=drive_link" class="exercise-link">
+                            <i class="fas fa-file-alt"></i>
+                            <span class="exercise-title">2. दो लघुकथाएं (पूरक पठन)</span>
+                            <button class="open-btn">खोलें <i class="fas fa-external-link-alt"></i></button>
+                        </a>
+                    </li>
+                    <li class="exercise-item" data-search="श्रम साधना">
+                        <a href="https://drive.google.com/file/d/18IGFGyvIvS8TYkeMF844ZLqOn4U-BVW9/view?usp=drive_link" class="exercise-link">
+                            <i class="fas fa-file-alt"></i>
+                            <span class="exercise-title">3. श्रम साधना</span>
+                            <button class="open-btn">खोलें <i class="fas fa-external-link-alt"></i></button>
+                        </a>
+                    </li>
+                    <li class="exercise-item" data-search="छापा">
+                        <a href="https://drive.google.com/file/d/1pU4Vit20_3JuUoU9oI-vrb5T_zaLLnKR/view?usp=drive_link" class="exercise-link">
+                            <i class="fas fa-file-alt"></i>
+                            <span class="exercise-title">4. छापा</span>
+                            <button class="open-btn">खोलें <i class="fas fa-external-link-alt"></i></button>
+                        </a>
+                    </li>
+                    <li class="exercise-item" data-search="ईमानदारी की परमूहत्म">
+                        <a href="https://drive.google.com/file/d/1hHEAtfgLhTcJf4kTRl9NSu8Rfe4vYk5s/view?usp=drive_link" class="exercise-link">
+                            <i class="fas fa-file-alt"></i>
+                            <span class="exercise-title">5. ईमानदारी की परमूहत्म</span>
+                            <button class="open-btn">खोलें <i class="fas fa-external-link-alt"></i></button>
+                        </a>
+                    </li>
+                    <li class="exercise-item" data-search="हम इस धरती की संतति हैं">
+                        <a href="https://drive.google.com/file/d/1R1ciaydEHe0IJwW_g41_OmfS-yB_ZKRx/view?usp=drive_link" class="exercise-link">
+                            <i class="fas fa-file-alt"></i>
+                            <span class="exercise-title">6. हम इस धरती की संतति हैं (पूरक पठन)</span>
+                            <button class="open-btn">खोलें <i class="fas fa-external-link-alt"></i></button>
+                        </a>
+                    </li>
+                    <li class="exercise-item" data-search="महिला आश्रम">
+                        <a href="https://drive.google.com/file/d/1Y_A8sr-ad7pU7ebPIGoxJZviZuOFFn3r/view?usp=drive_link" class="exercise-link">
+                            <i class="fas fa-file-alt"></i>
+                            <span class="exercise-title">7. महिला आश्रम</span>
+                            <button class="open-btn">खोलें <i class="fas fa-external-link-alt"></i></button>
+                        </a>
+                    </li>
+                    <li class="exercise-item" data-search="अपनी गंध नींद बेचूंगा">
+                        <a href="https://drive.google.com/file/d/1zqtY7znUDg6SRZPQ4Bfs30DylC54rgFH/view?usp=drive_link" class="exercise-link">
+                            <i class="fas fa-file-alt"></i>
+                            <span class="exercise-title">8. अपनी गंध नींद बेचूंगा</span>
+                            <button class="open-btn">खोलें <i class="fas fa-external-link-alt"></i></button>
+                        </a>
+                    </li>
+                    <li class="exercise-item" data-search="जब तक जिंदा रहूं, लिखता रहूं">
+                        <a href="https://drive.google.com/file/d/12cITmsuOlNpOMwLAmFQFO8r3YV3ZHg-W/view?usp=drive_link" class="exercise-link">
+                            <i class="fas fa-file-alt"></i>
+                            <span class="exercise-title">9. जब तक जिंदा रहूं, लिखता रहूं</span>
+                            <button class="open-btn">खोलें <i class="fas fa-external-link-alt"></i></button>
+                        </a>
+                    </li>
+                    <li class="exercise-item" data-search="बूढ़ी काकी">
+                        <a href="https://drive.google.com/file/d/1lfYpxc2Ktdf6lQNmzBsJrW3cxsdWoTYs/view?usp=drive_link" class="exercise-link">
+                            <i class="fas fa-file-alt"></i>
+                            <span class="exercise-title">10. बूढ़ी काकी (पूरक पठन)</span>
+                            <button class="open-btn">खोलें <i class="fas fa-external-link-alt"></i></button>
+                        </a>
+                    </li>
+                    <li class="exercise-item" data-search="समता की ओर">
+                        <a href="https://drive.google.com/file/d/1vcpuGbKslrswBQ299p2cY-mNZcJIMwN7/view?usp=drive_link" class="exercise-link">
+                            <i class="fas fa-file-alt"></i>
+                            <span class="exercise-title">11. समता की ओर</span>
+                            <button class="open-btn">खोलें <i class="fas fa-external-link-alt"></i></button>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+    </div>
+  </div>
+  
+  <footer>
+        <object id="footer-html" type="text/html" data="https://trendseducation.github.io/ujjwalacademy/Study%20Material/footer.html" style="width: 100%; height: 80px;"></object>
+</footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const searchInput = document.getElementById('searchInput');
+      const searchButton = document.getElementById('searchButton');
+      const searchResults = document.getElementById('searchResults');
+      const exerciseItems = document.querySelectorAll('.exercise-item');
+      const unitCards = document.querySelectorAll('.unit-card');
+      
+      // Enhanced Open Button hover effect
+      const openButtons = document.querySelectorAll('.open-btn');
+      openButtons.forEach(button => {
+        button.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-2px)';
+          this.style.boxShadow = '0 4px 8px rgba(76, 175, 80, 0.4)';
+        });
+        
+        button.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0)';
+          this.style.boxShadow = '0 2px 5px rgba(76, 175, 80, 0.3)';
+        });
+      });
+      
+      // Search functionality with automatic typing
+      function performSearch() {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        searchResults.innerHTML = '';
+        
+        if (searchTerm === '') {
+          // Show all items if search is empty
+          exerciseItems.forEach(item => {
+            item.style.display = 'block';
+          });
+          unitCards.forEach(card => {
+            card.style.display = 'block';
+          });
+          searchResults.classList.remove('active');
+          return;
+        }
+        
+        let hasResults = false;
+        const results = [];
+        
+        // Search through exercise items
+        exerciseItems.forEach(item => {
+          const searchData = item.getAttribute('data-search').toLowerCase();
+          const exerciseTitle = item.querySelector('.exercise-title').textContent.toLowerCase();
+          const unitNumber = item.closest('.unit-card').getAttribute('data-unit');
+          
+          if (searchData.includes(searchTerm) || exerciseTitle.includes(searchTerm)) {
+            results.push({
+              element: item,
+              title: item.querySelector('.exercise-title').textContent,
+              unit: unitNumber
+            });
+            hasResults = true;
+          }
+        });
+        
+        // Display results in dropdown
+        if (results.length > 0) {
+          searchResults.classList.add('active');
+          results.forEach(result => {
+            const resultItem = document.createElement('div');
+            resultItem.className = 'search-result-item';
+            resultItem.innerHTML = `
+              <i class="fas fa-file-alt"></i>
+              ${result.title}
+              <span class="unit-badge">Unit ${result.unit}</span>
+            `;
+            resultItem.addEventListener('click', () => {
+              // Scroll to the exercise
+              result.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              // Highlight the exercise
+              result.element.style.backgroundColor = 'rgba(76, 175, 80, 0.1)';
+              setTimeout(() => {
+                result.element.style.backgroundColor = '';
+              }, 2000);
+              // Close dropdown
+              searchResults.classList.remove('active');
+            });
+            searchResults.appendChild(resultItem);
+          });
+        } else {
+          searchResults.classList.remove('active');
+        }
+        
+        // Filter main content
+        exerciseItems.forEach(item => {
+          const searchData = item.getAttribute('data-search').toLowerCase();
+          const exerciseTitle = item.querySelector('.exercise-title').textContent.toLowerCase();
+          
+          if (searchData.includes(searchTerm) || exerciseTitle.includes(searchTerm)) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+        
+        // Hide units that have no visible exercises
+        unitCards.forEach(card => {
+          const unitExercises = card.querySelectorAll('.exercise-item');
+          let hasVisibleExercises = false;
+          
+          unitExercises.forEach(exercise => {
+            if (exercise.style.display !== 'none') {
+              hasVisibleExercises = true;
+            }
+          });
+          
+          if (hasVisibleExercises) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      }
+      
+      // Event listeners
+      searchInput.addEventListener('input', function() {
+        performSearch();
+      });
+      
+      // Close dropdown when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+          searchResults.classList.remove('active');
+        }
+      });
+      
+      // Add animation to cards when they come into view
+      const observerOptions = {
+        threshold: 0.1
+      };
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, observerOptions);
+      
+      unitCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = `opacity 0.5s ease ${index * 0.1}s, transform 0.5s ease ${index * 0.1}s`;
+        observer.observe(card);
+      });
+    });
+  </script>
+</body>
+</html>

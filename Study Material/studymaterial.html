@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Comprehensive study materials including notes, solutions, video lectures, and more">
+  <title>Study Material Portal | Comprehensive Learning Resources</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="auth.js" defer></script>
+  <style>
+    :root {
+      --primary-color: #4CAF50;
+      --secondary-color: #3e8e41;
+      --text-color: #333;
+      --light-gray: #f5f5f5;
+      --medium-gray: #ddd;
+      --dark-gray: #666;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      line-height: 1.6;
+      color: var(--text-color);
+    }
+
+    .blur {
+      filter: blur(8px);
+    }
+
+    .hero-banner {
+      height: 300px;
+      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .hero-banner h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-banner p {
+      font-size: 1.2rem;
+      max-width: 800px;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background-color: white;
+      border: 1px solid var(--medium-gray);
+      border-radius: 10px;
+      text-align: center;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      border-color: var(--primary-color);
+    }
+
+    .card img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      margin-bottom: 15px;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover img {
+      transform: scale(1.1);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .name {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: var(--primary-color);
+    }
+
+    .description {
+      font-size: 0.9rem;
+      color: var(--dark-gray);
+      margin-bottom: 15px;
+    }
+
+    .badge {
+      display: inline-block;
+      background-color: var(--primary-color);
+      color: white;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      margin-top: 5px;
+    }
+
+    header {
+      text-align: center;
+      padding: 15px;
+      background-color: var(--primary-color);
+      color: white;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    header h2 {
+      margin: 0;
+      font-size: 1.6rem;
+    }
+
+    .updates-section {
+      background-color: var(--light-gray);
+      padding: 30px 20px;
+      margin: 20px 0;
+    }
+
+    .updates-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .updates-title {
+      text-align: center;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+    }
+
+    .update-card {
+      background-color: white;
+      border-left: 4px solid var(--primary-color);
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 0 5px 5px 0;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .update-date {
+      font-size: 0.8rem;
+      color: var(--dark-gray);
+      margin-bottom: 5px;
+    }
+
+    .update-content {
+      font-size: 0.95rem;
+    }
+
+    footer {
+      background: #212529;
+	  margin-top: 50px;
+    }
+
+    /* Spinner Styles */
+    #spinner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.95);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .spinner {
+      border: 6px solid var(--medium-gray);
+      border-top: 6px solid var(--primary-color);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hero-banner {
+        height: 250px;
+      }
+	  
+	  .container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .hero-banner h1 {
+        font-size: 2rem;
+      }
+      
+      .hero-banner p {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+      
+      .hero-banner {
+        height: 200px;
+      }
+      
+      .hero-banner h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="spinner">
+    <div class="spinner"></div>
+  </div>
+  
+  <header>
+    <h2>Study Material Portal</h2>
+  </header>
+  
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <h1>Your Comprehensive Learning Resources</h1>
+    <p>Access high-quality study materials including notes, solutions, video lectures, and more to excel in your academics</p>
+  </div>
+  
+  <main>
+    <div class="container">
+      <div class="card">
+        <a href="Notes/Notesforntpage.html">
+          <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Notes.png" alt="Notes Icon">
+          <div class="name">Notes</div>
+          <div class="description">Comprehensive subject notes prepared by expert faculty</div>
+        </a>
+      </div>
+      
+      <div class="card">
+        <a href="Solution Digest/solutionfontpage.html">
+          <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Solutions&digest.png" alt="Solutions Icon">
+          <div class="name">Solution Digest</div>
+          <div class="description">Step-by-step solutions to textbook problems</div>
+        </a>
+      </div>
+      
+      <div class="card">
+        <a href="#">
+          <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Videolecture.png" alt="Video Lecture Icon">
+          <div class="name">Video Lecture</div>
+          <div class="description">Recorded lectures for visual learning</div>
+        </a>
+      </div>
+      
+      <div class="card">
+        <a href="Question Papers/QuestionPaperFrontPage.html">
+          <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Question%20papers.png" alt="Question Papers Icon">
+          <div class="name">Question Paper</div>
+          <div class="description">Importance, Model, Paper Pattern and Board question papers for practice</div>
+        </a>
+      </div>
+      
+      <div class="card">
+        <a href="Question Papers/QuestionPaperFrontPage.html">
+          <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Important%20Question.png" alt="Important Questions Icon">
+          <div class="name">Important Questions</div>
+          <div class="description">Curated list of most important exam questions</div>
+        </a>
+      </div>
+      
+      <div class="card">
+        <a href="EVS/EvsFrontPage.html">
+          <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/EVS.png" alt="EVS Project Icon">
+          <div class="name">EVS Project</div>
+          <div class="description">Environmental Science projects and resources</div>
+        </a>
+      </div>
+      
+      <div class="card">
+        <a href="#">
+          <img src="https://cdn-icons-png.flaticon.com/512/3176/3176272.png" alt="Practice Tests Icon">
+          <div class="name">Practice Tests</div>
+          <div class="description">Chapter-wise tests for self-assessment</div>
+          <!-- <span class="badge">New Feature</span> -->
+        </a>
+      </div>
+      
+      <div class="card">
+        <a href="#">
+          <img src="https://cdn-icons-png.flaticon.com/512/2936/2936886.png" alt="Reference Books Icon">
+          <div class="name">Reference Books</div>
+          <div class="description">Recommended readings and resources</div>
+        </a>
+      </div>
+    </div>
+    
+    <!-- Updates Section -->
+    <div class="updates-section">
+      <div class="updates-container">
+        <h3 class="updates-title">Latest Updates</h3>
+        
+        <div class="update-card">
+          <div class="update-date">August 15, 2023</div>
+          <div class="update-content">Added new video lectures for Mathematics Chapter 3 - Trigonometry.</div>
+        </div>
+        
+        <div class="update-card">
+          <div class="update-date">August 10, 2023</div>
+          <div class="update-content">Updated Science notes with new diagrams and explanations.</div>
+        </div>
+        
+        <div class="update-card">
+          <div class="update-date">August 5, 2023</div>
+          <div class="update-content">Question papers from 2022-23 academic year now available.</div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+        <object id="footer-html" type="text/html" data="https://trendseducation.github.io/ujjwalacademy/Study%20Material/footer.html" style="width: 100%; height: 80px;"></object>
+</footer>
+  
+  <script>
+    // Show spinner on page load and hide when loaded
+    window.addEventListener('load', () => {
+      const spinner = document.getElementById('spinner');
+      spinner.style.display = 'none';
+      
+      // Add animation to cards when they come into view
+      const cards = document.querySelectorAll('.card');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      cards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        observer.observe(card);
+      });
+    });
+  </script>
+</body>
+</html>
