@@ -1873,6 +1873,30 @@ async function validateLogin() {
 
 function handleSuccessfulLogin(name, branch) {
     const userBranch = branch ? branch.toString().trim().toLowerCase() : '';
+    
+    // Set authentication data
+    setAuthentication(currentLoginType, {
+        name: name,
+        branch: branch,
+        loginTime: new Date().toISOString()
+    });
+    
+    // Check if there's a saved URL to redirect back to
+    const redirectUrl = sessionStorage.getItem('redirectAfterLogin');
+    if (redirectUrl && !redirectUrl.includes('login.html')) {
+        console.log("Redirecting back to original page:", redirectUrl);
+        sessionStorage.removeItem('redirectAfterLogin'); // Clean up
+        
+        // Show success message and redirect
+        showPopup("Login successful! Redirecting...", "success");
+        
+        setTimeout(() => {
+            window.location.href = redirectUrl;
+        }, 1500);
+        return;
+    }
+    
+    // If no saved URL, use the branch-based redirect logic
     const encodedName = encodeURIComponent(name);
     const branchUrls = {
         kamatghar: {
@@ -1900,29 +1924,23 @@ function handleSuccessfulLogin(name, branch) {
             staff: `Pract5.html?staffName=${encodedName}`
         }
     };
-	
-	 // Set authentication data
-    setAuthentication(currentLoginType, {
-        name: name,
-        branch: branch,
-        loginTime: new Date().toISOString()
-    });
     
     // For student login with empty branch, stay on current page
     if (currentLoginType === 'student' && (!userBranch || userBranch === '')) {
-        // Just show success message and stay on current page
         if (domCache.spinner) domCache.spinner.style.display = "none";
+        showPopup("Login successful!", "success");
         return;
     }
     
     const url = branchUrls[userBranch]?.[currentLoginType];
     if (url) {
         // Keep spinner visible during redirect
+        showPopup("Login successful! Redirecting...", "success");
+        
         setTimeout(() => {
             window.location.href = url;
-        }, 1000);
+        }, 1500);
     } else {
-        // If no branch URL found, stay on current page
         if (domCache.spinner) domCache.spinner.style.display = "none";
         showPopup(`Login successful. Your branch: ${branch || "Not specified"}`, "success");
     }
