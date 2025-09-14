@@ -17,29 +17,29 @@ function checkAuthentication() {
         console.log("Not authenticated, saving current URL and redirecting to login...");
         
         // Save the current URL for redirecting back after login
-        const currentUrl = window.location.href;
-        if (!currentUrl.includes('login.html')) {
-            sessionStorage.setItem('redirectAfterLogin', currentUrl);
-            console.log("Saved redirect URL:", currentUrl);
+        // Only save if we're not already on the login page
+        if (!window.location.href.includes('login.html')) {
+            sessionStorage.setItem('redirectAfterLogin', window.location.href);
+            console.log("Saved redirect URL:", window.location.href);
         }
         
-        redirectToLogin();
+        window.location.href = 'login.html';
         return false;
     }
     
-    // Check if session is expired (6 days)
+    // Check if session is expired (24 hours)
     const currentTime = new Date().getTime();
-    const sessionDuration = 120 * 60 * 60 * 1000; // 6 days in milliseconds
+    const sessionDuration = 120 * 60 * 60 * 1000; // 24 hours in milliseconds
     
     if (currentTime - parseInt(loginTime) > sessionDuration) {
         // Session expired, clear storage and redirect
         console.log("Session expired, redirecting to login...");
         clearAuthentication();
-        redirectToLogin();
+        window.location.href = 'https://trendseducation.github.io/ujjwalacademy/login.html';
         return false;
     }
     
-    // Update login time to extend session (only if page is not redirecting)
+    // Update login time to extend session
     localStorage.setItem('loginTime', currentTime.toString());
     
     console.log("User is authenticated");
@@ -70,31 +70,16 @@ function clearAuthentication() {
     console.log("Authentication cleared");
 }
 
-// Function to redirect to login page
-function redirectToLogin() {
-    console.log("Redirecting to login page...");
-    window.location.href = 'https://trendseducation.github.io/ujjwalacademy/login.html';
-}
-
 // Function to redirect back to the original page after login
-function redirectAfterLogin() {
+function redirectToOriginalPage() {
     const redirectUrl = sessionStorage.getItem('redirectAfterLogin');
     if (redirectUrl && !redirectUrl.includes('index.html')) {
-        console.log("Redirecting back to:", redirectUrl);
+        console.log("Redirecting back to original page:", redirectUrl);
         sessionStorage.removeItem('redirectAfterLogin'); // Clean up
         window.location.href = redirectUrl;
     } else {
-        // Default redirect based on user role/branch
-        const userData = getUserData();
-        const userRole = getUserRole();
-        
-        if (userData && userData.branch) {
-            // Use your existing branch redirect logic
-            handleBranchRedirect(userData.name, userData.branch, userRole);
-        } else {
-            // Fallback to a default page
-            window.location.href = 'dashboard.html';
-        }
+        // Fallback to a default page if no redirect URL is found
+        window.location.href = 'dashboard.html';
     }
 }
 
@@ -113,19 +98,16 @@ function getUserRole() {
 function logout() {
     console.log("Logging out...");
     clearAuthentication();
-    redirectToLogin();
+    window.location.href = 'login.html';
 }
 
 // Check authentication on page load
 console.log("Authentication script loaded");
-document.addEventListener('DOMContentLoaded', function() {
-    console.log("DOM loaded, checking authentication");
-    
-    // Don't check authentication on login page itself
-    if (window.location.pathname.endsWith('https://trendseducation.github.io/ujjwalacademy/login.html')) {
-        console.log("On login page, skipping auth check");
-        return;
-    }
-    
-    checkAuthentication();
-});
+
+// Don't check authentication on login page itself
+if (!window.location.pathname.endsWith('login.html')) {
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log("DOM loaded, checking authentication");
+        checkAuthentication();
+    });
+}
