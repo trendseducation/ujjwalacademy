@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Security & Environmental Education</title>
+    <style>
+        :root {
+            --color-primary: #0077b6; /* Deep blue for trust */
+            --color-secondary: #48cae4; /* Light blue for highlights */
+            --color-accent: #90be6d; /* Green for nature */
+            --color-dark: #1d3557; /* Navy for headings */
+            --color-light: #f1faee; /* Off-white for backgrounds */
+            --color-text: #333333; /* Dark gray for text */
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 4rem;
+            --border-radius: 8px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--color-text);
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-md);
+        }
+
+        .hero {
+            background: linear-gradient(rgba(29, 53, 87, 0.8), rgba(29, 53, 87, 0.8)), url('https://i.pinimg.com/736x/52/b8/e1/52b8e10693b8b2698b1f47ebf60c28b3.jpg') center/cover no-repeat;
+            color: white;
+            padding: var(--spacing-xl) var(--spacing-md);
+            text-align: center;
+            border-radius: var(--border-radius);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        h1, h2, h3 {
+            color: var(--color-dark);
+            margin-top: 0;
+        }
+
+        .hero h1 {
+            color: white;
+            font-size: 2.5rem;
+        }
+
+        .section {
+            margin-bottom: var(--spacing-xl);
+            padding: var(--spacing-lg);
+            background: var(--color-light);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .grid-2, .grid-3 {
+            display: grid;
+            gap: var(--spacing-md);
+            margin: var(--spacing-md) 0;
+        }
+
+        .card {
+            background: white;
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--color-primary);
+        }
+        .card-accent { border-left: 4px solid var(--color-accent); }
+
+        .icon { font-size: 2rem; color: var(--color-primary); margin-bottom: var(--spacing-sm); }
+
+        .pullquote {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--color-primary);
+            border-left: 4px solid var(--color-secondary);
+            padding-left: var(--spacing-md);
+            margin: var(--spacing-lg) 0;
+        }
+		.responsive-container {
+      max-width: 1200px; /* Desktop max width */
+      width: 100%;
+      text-align: center;
+    }
+
+    .responsive-container img {
+      width: 100%;
+      max-width: 600px; /* Keep it neat on large screens */
+      border-radius: 10px; /* Optional styling */
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Optional styling */
+    }
+
+        .conclusion {
+            background: var(--color-dark);
+            color: white;
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+        .conclusion h2 { color: white; }
+
+        /* Responsive Grids */
+        @media (min-width: 768px) {
+            .grid-2 { grid-template-columns: 1fr 1fr; }
+            .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+            .hero h1 { font-size: 3.5rem; }
+			.responsive-container img {
+        max-width: 500px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <section class="hero">
+            <h1>Environment Education and Water Security</h1>
+            <p>Building a sustainable future through knowledge, action, and stewardship.</p>
+        </section>
+
+        <!------------------ SECTION A: IMPORTANCE ------------------>
+        <section class="section">
+            <h2>A] The Critical Importance</h2>
+            <p>Environmental education is the cornerstone of sustainable water management, fostering awareness and driving meaningful action.</p>
+
+            <div class="grid-3">
+                <div class="card">
+                    <div class="icon">💡</div>
+                    <h3>Promotes Awareness</h3>
+                    <p>Fosters a sense of responsibility by helping communities understand the significance of conserving vital natural resources like water.</p>
+                </div>
+                <div class="card">
+                    <div class="icon">🔄</div>
+                    <h3>Sustainable Practices</h3>
+                    <p>Equips people with the knowledge to adopt essential practices like water conservation, recycling, and efficient usage.</p>
+                </div>
+                <div class="card">
+                    <div class="icon">🛡️</div>
+                    <h3>Mitigates Scarcity</h3>
+                    <p>Directly addresses the depletion of freshwater resources by inspiring actions to preserve water for drinking, agriculture, and industry.</p>
+                </div>
+            </div>
+
+            <blockquote class="pullquote">
+                "Investing in environmental education is essential for building a water-secure future. It empowers individuals and communities to act sustainably."
+            </blockquote>
+        </section>
+
+        <!------------------ SECTION B: OBJECTIVE ------------------>
+        <section class="section">
+            <h2>B] Our Core Objectives</h2>
+            <p>Our mission is structured around clear, actionable goals to create tangible change.</p>
+
+            <div class="grid-2">
+                <div class="card card-accent">
+                    <h3>Raise Awareness & Empower</h3>
+                    <p>Educate on water as a finite resource and equip communities with skills for localized solutions like rainwater harvesting.</p>
+                </div>
+                <div class="card card-accent">
+                    <h3>Influence Policy & Science</h3>
+                    <p>Foster understanding of water policies and motivate engagement with innovative technologies for conservation.</p>
+                </div>
+            </div>
+
+            <p class="pullquote">
+                "Water fuels every aspect of life. Without water security there can be no national security."
+            </p>
+
+            <p>SWP offers a <strong>pragmatic, science-based approach</strong> to water security, reflecting local geographic and cultural conditions. We focus on causes, not symptoms.</p>
+        </section>
+
+        <!------------------ SECTION C: AIM ------------------>
+        <section class="section">
+            <h2>C] Our Aim: The Pillars of Water Security</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>Health & Livelihoods</h3>
+                    <p>Water is essential for human survival, hygiene, and the activities that sustain life: agriculture, energy, and transportation.</p>
+                </div>
+                <div>
+                    <h3>Economies & Ecosystems</h3>
+                    <p>Improving water security fosters economic growth and protects the ecosystems we all depend on.</p>
+                </div>
+            </div>
+        </section>
+
+        <!------------------ SECTION D: METHODOLOGY ------------------>
+        <section class="section">
+            <h2>D] Our Methodology: Adaptive & Collaborative</h2>
+            <p>We build capacity through diverse, tailored actions:</p>
+            <ul>
+                <li>Developing or rehabilitating water structures and networks.</li>
+                <li>Promoting green infrastructure (reforestation, wetland restoration).</li>
+                <li>Initiating behavior and policy changes.</li>
+            </ul>
+            <p>We bring disparate groups together to reach a consensus, moving beyond uninformed decisions. Our partnership with UNESCO and UNEP has been pivotal in advancing environmental education globally through major international conferences since 1977.</p>
+        </section>
+
+        <!------------------ SECTION E: OBSERVATION ------------------>
+        <section class="section">
+            <h2>E] Historical Context & Observation</h2>
+            <p>UNESCO's leadership in environmental education dates to 1948 with the creation of the IUCN. The co-organization of four major international conferences has consistently highlighted education's pivotal role in sustainable development.</p>
+            <p>Education extends beyond the classroom to include aquariums, zoos, parks, media campaigns, and public outreach.</p>
+
+            <blockquote class="pullquote">
+                "One of the most significant threats to water security is a glut of complacency... Water security means not only access but also stewardship."
+            </blockquote>
+
+            <p>SWP’s participatory, adaptive approach delivers comprehensive management solutions in <strong>14 countries worldwide</strong>.</p>
+        </section>
+		<div class="responsive-container">
+    <img src="https://i.pinimg.com/736x/52/b8/e1/52b8e10693b8b2698b1f47ebf60c28b3.jpg" alt="Responsive Example">
+  </div>
+
+        <!------------------ SECTION F: CONCLUSION ------------------>
+        <section class="conclusion">
+            <h2>F] Conclusion: The Path Forward</h2>
+            <p>We provide the tools to address current and future water risks. The trend in environmental education is towards informed decision-making based on data and experience, integrated into core curricula.</p>
+            <p>Successful initiatives require <strong>both grassroots student support and top-down administrative commitment</strong>. Together, we can ensure the availability, accessibility, and sustainability of water for all.</p>
+        </section>
+    </div>
+
+</body>
+</html>
