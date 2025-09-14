@@ -18,12 +18,12 @@ function checkAuthentication() {
         
         // Save the current URL for redirecting back after login
         // Only save if we're not already on the login page
-        if (!window.location.href.includes('login.html')) {
+        if (!window.location.href.includes('https://trendseducation.github.io/ujjwalacademy/login.html')) {
             sessionStorage.setItem('redirectAfterLogin', window.location.href);
             console.log("Saved redirect URL:", window.location.href);
         }
         
-        window.location.href = 'login.html';
+        window.location.href = 'https://trendseducation.github.io/ujjwalacademy/login.html';
         return false;
     }
     
@@ -98,14 +98,14 @@ function getUserRole() {
 function logout() {
     console.log("Logging out...");
     clearAuthentication();
-    window.location.href = 'login.html';
+    window.location.href = 'https://trendseducation.github.io/ujjwalacademy/login.html';
 }
 
 // Check authentication on page load
 console.log("Authentication script loaded");
 
 // Don't check authentication on login page itself
-if (!window.location.pathname.endsWith('login.html')) {
+if (!window.location.pathname.endsWith('https://trendseducation.github.io/ujjwalacademy/login.html')) {
     document.addEventListener('DOMContentLoaded', function() {
         console.log("DOM loaded, checking authentication");
         checkAuthentication();
