@@ -12,16 +12,24 @@ function checkAuthentication() {
     
     console.log("Auth data:", { isLoggedIn, loginTime, userRole });
     
-    // If not logged in, redirect to login page
+    // If not logged in, save the current URL and redirect to login page
     if (!isLoggedIn || !loginTime || !userRole) {
-        console.log("Not authenticated, redirecting to login...");
+        console.log("Not authenticated, saving current URL and redirecting to login...");
+        
+        // Save the current URL for redirecting back after login
+        const currentUrl = window.location.href;
+        if (!currentUrl.includes('login.html')) {
+            sessionStorage.setItem('redirectAfterLogin', currentUrl);
+            console.log("Saved redirect URL:", currentUrl);
+        }
+        
         redirectToLogin();
         return false;
     }
     
-    // Check if session is expired (24 hours)
+    // Check if session is expired (6 days)
     const currentTime = new Date().getTime();
-    const sessionDuration = 120 * 60 * 60 * 1000; // 24 hours in milliseconds
+    const sessionDuration = 120 * 60 * 60 * 1000; // 6 days in milliseconds
     
     if (currentTime - parseInt(loginTime) > sessionDuration) {
         // Session expired, clear storage and redirect
@@ -65,8 +73,29 @@ function clearAuthentication() {
 // Function to redirect to login page
 function redirectToLogin() {
     console.log("Redirecting to login page...");
-    // Use replace instead of href to prevent back button issues
-    window.location.replace('https://trendseducation.github.io/ujjwalacademy/login.html');
+    window.location.href = 'https://trendseducation.github.io/ujjwalacademy/login.html';
+}
+
+// Function to redirect back to the original page after login
+function redirectAfterLogin() {
+    const redirectUrl = sessionStorage.getItem('redirectAfterLogin');
+    if (redirectUrl && !redirectUrl.includes('index.html')) {
+        console.log("Redirecting back to:", redirectUrl);
+        sessionStorage.removeItem('redirectAfterLogin'); // Clean up
+        window.location.href = redirectUrl;
+    } else {
+        // Default redirect based on user role/branch
+        const userData = getUserData();
+        const userRole = getUserRole();
+        
+        if (userData && userData.branch) {
+            // Use your existing branch redirect logic
+            handleBranchRedirect(userData.name, userData.branch, userRole);
+        } else {
+            // Fallback to a default page
+            window.location.href = 'dashboard.html';
+        }
+    }
 }
 
 // Function to get user data
@@ -93,15 +122,10 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM loaded, checking authentication");
     
     // Don't check authentication on login page itself
-    if (window.location.pathname.endsWith('login.html')) {
+    if (window.location.pathname.endsWith('https://trendseducation.github.io/ujjwalacademy/login.html')) {
         console.log("On login page, skipping auth check");
         return;
     }
     
     checkAuthentication();
 });
-
-// Add global function to check if user is authenticated
-window.isAuthenticated = function() {
-    return checkAuthentication();
-};
