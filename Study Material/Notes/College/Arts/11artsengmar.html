@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Comprehensive study materials including notes, solutions, video lectures, and more">
+  <title>Study Material Portal | Comprehensive Learning Resources</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="auth.js" defer></script>
+  <style>
+    :root {
+      --primary-color: #4CAF50;
+      --secondary-color: #3e8e41;
+      --text-color: #333;
+      --light-gray: #f5f5f5;
+      --medium-gray: #ddd;
+      --dark-gray: #666;
+      --tab-inactive: #f8f9fa;
+      --tab-active: white;
+      --tab-border: #e0e0e0;
+      --tab-highlight: #4CAF50;
+      --tab-text-inactive: #6c757d;
+      --tab-text-active: #212529;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      line-height: 1.6;
+      color: var(--text-color);
+      background-color: #f8f9fa;
+    }
+
+    .blur {
+      filter: blur(8px);
+    }
+
+    .hero-banner {
+      width: 100%;
+      height: 300px;
+      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .hero-banner h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-banner p {
+      font-size: 1.2rem;
+      max-width: 800px;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 10px;
+      padding: 10px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background-color: white;
+      border: 1px solid var(--medium-gray);
+      border-radius: 15px;
+      text-align: center;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      border-color: var(--primary-color);
+    }
+
+    .card img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      margin-bottom: 15px;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover img {
+      transform: scale(1.1);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .name {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: var(--primary-color);
+    }
+
+    .description {
+      font-size: 0.9rem;
+      color: var(--dark-gray);
+      margin-bottom: 15px;
+    }
+
+    .badge {
+      display: inline-block;
+      background-color: var(--primary-color);
+      color: white;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      margin-top: 5px;
+    }
+
+    header {
+      text-align: center;
+      padding: 15px;
+      background-color: var(--primary-color);
+      color: white;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    header h2 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    .updates-section {
+      background-color: var(--light-gray);
+      padding: 30px 20px;
+      margin: 20px 0;
+    }
+
+    .updates-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .updates-title {
+      text-align: center;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+    }
+
+    .update-card {
+      background-color: white;
+      border-left: 4px solid var(--primary-color);
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 0 5px 5px 0;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .update-date {
+      font-size: 0.8rem;
+      color: var(--dark-gray);
+      margin-bottom: 5px;
+    }
+
+    .update-content {
+      font-size: 0.95rem;
+    }
+
+    footer {
+      background: #212529;
+	  margin-top: 50px;
+    }
+
+    /* Spinner Styles */
+    #spinner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.95);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .spinner {
+      border: 6px solid var(--medium-gray);
+      border-top: 6px solid var(--primary-color);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+
+    /* Advanced Tab Styles */
+    .tab-container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+    
+    .tab-header-container {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    
+    .tab-header {
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+      scroll-behavior: smooth;
+      background-color: transparent;
+      border-radius: 12px;
+      padding: 8px;
+      gap: 8px;
+    }
+    
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .tab-header::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .tab-btn {
+      flex: 0 0 auto;
+      padding: 14px 24px;
+      background-color: var(--tab-inactive);
+      border: none;
+      outline: none;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--tab-text-inactive);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .tab-btn::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 3px;
+      background-color: var(--tab-highlight);
+      transition: width 0.3s ease;
+    }
+    
+    .tab-btn i {
+      margin-right: 10px;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+    }
+    
+    .tab-btn:hover {
+      background-color: #e9ecef;
+      color: var(--tab-text-active);
+    }
+    
+    .tab-btn:hover i {
+      color: var(--tab-highlight);
+    }
+    
+    .tab-btn.active {
+      background-color: var(--tab-active);
+      color: var(--tab-text-active);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .tab-btn.active::after {
+      width: 80%;
+    }
+    
+    .tab-btn.active i {
+      color: var(--tab-highlight);
+    }
+    
+    .tab-content {
+      display: none;
+      padding: 10px;
+      animation: fadeEffect 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    @keyframes fadeEffect {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Navigation arrows for mobile */
+    .tab-nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 36px;
+      height: 36px;
+      background-color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      cursor: pointer;
+      z-index: 10;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border: none;
+      outline: none;
+    }
+    
+    .tab-nav-arrow.left {
+      left: -18px;
+    }
+    
+    .tab-nav-arrow.right {
+      right: -18px;
+    }
+    
+    .tab-header-container:hover .tab-nav-arrow {
+      opacity: 1;
+    }
+    
+    .tab-nav-arrow i {
+      color: var(--tab-highlight);
+      font-size: 1rem;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hero-banner {
+        height: 250px;
+      }
+      
+      .container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .hero-banner h1 {
+        font-size: 2rem;
+      }
+      
+      .hero-banner p {
+        font-size: 1rem;
+      }
+      
+      .tab-btn {
+        padding: 12px 18px;
+        font-size: 0.9rem;
+      }
+      
+      .tab-nav-arrow {
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+      
+      .hero-banner {
+        height: 200px;
+      }
+      
+      .hero-banner h1 {
+        font-size: 1.5rem;
+      }
+      
+      .tab-btn {
+        padding: 10px 16px;
+        font-size: 0.85rem;
+      }
+      
+      .tab-btn i {
+        margin-right: 6px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="spinner">
+    <div class="spinner"></div>
+  </div>
+  
+  <header>
+    <h2>Study Material Portal</h2>
+  </header>
+  
+  <main>
+    <div class="tab-container">
+      <div class="tab-header-container">
+       <!-- <button class="tab-nav-arrow left" onclick="scrollTabs(-100)">
+          <i class="fas fa-chevron-left"></i>
+        </button> -->
+        
+        <div class="tab-header" id="tabHeader">
+          <button class="tab-btn active" onclick="openTab(event, 'english')">
+            <i class="fa-solid fa-school"></i> 11th Arts (English)
+          </button>
+          <button class="tab-btn" onclick="openTab(event, 'marathi')">
+            <i class="fa-solid fa-flask"></i> 11th Arts (Marathi)
+          </button>
+		  <button class="tab-btn" onclick="openTab(event, 'language')">
+            <i class="fa-solid fa fa-language"></i> language
+          </button>
+        </div>
+        
+        <!-- <button class="tab-nav-arrow right" onclick="scrollTabs(100)">
+          <i class="fas fa-chevron-right"></i>
+        </button> -->
+      </div>
+	  
+	  	  	  <!-- language Section -->
+      <div id="language" class="tab-content">
+        <div class="container">
+		<div class="card">
+            <a href="https://drive.google.com/file/d/1d9eW8Hp_LCdGpUSBltHp6TGxfKWDS_2J/view">
+              <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Notes.png" alt="Notes Icon">
+              <div class="name">English</div>
+              <div class="description">Maharashtra State Board Notes</div>
+            </a>
+          </div>
+          
+          <div class="card">
+            <a href="https://drive.google.com/file/d/16k9hpvlq1M8LvL7daYeg0VYwvZqWjFzN/view">
+              <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Notes.png" alt="Solutions Icon">
+              <div class="name">Hindi</div>
+              <div class="description">Maharashtra State Board Notes</div>
+            </a>
+          </div>
+          
+          <div class="card">
+            <a href="https://drive.google.com/file/d/1zGVRlglEEsH5phygC0_5oBZtzHyGGo5k/view">
+              <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Notes.png" alt="Solutions Icon">
+              <div class="name">Marathi</div>
+              <div class="description">Maharashtra State Board Notes</div>
+            </a>
+          </div>
+		  </div>
+		  </div>
+	  
+      <!-- English language -->
+      <div id="english" class="tab-content active">
+        <div class="container">
+          <div class="card">
+            <a href="https://drive.google.com/file/d/1boQTqr3Sb-LvH9DzR6L1qRpClswOIkGH/view?usp=drive_link">
+              <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Notes.png" alt="Notes Icon">
+              <div class="name">History</div>
+              <div class="description">Maharashtra State Board Notes</div>
+            </a>
+          </div>
+          
+          <div class="card">
+            <a href="https://drive.google.com/file/d/1OZmU318i6YbhdjcKI9hM5xEUbo5GdlDL/view?usp=drive_link">
+              <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Notes.png" alt="Solutions Icon">
+              <div class="name">Philosophy</div>
+              <div class="description">Maharashtra State Board Notes</div>
+            </a>
+          </div>
+          
+          <div class="card">
+            <a href="https://drive.google.com/file/d/1tL0rWXnMmp53MY-wjLHH-MsKed1sm6Xc/view?usp=drive_link">
+              <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Notes.png" alt="Solutions Icon">
+              <div class="name">Psychology</div>
+              <div class="description">Maharashtra State Board Notes</div>
+            </a>
+          </div>
+		  
+		   <div class="card">
+            <a href="https://drive.google.com/file/d/1QpTW5nPLgeylNbxi48hohA_CSKxdiQeu/view?usp=drive_link">
+              <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Notes.png" alt="Video Lecture Icon">
+              <div class="name">Polical Science</div>
+              <div class="description">Maharashtra State Board Notes</div>
+            </a>
+          </div>
+          
+          <div class="card">
+            <a href="https://drive.google.com/file/d/1qb5ULhxybc1aqtf9UjQEilOr1JnIOxqW/view?usp=drive_link">
+              <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Notes.png" alt="Video Lecture Icon">
+              <div class="name">Sociology</div>
+              <div class="description">Maharashtra State Board Notes</div>
+            </a>
+          </div>
+          
+          <div class="card">
+            <a href="https://drive.google.com/file/d/156LdeQ3CLGdXQO4X6ZxE_7YYmbiE0tz4/view?usp=drive_link">
+              <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Notes.png" alt="Video Lecture Icon">
+              <div class="name">Geography</div>
+              <div class="description">Maharashtra State Board Notes</div>
+            </a>
+          </div>
+		 <div class="card">
+            <a href="https://drive.google.com/file/d/1AwZOhglwDWvknjl_gZzXuyGs5zqq0Aev/view?usp=drive_link">
+              <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Notes.png" alt="Video Lecture Icon">
+              <div class="name">Maths Part 1</div>
+              <div class="description">Maharashtra State Board Notes</div>
+            </a>
+          </div>
+		  <div class="card">
+            <a href="https://drive.google.com/file/d/11gO7gEFLPH6sBSJzdPfXH7iKBvjbkiOS/view?usp=drive_link">
+              <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Notes.png" alt="Video Lecture Icon">
+              <div class="name">Maths Part 2</div>
+              <div class="description">Maharashtra State Board Notes</div>
+            </a>
+          </div>
+          
+          <div class="card">
+            <a href="11th Arts/English Notes/11thSciComArtsIT.html">
+              <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Notes.png" alt="Video Lecture Icon">
+              <div class="name">Information Technology</div>
+              <div class="description">Maharashtra State Board Notes</div>
+            </a>
+          </div>
+		  <div class="card">
+            <a href="11th Arts/English Notes/11thSciComArtsPE.html">
+              <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Notes.png" alt="Video Lecture Icon">
+              <div class="name">Physical Education (PE)</div>
+              <div class="description">Maharashtra State Board Notes</div>
+            </a>
+          </div>
+		  <div class="card">
+            <a href="11th Arts/English Notes/11thSciComArtsEVS.html">
+              <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Notes.png" alt="Video Lecture Icon">
+              <div class="name">EVS</div>
+              <div class="description">Maharashtra State Board Notes</div>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- marathi language -->
+      <div id="marathi" class="tab-content">
+        <div class="container">
+         <div class="card">
+            <a href="https://drive.google.com/file/d/12ycByoNFLFbQyWXzAz9mRtPfUA9ocqeL/view?usp=drive_link">
+              <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Notes.png" alt="Notes Icon">
+              <div class="name">History</div>
+              <div class="description">Maharashtra State Board Notes</div>
+            </a>
+          </div>
+          
+          <div class="card">
+            <a href="https://drive.google.com/file/d/1ARCso31pBOZyAg9kePYe2ca6JnHeFV-k/view?usp=drive_link">
+              <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Notes.png" alt="Solutions Icon">
+              <div class="name">Philosophy</div>
+              <div class="description">Maharashtra State Board Notes</div>
+            </a>
+          </div>
+          
+          <div class="card">
+            <a href="https://drive.google.com/file/d/1Wumeu-_JhMaFn6APAISIINVfTSM0Mxa2/view?usp=drive_link">
+              <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Notes.png" alt="Solutions Icon">
+              <div class="name">Psychology</div>
+              <div class="description">Maharashtra State Board Notes</div>
+            </a>
+          </div>
+		  
+		   <div class="card">
+            <a href="https://drive.google.com/file/d/1hvekfrEoTL8gp8hwPYeMvMRFHqkbdpFU/view?usp=drive_link">
+              <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Notes.png" alt="Video Lecture Icon">
+              <div class="name">Polical Science</div>
+              <div class="description">Maharashtra State Board Notes</div>
+            </a>
+          </div>
+          
+          <div class="card">
+            <a href="https://drive.google.com/file/d/1Ju-4teQc0XhFYzDZl5zuEcv4qISh6k_b/view?usp=drive_link">
+              <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Notes.png" alt="Video Lecture Icon">
+              <div class="name">Sociology</div>
+              <div class="description">Maharashtra State Board Notes</div>
+            </a>
+          </div>
+          
+          <div class="card">
+            <a href="https://drive.google.com/file/d/12_izDYzm28cFT1I7RjQqo7HM4Gx_5z7T/view?usp=drive_link">
+              <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Notes.png" alt="Video Lecture Icon">
+              <div class="name">Geography</div>
+              <div class="description">Maharashtra State Board Notes</div>
+            </a>
+          </div>
+		 <div class="card">
+            <a href="https://drive.google.com/file/d/1AwZOhglwDWvknjl_gZzXuyGs5zqq0Aev/view?usp=drive_link">
+              <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Notes.png" alt="Video Lecture Icon">
+              <div class="name">Maths Part 1</div>
+              <div class="description">Maharashtra State Board Notes</div>
+            </a>
+          </div>
+		  <div class="card">
+            <a href="https://drive.google.com/file/d/11gO7gEFLPH6sBSJzdPfXH7iKBvjbkiOS/view?usp=drive_link">
+              <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Notes.png" alt="Video Lecture Icon">
+              <div class="name">Maths Part 2</div>
+              <div class="description">Maharashtra State Board Notes</div>
+            </a>
+          </div>
+          
+          <div class="card">
+            <a href="#">
+              <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Notes.png" alt="Video Lecture Icon">
+              <div class="name">Information Technology</div>
+              <div class="description">Maharashtra State Board Notes</div>
+            </a>
+          </div>
+		  <div class="card">
+            <a href="#">
+              <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Notes.png" alt="Video Lecture Icon">
+              <div class="name">Physical Education (PE)</div>
+              <div class="description">Maharashtra State Board Notes</div>
+            </a>
+          </div>
+		  <div class="card">
+            <a href="#">
+              <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Notes.png" alt="Video Lecture Icon">
+              <div class="name">EVS</div>
+              <div class="description">Maharashtra State Board Notes</div>
+            </a>
+          </div>
+        </div>
+      </div>
+  </main>
+  
+  <footer>
+        <object id="footer-html" type="text/html" data="https://trendseducation.github.io/ujjwalacademy/Study%20Material/footer.html" style="width: 100%; height: 80px;"></object>
+</footer>
+  
+  <script>
+    // Show spinner on page load and hide when loaded
+    window.addEventListener('load', () => {
+      const spinner = document.getElementById('spinner');
+      spinner.style.display = 'none';
+      
+      // Add animation to cards when they come into view
+      const cards = document.querySelectorAll('.card');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      cards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        observer.observe(card);
+      });
+      
+      // Initialize tab scrolling arrows visibility
+      updateTabArrows();
+    });
+    
+    // Tab functionality
+    function openTab(evt, tabName) {
+      // Prevent default anchor behavior
+      evt.preventDefault();
+      
+      // Hide all tab contents
+      const tabContents = document.getElementsByClassName("tab-content");
+      for (let i = 0; i < tabContents.length; i++) {
+        tabContents[i].classList.remove("active");
+      }
+      
+      // Remove active class from all tab buttons
+      const tabButtons = document.getElementsByClassName("tab-btn");
+      for (let i = 0; i < tabButtons.length; i++) {
+        tabButtons[i].classList.remove("active");
+      }
+      
+      // Show the current tab and add active class to the button
+      document.getElementById(tabName).classList.add("active");
+      evt.currentTarget.classList.add("active");
+      
+      // Center the active tab in view (for mobile)
+      const tabHeader = document.getElementById('tabHeader');
+      const activeTab = evt.currentTarget;
+      const tabHeaderRect = tabHeader.getBoundingClientRect();
+      const activeTabRect = activeTab.getBoundingClientRect();
+      
+      // Calculate scroll position to center the active tab
+      const scrollPosition = activeTab.offsetLeft - (tabHeader.offsetWidth / 2) + (activeTab.offsetWidth / 2);
+      
+      // Smooth scroll to center the active tab
+      tabHeader.scrollTo({
+        left: scrollPosition,
+        behavior: 'smooth'
+      });
+      
+      // Update arrow visibility
+      updateTabArrows();
+    }
+    
+    // Function to scroll tabs horizontally
+    function scrollTabs(amount) {
+      const tabHeader = document.getElementById('tabHeader');
+      tabHeader.scrollBy({
+        left: amount,
+        behavior: 'smooth'
+      });
+      
+      // Update arrow visibility after scroll completes
+      setTimeout(updateTabArrows, 300);
+    }
+    
+    // Function to update arrow visibility based on scroll position
+    function updateTabArrows() {
+      const tabHeader = document.getElementById('tabHeader');
+      const arrows = document.querySelectorAll('.tab-nav-arrow');
+      
+      // Show/hide left arrow
+      arrows[0].style.display = tabHeader.scrollLeft > 10 ? 'flex' : 'none';
+      
+      // Show/hide right arrow
+      arrows[1].style.display = 
+        tabHeader.scrollLeft < (tabHeader.scrollWidth - tabHeader.clientWidth - 10) 
+        ? 'flex' 
+        : 'none';
+    }
+    
+    // Update arrows when window is resized
+    window.addEventListener('resize', updateTabArrows);
+    
+    // Update arrows when tabs are scrolled
+    document.getElementById('tabHeader').addEventListener('scroll', updateTabArrows);
+  </script>
+</body>
+</html>
