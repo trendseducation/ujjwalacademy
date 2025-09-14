@@ -29,7 +29,7 @@ function checkAuthentication() {
     
     // Check if session is expired (24 hours)
     const currentTime = new Date().getTime();
-    const sessionDuration = 120 * 60 * 60 * 1000; // 24 hours in milliseconds
+    const sessionDuration = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
     
     if (currentTime - parseInt(loginTime) > sessionDuration) {
         // Session expired, clear storage and redirect
@@ -73,7 +73,7 @@ function clearAuthentication() {
 // Function to redirect back to the original page after login
 function redirectToOriginalPage() {
     const redirectUrl = sessionStorage.getItem('redirectAfterLogin');
-    if (redirectUrl && !redirectUrl.includes('index.html')) {
+    if (redirectUrl && !redirectUrl.includes('https://trendseducation.github.io/ujjwalacademy/login.html')) {
         console.log("Redirecting back to original page:", redirectUrl);
         sessionStorage.removeItem('redirectAfterLogin'); // Clean up
         window.location.href = redirectUrl;
