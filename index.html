@@ -6,6 +6,7 @@
     <title>Ujjwal Academy - Premier Education for 11th & 12th Commerce & Science</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	<script src="loginscriptforindex.js"></script>
     <style>
         /* Modern CSS Variables */
         :root {
@@ -1334,7 +1335,7 @@
                             <a href="#">👤 Account <i class="fas fa-chevron-down"></i></a>
                             <ul class="dropdown-content">
                                 <li><a href="contact.html">📞 Contact Us</a></li>
-                                <li><a href="#">💻 Login</a></li>
+                                <div id="authButton"></div>
                             </ul>
                         </li>
                         <li><a href="#" class="btn btn-primary enroll-btn">⌛ Enroll Now</a></li>
@@ -1819,6 +1820,10 @@
     <div class="toast" id="toast">Your message has been sent successfully!</div>
     
     <script>
+			document.addEventListener('DOMContentLoaded', function() {
+        updateAuthButton();
+    });
+		
         // Mobile Menu Toggle
         const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
         const mobileMenu = document.querySelector('.mobile-menu');
@@ -2056,4 +2061,5 @@
     </script>
 </body>
 </html>
+
 
