@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+	<script src="loginscriptforindex.js"></script>
     <style>
         /* Modern Design System */
         :root {
@@ -971,7 +972,7 @@
                             <a href="#">👤 Account <i class="fas fa-chevron-down"></i></a>
                             <ul class="dropdown-content">
                                 <li><a href="contact.html">📞 Contact Us</a></li>
-                                <li><a href="#">💻 Login</a></li>
+                                <div id="authButton"></div>
                             </ul>
                         </li>
                         <li><a href="#" class="btn btn-primary enroll-btn">⌛ Enroll Now</a></li>
@@ -1323,6 +1324,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script>
+		document.addEventListener('DOMContentLoaded', function() {
+        updateAuthButton();
+    });
         // Initialize AOS (Animate On Scroll)
         AOS.init({
             duration: 800,
@@ -1518,4 +1522,5 @@
         });
     </script>
 </body>
+
 </html>
