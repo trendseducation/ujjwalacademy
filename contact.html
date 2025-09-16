@@ -11,6 +11,7 @@
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+	<script src="loginscriptforindex.js"></script>
     <style>
         /* Modern Design System */
         :root {
@@ -996,7 +997,7 @@
                     <a href="#">👤 Account <i class="fas fa-chevron-down"></i></a>
                     <div class="mobile-dropdown-content">
                         <a href="contact.html">📞 Contact Us</a>
-                        <a href="#">💻 Login</a>
+                        <div id="authButton"></div>
                     </div>
                 </li>
             </ul>
@@ -1231,6 +1232,9 @@
     </footer>
     
     <script>
+		document.addEventListener('DOMContentLoaded', function() {
+        updateAuthButton();
+    });
     // Mobile Menu Toggle
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const mobileMenu = document.querySelector('.mobile-menu');
@@ -1382,3 +1386,4 @@
 </script>
 </body>
 </html>
+
