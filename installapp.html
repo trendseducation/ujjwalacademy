@@ -697,7 +697,7 @@
           <div class="app-stats">
             <div class="stat"><i class="fas fa-download"></i><span id="download-count">0 Downloads</span></div>
             <div class="stat"><i class="fas fa-star"></i><span id="rating-value">0 ★ (0 reviews)</span></div>
-            <div class="stat"><i class="fas fa-database"></i><span>45 MB</span></div>
+            <div class="stat"><i class="fas fa-database"></i><span>5.7 MB</span></div>
             <div class="stat"><i class="fas fa-tags"></i><span>Education</span></div>
           </div>
         </div>
@@ -705,7 +705,7 @@
 
       <div class="app-actions">
         <button class="install-btn" id="install-button"><i class="fas fa-download"></i> Install App</button>
-        <a href="#" class="view-details"><i class="fas fa-share-alt"></i> Share this app</a>
+        <a href="#" class="view-details" id="shareApp"><i class="fas fa-share-alt"></i> Share this app</a>
       </div>
     </div>
 
@@ -807,7 +807,7 @@
                 <h3>Download the App</h3>
                 <p>Click on the "Install App" button at the top of this page. The download will begin automatically.</p>
                 <div class="step-image">
-                  <img src="https://placehold.co/300x200/e6e9ff/4e54c8?text=Click+Install+Button" alt="Install button screenshot">
+                  <img src="https://res.cloudinary.com/dmqrfeupo/image/upload/v1758351312/App/Image/1_s6tzct.png" alt="Install button screenshot">
                 </div>
               </div>
             </div>
@@ -818,7 +818,7 @@
                 <h3>Open the Downloaded File</h3>
                 <p>Once downloaded, open the file from your notification panel or downloads folder.</p>
                 <div class="step-image">
-                  <img src="https://placehold.co/300x200/e6e9ff/4e54c8?text=Open+Downloaded+File" alt="Open downloaded file screenshot">
+                  <img src="https://res.cloudinary.com/dmqrfeupo/image/upload/v1758351361/App/Image/2_gke3h1.png" alt="Open downloaded file screenshot">
                 </div>
               </div>
             </div>
@@ -829,7 +829,7 @@
                 <h3>Allow Installation from Unknown Sources</h3>
                 <p>If prompted, allow installation from unknown sources in your security settings. Don't worry, our app is completely safe.</p>
                 <div class="step-image">
-                  <img src="https://placehold.co/300x200/e6e9ff/4e54c8?text=Allow+Unknown+Sources" alt="Allow unknown sources screenshot">
+                  <img src="https://res.cloudinary.com/dmqrfeupo/image/upload/v1758351369/App/Image/3_fv1zfc.png" alt="Allow unknown sources screenshot">
                 </div>
               </div>
             </div>
@@ -840,7 +840,7 @@
                 <h3>Install the App</h3>
                 <p>Tap on "Install" and wait for the installation process to complete.</p>
                 <div class="step-image">
-                  <img src="https://placehold.co/300x200/e6e9ff/4e54c8?text=Tap+Install" alt="Install app screenshot">
+                  <img src="https://res.cloudinary.com/dmqrfeupo/image/upload/v1758352488/App/Image/Click_above_to_Download_App_1_ffbtx0.png" alt="Install app screenshot">
                 </div>
               </div>
             </div>
@@ -851,7 +851,7 @@
                 <h3>Open and Enjoy Learning</h3>
                 <p>Once installed, tap "Open" to launch the app and start accessing all the study materials.</p>
                 <div class="step-image">
-                  <img src="https://placehold.co/300x200/e6e9ff/4e54c8?text=Open+App" alt="Open app screenshot">
+                  <img src="https://res.cloudinary.com/dmqrfeupo/image/upload/v1758351394/App/Image/5_h7f9ku.png" alt="Open app screenshot">
                 </div>
               </div>
             </div>
@@ -968,7 +968,7 @@
       }));
 	  
 	  // Replace this with your actual app store link
-      const appInstallLink = "https://play.google.com/store/apps/details?id=com.example.myapp";
+      const appInstallLink = "http://trendseducation.github.io/ujjwalacademy/Document/Ujjwal_Academy.apk";
       document.getElementById("install-button").addEventListener("click", () => {
         window.open(appInstallLink, "_blank"); // opens in new tab
       });
@@ -1164,6 +1164,31 @@
       }
       function escapeHtml(s) { if (s===null||s===undefined) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;'); }
     });
+	
+	// Share the App
+	
+	  document.getElementById("shareApp").addEventListener("click", function(e) {
+    e.preventDefault();
+
+    const shareMessage = `Download this app which includes Notes, Digest, Question Paper, Important Question and more.\n\nhttps://trendseducation.github.io/ujjwalacademy/installapp.html`;
+
+    if (navigator.share) {
+      // ✅ Native mobile share option
+      navigator.share({
+        title: "Ujjwal Academy App",
+        text: shareMessage,
+        url: "https://trendseducation.github.io/ujjwalacademy/installapp.html"
+      }).catch((err) => {
+        console.log("Sharing failed:", err);
+      });
+    } else {
+      // ❌ Fallback for desktop browsers
+      window.open(
+        "https://wa.me/?text=" + encodeURIComponent(shareMessage),
+        "_blank"
+      );
+    }
+  });
   </script>
 
 </body>
