@@ -67,6 +67,10 @@ function clearAuthentication() {
     localStorage.removeItem('loginTime');
     localStorage.removeItem('userRole');
     localStorage.removeItem('userData');
+    
+    // Also clear session storage for redirect
+    sessionStorage.removeItem('redirectAfterLogin');
+    
     console.log("Authentication cleared");
 }
 
@@ -111,4 +115,3 @@ if (!window.location.pathname.endsWith('https://trendseducation.github.io/ujjwal
         checkAuthentication();
     });
 }
-
