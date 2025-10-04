@@ -83,7 +83,7 @@ function redirectToOriginalPage() {
         window.location.href = redirectUrl;
     } else {
         // Fallback to a default page if no redirect URL is found
-       // window.location.href = 'dashboard.html';
+        window.location.href = 'https://trendseducation.github.io/ujjwalacademy/Study%20Material/studymaterial.html';
     }
 }
 
@@ -115,3 +115,4 @@ if (!window.location.pathname.endsWith('https://trendseducation.github.io/ujjwal
         checkAuthentication();
     });
 }
+
