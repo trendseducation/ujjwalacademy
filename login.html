@@ -1116,6 +1116,11 @@
             <input type="tel" id="mobileNumber" class="signup-input-field" placeholder="Enter Mobile Number (10 digits)" pattern="[6-9]{1}[0-9]{9}" required onblur="checkMobileNumber(this.value)">
             <div class="validation-message" id="mobileValidationMsg"></div>
         </div>
+		
+		<div class="signup-input-group">
+            <i class="fas fa-user signup-input-icon"></i>
+            <input type="text" id="colgname" class="signup-input-field" placeholder="Enter College Name" required>
+        </div>
         
         <div class="signup-input-group">
             <i class="fas fa-envelope signup-input-icon"></i>
@@ -1200,7 +1205,7 @@
 <script>
 // Minified configuration object
 const config = {
-    scriptUrl: "https://script.google.com/macros/s/AKfycbxr3er44oPLQqOQF7FiD8PIrC3QjnMx8r2x6p3xiKuoWdeKE-kp9TY-4LPwat5M5MiHyw/exec",
+    scriptUrl: "https://script.google.com/macros/s/AKfycbzT2UX4dt2pFFL1swzUSdyrsAbS_0wow14IKtZru5oTM7OURocf-ym4N_DYr2cWna0BkA/exec",
     studentSpreadsheetId: "1S3oxNkGBQpgGd3nV7s0seew4XJMukbxqMLkfhAR5k0w",
     studentSheetName: "Study Material login details",
     spreadsheetId: "1S3oxNkGBQpgGd3nV7s0seew4XJMukbxqMLkfhAR5k0w",
@@ -1719,6 +1724,7 @@ function setupSignupForm() {
         // Get form values
         const fullName = document.getElementById('fullName')?.value.trim();
         const mobileNumber = document.getElementById('mobileNumber')?.value.trim();
+		const colgname = document.getElementById('colgname')?.value.trim();
         const emailId = document.getElementById('emailId')?.value.trim();
         const stream = document.getElementById('stream')?.value;
         const teachingSubject = document.getElementById('teachingSubject')?.value.trim();
@@ -1775,6 +1781,7 @@ function setupSignupForm() {
             spreadsheetId: config.studentSpreadsheetId,
             sheetName: config.studentSheetName,
             fullName: fullName,
+			colgname: colgname,
             mobileNumber: mobileNumber,
             emailId: emailId,
             stream: stream,
@@ -2078,5 +2085,4 @@ window.addEventListener('resize', () => {
 </script>
 </body>
 </html>
-
 
