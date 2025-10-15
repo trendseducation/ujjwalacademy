@@ -1,0 +1,3373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Question Paper Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<script src="https://trendseducation.github.io/ujjwalacademy/Study%20Material/loginscript.js"></script>
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --primary-light: #e0e7ff;
+            --secondary-color: #3a0ca3;
+            --success-color: #2ecc71;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --light-color: #f8f9fa;
+            --dark-color: #2b2d42;
+            --gray-color: #6c757d;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            color: var(--dark-color);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            background: #fff;
+            margin: 0 auto;
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            border-radius: var(--border-radius);
+            position: relative;
+        }
+
+        h1, h2, h3 {
+            color: var(--dark-color);
+            font-weight: 600;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-color);
+            font-size: 0.95rem;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: var(--transition);
+            background-color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 24px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: var(--transition);
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .btn i {
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+        }
+
+        .btn-success:hover {
+            background-color: #27ae60;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+
+        .btn-warning {
+            background-color: var(--warning-color);
+        }
+
+        .btn-warning:hover {
+            background-color: #e67e22;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-light);
+        }
+
+        .btn-hide-show {
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+
+        .btn-hide {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        .btn-hide:hover {
+            background-color: #e67e22;
+            transform: translateY(-1px);
+        }
+
+        .btn-show {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .btn-show:hover {
+            background-color: #27ae60;
+            transform: translateY(-1px);
+        }
+
+        /* Section Styles */
+        .section {
+            background: #fff;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: var(--box-shadow);
+            border-left: 4px solid var(--primary-color);
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dark-color);
+            margin: 0;
+        }
+
+        .section-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .section-edit-btn, .section-delete-btn, .section-type-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--primary-color);
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .section-edit-btn:hover, .section-type-btn:hover {
+            background-color: var(--primary-light);
+        }
+
+        .section-delete-btn {
+            color: var(--danger-color);
+        }
+
+        .section-delete-btn:hover {
+            background-color: #ffe0e0;
+            color: #c0392b;
+        }
+        
+        /* Add Question Block Button */
+        .add-question-block-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: var(--transition);
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .add-question-block-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        /* Styles for content displayed in the section summary */
+        .section-content-summary {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #eee;
+            color: var(--gray-color);
+        }
+
+        .question-blocks-summary-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .summary-block-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 12px 15px;
+            font-style: normal;
+            color: #333;
+            font-size: 15px;
+            transition: var(--transition);
+        }
+
+        .summary-block-item:hover {
+            background-color: #f1f1f1;
+            border-color: #d0d0d0;
+        }
+
+        .summary-block-item span {
+            flex-grow: 1;
+        }
+
+        .summary-block-item .edit-content-btn, .delete-block-btn {
+            padding: 6px 12px;
+            font-size: 13px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-left: 8px;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .summary-block-item .edit-content-btn {
+            background-color: var(--gray-color);
+            color: white;
+        }
+
+        .summary-block-item .edit-content-btn:hover {
+            background-color: #5a6268;
+        }
+
+        .summary-block-item .delete-block-btn {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .summary-block-item .delete-block-btn:hover {
+            background-color: #c0392b;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            overflow-y: auto;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 30px auto;
+            padding: 30px;
+            width: 100%;
+            max-width: 800px;
+            border-radius: var(--border-radius);
+           /* box-shadow: 0 10px 30px rgba(0,0,0,0.3);  */
+            position: relative;
+            transform: translateY(-20px);
+            animation: slideIn 0.3s ease-out forwards;
+            display: flex;
+            flex-direction: column;
+            max-height: 90vh;
+        }
+        
+        #questionContentModal .modal-content {
+            max-width: 700px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .modal-header .logo {
+            max-height: 40px;
+            width: auto;
+            margin-right: 15px;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--dark-color);
+            margin: 0;
+            text-align: center;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--gray-color);
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .modal-close:hover {
+            color: var(--danger-color);
+            background-color: #f8f9fa;
+        }
+
+        /* Question Content Modal specific styles */
+        #questionContentModal .modal-body-content {
+            padding-top: 10px;
+            max-height: 70vh;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        #questionContentModal .form-row {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        #questionContentModal .form-row .form-group {
+            margin-bottom: 0;
+            flex: 1;
+            min-width: unset;
+        }
+
+        #questionContentModal .question-marks-input {
+            width: 100%;
+            text-align: left;
+        }
+
+        #questionContentModal .question-block {
+            background: #fdfdfd;
+            border: 1px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            position: relative;
+            transition: var(--transition);
+        }
+
+        #questionContentModal .question-block:hover {
+            border-color: var(--primary-color);
+        }
+
+        #questionContentModal .question-block-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            cursor: grab;
+        }
+        
+        #questionContentModal .question-block-handle {
+            font-size: 18px;
+            color: #777;
+            cursor: grab;
+            margin-right: 10px;
+        }
+
+        #questionContentModal .question-block-header h4 {
+            margin: 0;
+            font-weight: 600;
+            color: var(--dark-color);
+            flex-grow: 1;
+        }
+
+        #questionContentModal .question-block-header .remove-question-btn {
+            background: none;
+            border: none;
+            color: var(--danger-color);
+            font-size: 20px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        #questionContentModal .question-block-header .remove-question-btn:hover {
+            background-color: #ffe0e0;
+        }
+
+        #questionContentModal .question-block .form-group {
+            margin-bottom: 15px;
+        }
+
+        #questionContentModal .question-block textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        #questionContentModal .question-block label.bold {
+            font-weight: bold;
+            font-size: 17px;
+        }
+
+        #questionContentModal .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        #questionContentModal .option-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #questionContentModal .option-item input {
+            flex-grow: 1;
+            padding: 10px;
+            font-size: 15px;
+        }
+
+        #questionContentModal .add-question-btn, #questionContentModal .add-option-btn,
+        #questionContentModal .add-match-pair-btn, #questionContentModal .add-match-set-btn,
+        #questionContentModal .add-attachment-btn {
+            padding: 10px 15px;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        /* Match Column Specific Styles in Modal */
+        #questionContentModal .match-column-headers {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        #questionContentModal .match-column-headers .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        #questionContentModal .match-column-headers label {
+            font-weight: bold;
+            text-align: center;
+            width: 100%;
+        }
+
+        #questionContentModal .match-column-headers input {
+            text-align: center;
+        }
+
+        #questionContentModal .match-pair-item {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        #questionContentModal .match-pair-item input {
+            flex: 1;
+            width: auto;
+        }
+
+        #questionContentModal .match-pair-item .remove-pair-btn {
+            background: none;
+            border: none;
+            color: var(--danger-color);
+            font-size: 18px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        #questionContentModal .match-pair-item .remove-pair-btn:hover {
+            background-color: #ffe0e0;
+        }
+
+        #questionContentModal .match-pair-item span {
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        /* Attachment Specific Styles in Modal */
+        #questionContentModal .attachment-item {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border: 1px dashed #ccc;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: var(--border-radius);
+            background-color: #f9f9f9;
+        }
+
+        #questionContentModal .attachment-item .attachment-preview-container {
+            width: 100%;
+            height: 200px;
+            border: 1px solid #eee;
+            margin-top: 10px;
+            background-color: #f1f1f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            border-radius: 8px;
+        }
+
+        #questionContentModal .attachment-item .attachment-preview-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        #questionContentModal .attachment-item canvas {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        #questionContentModal .attachment-item .attachment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+
+        #questionContentModal .attachment-item .remove-attachment-btn {
+            align-self: flex-end;
+            background: none;
+            border: none;
+            color: var(--danger-color);
+            font-size: 20px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        #questionContentModal .attachment-item .remove-attachment-btn:hover {
+            background-color: #ffe0e0;
+        }
+
+        #questionContentModal .attachment-item .image-edit-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+            justify-content: center;
+        }
+
+        #questionContentModal .attachment-item .image-edit-controls button {
+            padding: 8px 12px;
+            font-size: 13px;
+            background-color: var(--gray-color);
+            color: white;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        #questionContentModal .attachment-item .image-edit-controls button:hover {
+            background-color: #5a6268;
+        }
+
+        /* Logo Upload Specific Styles */
+        .logo-upload-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-upload-controls input[type="file"] {
+            flex-grow: 1;
+        }
+
+        .logo-upload-controls .btn-remove-logo {
+            padding: 10px 15px;
+            font-size: 14px;
+            background-color: var(--danger-color);
+            color: white;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+        }
+
+        .logo-upload-controls .btn-remove-logo:hover {
+            background-color: #c0392b;
+        }
+
+        .logo-preview {
+            max-width: 120px;
+            max-height: 120px;
+            margin-top: 10px;
+            border: 1px dashed #ccc;
+            padding: 5px;
+            display: none;
+            border-radius: 4px;
+        }
+
+        /* Paper Preview specific styles within modal */
+        #previewModal .modal-scrollable-body {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 15px;
+            margin-bottom: 20px;
+        }
+
+        .paper-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #ccc;
+            text-align: center;
+        }
+
+        .paper-info-item {
+            display: inline-flex;
+            align-items: baseline;
+            white-space: nowrap;
+        }
+
+        .paper-info-label {
+            font-size: 16px;
+            color: var(--dark-color);
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        .paper-info-value {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .paper-sections {
+            margin-top: 10px;
+        }
+
+        .paper-section {
+            margin-bottom: 25px;
+        }
+
+        .paper-section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .hide-section-title-for-print {
+            display: none !important;
+        }
+
+        /* Preview styles for questions */
+        .preview-question-title-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .preview-question-title-text {
+            font-weight: bold;
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .preview-question-marks {
+            font-size: 14px;
+            color: #555;
+            font-weight: normal;
+        }
+
+        .preview-question-text {
+            margin-bottom: 0px;
+            font-size: 15px;
+        }
+
+        .preview-options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 10px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 20px;
+        }
+
+        .preview-options-list.numbered {
+            list-style: decimal;
+            padding-left: 25px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .preview-options-list.numbered li {
+            margin-bottom: 5px;
+        }
+
+        .preview-options-list li {
+            font-size: 15px;
+        }
+
+        /* Preview styles for Match the Column */
+        .preview-match-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .preview-match-table th, .preview-match-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            font-size: 15px;
+        }
+
+        .preview-match-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .preview-match-table td:first-child {
+            width: 5%;
+            text-align: right;
+        }
+
+        .preview-match-table td:nth-child(2) {
+            width: 45%;
+        }
+
+        .preview-match-table td:nth-child(3) {
+            width: 5%;
+            text-align: right;
+        }
+
+        .preview-match-table td:nth-child(4) {
+            width: 45%;
+        }
+
+        /* Preview Styles for Attachments */
+        .preview-attachment-item {
+            margin-bottom: 15px;
+            text-align: center;
+            padding: 5px;
+            border: 1px dashed #eee;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .preview-attachment-item.float-left {
+            float: left;
+            margin-right: 15px;
+            margin-left: 0;
+        }
+
+        .preview-attachment-item.float-right {
+            float: right;
+            margin-left: 15px;
+            margin-right: 0;
+        }
+
+        .preview-attachment-item img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+            border: 1px solid #ddd;
+        }
+
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            flex-shrink: 0;
+        }
+
+        /* Custom Alert/Confirm Modal */
+        #customAlertModal .modal-content, #customConfirmModal .modal-content {
+            max-width: 450px;
+            padding: 25px;
+            text-align: center;
+            max-height: unset;
+        }
+
+        #customAlertModal .modal-title, #customConfirmModal .modal-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        #customAlertModal .modal-body, #customConfirmModal .modal-body {
+            font-size: 16px;
+            margin-bottom: 25px;
+            color: #555;
+        }
+
+        #customConfirmModal .modal-actions {
+            justify-content: space-around;
+            margin-top: 0;
+        }
+
+        #customConfirmModal .modal-actions .btn {
+            padding: 10px 20px;
+        }
+
+        /* Question Type Selection Modal */
+        #questionTypeModal .modal-content {
+            max-width: 500px;
+            max-height: unset;
+        }
+
+        #questionTypeModal .modal-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 10px 0;
+        }
+
+        #questionTypeModal .modal-option-item {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            background-color: var(--light-color);
+            font-size: 16px;
+            color: var(--dark-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #questionTypeModal .modal-option-item i {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        #questionTypeModal .modal-option-item:hover {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        #questionTypeModal .modal-option-item:hover i {
+            color: white;
+        }
+
+        #questionTypeModal .modal-option-item.selected {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            box-shadow: inset 0 0 0 2px var(--secondary-color);
+        }
+
+        /* Edit Section Name Modal */
+        #editSectionNameModal .modal-content {
+            max-width: 400px;
+            max-height: unset;
+        }
+
+        #editSectionNameModal .form-group {
+            margin-bottom: 0;
+        }
+
+        #editSectionNameModal input[type="text"] {
+            margin-bottom: 20px;
+        }
+
+        /* Spinner Styles */
+        .spinner-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+            animation: fadeIn 0.2s;
+        }
+
+        .spinner {
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid var(--primary-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideOut {
+            from { transform: translateY(0); opacity: 1; }
+            to { transform: translateY(-20px); opacity: 0; }
+        }
+
+        /* Drag and drop indicators */
+        .section.drag-over {
+            border: 2px dashed var(--primary-color);
+            background: rgba(52, 152, 219, 0.1);
+        }
+
+        .question-block.drag-over {
+            border: 2px dashed var(--success-color);
+            background: rgba(46, 204, 113, 0.1);
+        }
+
+        .section-placeholder, .question-placeholder {
+            height: 60px;
+            border: 2px dashed #ccc;
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+            background: rgba(236, 240, 241, 0.5);
+        }
+
+        .question-placeholder {
+            height: 100px;
+        }
+
+        /* Column-wise display for specific input fields */
+        .info-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        /* Print-specific styles */
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+                font-size: 12pt;
+                color: #000;
+            }
+
+            .container, .modal:not(#previewModal), .modal-actions, .modal-close, 
+            .form-group label, .form-group input:not(#modalLogo), .form-group textarea, 
+            .form-group select, .btn, #sections-container, .section-controls, 
+            .spinner-overlay, .question-type-container, .question-type-content .btn,
+            .question-block-handle, .remove-question-btn,
+            #questionPaperHeader, #questionMain, .add-question-block-btn,
+            .question-blocks-summary-list .edit-content-btn, .question-blocks-summary-list .delete-block-btn,
+            .logo-upload-controls .btn-remove-logo {
+                display: none !important;
+            }
+
+            #previewModal .modal-content {
+                display: block !important;
+                width: 210mm;
+                min-height: 297mm;
+                margin: 0 auto;
+                padding: 0 20mm;
+                padding-top: 5mm;
+                box-shadow: none;
+                border-radius: 0;
+                overflow: visible !important;
+                transform: none !important;
+                animation: none !important;
+                max-height: unset !important;
+                flex-direction: column;
+            }
+
+            #previewModal .modal-scrollable-body {
+                overflow-y: visible !important;
+                flex-grow: 1;
+                padding-right: 0;
+                margin-bottom: 0;
+            }
+
+            .modal-header {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 2mm;
+                padding-bottom: 0;
+                border-bottom: none;
+                min-height: auto;
+                flex-shrink: 0;
+            }
+
+            .modal-header .logo {
+                max-height: 35px;
+                width: auto;
+                margin-right: 15px;
+                display: inline-block !important;
+            }
+
+            .modal-title {
+                font-size: 24pt;
+                text-align: center;
+                margin: 0;
+                line-height: 1;
+            }
+
+            .paper-info {
+                display: flex;
+                justify-content: space-around;
+                flex-wrap: nowrap;
+                margin-top: 5mm;
+                margin-bottom: 15px;
+                padding-bottom: 10px;
+                border-bottom: 1px solid #ccc;
+                font-size: 11pt;
+                line-height: 1.5;
+            }
+
+            .paper-info-item {
+                display: inline;
+                white-space: nowrap;
+                margin: 0;
+                text-align: center;
+            }
+            
+            .paper-info-label {
+                font-size: 11pt;
+                font-weight: bold;
+                margin-right: 3px;
+            }
+
+            .paper-info-value {
+                font-size: 11pt;
+                font-weight: normal;
+            }
+            
+            .paper-info-item:empty {
+                display: none;
+            }
+
+            #modalInstructions {
+                margin-top: 15px;
+                margin-bottom: 20px;
+                font-size: 10pt;
+                text-align: justify;
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            #modalInstructions .paper-info-label {
+                display: block;
+                font-size: 11pt;
+                font-weight: bold;
+                margin-bottom: 5px;
+                text-align: left;
+            }
+
+            .paper-sections {
+                margin-top: 15px;
+            }
+
+            .paper-section-title {
+                font-size: 13pt;
+                font-weight: 600;
+                color: #34495e;
+                margin-bottom: 8px;
+                padding-bottom: 3px;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .hide-section-title-for-print {
+                display: none !important;
+            }
+            
+            .paper-section .question-type-content {
+                display: block !important;
+                margin-top: 10px;
+                border-top: none;
+                padding-top: 0;
+            }
+
+            .paper-section .question-block {
+                display: block !important;
+                background: none;
+                border: none;
+                padding: 0;
+                margin-bottom: 10px;
+                box-shadow: none;
+            }
+
+            .paper-section .question-block-header {
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            .paper-section .question-block-header h4 {
+                font-size: 12pt;
+                font-weight: bold;
+                margin-bottom: 5px;
+            }
+
+            .paper-section .preview-question-text {
+                font-size: 12pt;
+                margin-bottom: 0;
+            }
+
+            .paper-section .preview-options-list {
+                list-style: none;
+                padding: 0;
+                margin: 0 0 10px 0;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0 20mm;
+                text-indent: 10mm;
+            }
+
+            .paper-section .preview-options-list li {
+                font-size: 12pt;
+                margin-bottom: 0;
+            }
+
+            .paper-section .preview-options-list.numbered {
+                list-style: decimal;
+                padding-left: 10mm;
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            .paper-section .preview-options-list.numbered li {
+                margin-bottom: 5px;
+            }
+
+            .preview-question-title-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+                font-weight: bold;
+                margin-top: 15px;
+                margin-bottom: 5px;
+                font-size: 16px;
+            }
+
+            .preview-question-title-text {
+                font-weight: bold;
+                font-size: 16px;
+                margin: 0;
+                flex-grow: 1;
+            }
+
+            .preview-question-marks {
+                font-size: 14px;
+                color: #555;
+                font-weight: normal;
+                white-space: nowrap;
+            }
+
+            .preview-attachment-item {
+                border: none;
+                padding: 0;
+            }
+
+            .preview-attachment-item img {
+                border: none;
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 10px auto;
+                padding: 10px;
+            }
+
+            .paper-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .paper-info-item {
+                white-space: normal;
+                justify-content: center;
+            }
+
+            .info-inputs {
+                grid-template-columns: 1fr;
+            }
+
+            #questionContentModal .form-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            #questionContentModal .form-row .form-group {
+                min-width: unset;
+                width: 100%;
+            }
+
+            #questionContentModal .match-column-headers {
+                flex-direction: column;
+            }
+
+            #questionContentModal .attachment-item .attachment-options {
+                grid-template-columns: 1fr;
+            }
+
+            .logo-upload-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .section-controls {
+                width: 100%;
+                justify-content: flex-end;
+            }
+
+            .modal-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .modal-actions .btn {
+                width: 100%;
+            }
+
+            #questionTypeModal .modal-option-item {
+                padding: 12px;
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            h2 {
+                font-size: 1.3rem;
+            }
+
+            input, select, textarea, .btn {
+                padding: 12px;
+            }
+
+            .section {
+                padding: 15px;
+            }
+
+            .section-title {
+                font-size: 1.1rem;
+            }
+
+            .section-controls {
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+
+            .section-edit-btn, .section-delete-btn {
+                padding: 6px 10px;
+                font-size: 13px;
+            }
+
+            .summary-block-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .summary-block-item .edit-content-btn, .delete-block-btn {
+                align-self: flex-end;
+                margin-left: 0;
+            }
+
+            #questionContentModal .question-block {
+                padding: 12px;
+            }
+
+            #questionContentModal .match-pair-item {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            #questionContentModal .match-pair-item input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1><i class="fas fa-file-alt"></i> Question Paper Generator</h1>
+
+    <!-- Question Paper Header Section -->
+    <div id="questionPaperHeader">
+        <h2><i class="fas fa-heading"></i> Paper Header</h2>
+        <div class="form-group">
+            <label for="logoUpload"><i class="fas fa-image"></i> Upload Logo (PNG/JPG):</label>
+            <div class="logo-upload-controls">
+                <input type="file" id="logoUpload" accept="image/png, image/jpeg" onchange="handleLogoUpload(event)">
+                <button type="button" id="removeLogoBtn" class="btn-remove-logo" style="display:none;" onclick="removeLogo()">
+                    <i class="fas fa-trash"></i> Remove Logo
+                </button>
+            </div>
+            <img id="logoPreview" class="logo-preview" src="" alt="Logo Preview" style="display:none;">
+        </div>
+
+        <div class="form-group">
+            <label for="title"><i class="fas fa-heading"></i> Title:</label>
+            <input type="text" id="title" placeholder="e.g., Unit Test - 1">
+        </div>
+
+        <div class="info-inputs">
+            <div class="form-group">
+                <label for="std"><i class="fas fa-users"></i> Class/Grade:</label>
+                <input type="text" id="std" placeholder="e.g., 10th A">
+            </div>
+
+            <div class="form-group">
+                <label for="test"><i class="fas fa-file-signature"></i> Test Name:</label>
+                <input type="text" id="test" placeholder="e.g., Periodic Test">
+            </div>
+
+            <div class="form-group">
+                <label for="subject"><i class="fas fa-book"></i> Subject:</label>
+                <input type="text" id="subject" placeholder="e.g., Mathematics">
+            </div>
+
+            <div class="form-group">
+                <label for="marks"><i class="fas fa-star"></i> Total Marks:</label>
+                <input type="text" id="marks" placeholder="e.g., 40">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="instructions"><i class="fas fa-info-circle"></i> General Instructions:</label>
+            <textarea id="instructions" rows="3" placeholder="Enter any general instructions for the paper"></textarea>
+        </div>
+
+        <button class="btn btn-success btn-block" onclick="showQuestionMain()" style="margin-top: 30px;">
+            <i class="fas fa-arrow-right"></i> Proceed Next
+        </button>
+    </div>
+
+    <!-- Question Main Section (Initially Hidden) -->
+    <div id="questionMain" style="display: none;">
+        <h2><i class="fas fa-question-circle"></i> Paper Content</h2>
+        <button class="btn btn-outline" onclick="showQuestionHeader()" style="margin-bottom: 20px;">
+            <i class="fas fa-arrow-left"></i> Back to Header
+        </button>
+
+        <!-- Sections Container -->
+        <div id="sections-container">
+            <!-- Default Section A -->
+            <div class="section" id="section-1" draggable="true" data-hide-title-for-print="false">
+                <div class="section-header">
+                    <h3 class="section-title">Section A</h3>
+                    <div class="section-controls">
+                        <button class="btn-hide-show btn-hide" onclick="toggleSectionVisibility('section-1')">
+                            <i class="fas fa-eye-slash"></i> Hide
+                        </button>
+                        <button class="section-edit-btn" onclick="openEditSectionNameModal('section-1')">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="section-delete-btn" onclick="deleteSection('section-1')">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="question-type-content section-content-summary" id="section-1-content">
+                    <span id="section-1-content-summary-text">No content added for this section.</span>
+                    <button class="btn add-question-block-btn" onclick="openQuestionTypeModal('section-1')">
+                        <i class="fas fa-plus"></i> Add Question Block
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn" onclick="addNewSection()">
+            <i class="fas fa-plus"></i> Add Section
+        </button>
+        <button class="btn btn-success btn-block" onclick="generatePaper()" style="margin-top: 30px;">
+            <i class="fas fa-file-pdf"></i> Generate Question Paper
+        </button>
+    </div>
+</div>
+
+<!-- Preview Modal -->
+<div id="previewModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <img id="modalLogo" src="" alt="Logo" class="logo" style="display: none;">
+            <h2 class="modal-title" id="modalTitle">Question Paper Title</h2>
+            <button class="modal-close" onclick="closeModal('previewModal')">&times;</button>
+        </div>
+        
+        <div class="modal-scrollable-body">
+            <div class="paper-info">
+                <div class="paper-info-item" id="printSTD">
+                    <span class="paper-info-label">Class:</span>
+                    <span class="paper-info-value" id="modalSTD"></span>
+                </div>
+                <div class="paper-info-item" id="printTest">
+                    <span class="paper-info-label">Test Name:</span>
+                    <span class="paper-info-value" id="modalTest"></span>
+                </div>
+                <div class="paper-info-item" id="printSubject">
+                    <span class="paper-info-label">Subject Name:</span>
+                    <span class="paper-info-value" id="modalSubject"></span>
+                </div>
+                <div class="paper-info-item" id="printMarks">
+                    <span class="paper-info-label">Total Marks:</span>
+                    <span class="paper-info-value" id="modalMarks"></span>
+                </div>
+            </div>
+            
+            <div id="modalInstructions" class="paper-info-item"></div>
+            
+            <div class="paper-sections" id="modalSections">
+                <!-- Sections will be added here dynamically -->
+            </div>
+        </div>
+        
+        <div class="modal-actions">
+            <button class="btn" onclick="printQuestionPaper()">
+                <i class="fas fa-print"></i> Print Paper
+            </button>
+            <button class="btn btn-outline" onclick="closeModal('previewModal')">
+                <i class="fas fa-times"></i> Close Preview
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Custom Alert Modal -->
+<div id="customAlertModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title" id="customAlertTitle">Alert</h2>
+            <button class="modal-close" onclick="closeModal('customAlertModal')">&times;</button>
+        </div>
+        <div class="modal-body" id="customAlertBody"></div>
+        <div class="modal-actions">
+            <button class="btn" onclick="closeModal('customAlertModal')">
+                <i class="fas fa-check"></i> OK
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Custom Confirm Modal -->
+<div id="customConfirmModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title" id="customConfirmTitle">Confirm</h2>
+            <button class="modal-close" onclick="confirmCallback(false); closeModal('customConfirmModal');">&times;</button>
+        </div>
+        <div class="modal-body" id="customConfirmBody"></div>
+        <div class="modal-actions">
+            <button class="btn btn-danger" onclick="confirmCallback(false); closeModal('customConfirmModal');">
+                <i class="fas fa-times"></i> Cancel
+            </button>
+            <button class="btn btn-success" onclick="confirmCallback(true); closeModal('customConfirmModal');">
+                <i class="fas fa-check"></i> Confirm
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Question Type Selection Modal (for adding new blocks) -->
+<div id="questionTypeModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Select Question Type to Add</h2>
+            <button class="modal-close" onclick="closeModal('questionTypeModal')">&times;</button>
+        </div>
+        <div class="modal-options" id="questionTypeOptions">
+            <!-- Options will be dynamically loaded here -->
+        </div>
+    </div>
+</div>
+
+<!-- Edit Section Name Modal -->
+<div id="editSectionNameModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Edit Section Name</h2>
+            <button class="modal-close" onclick="closeModal('editSectionNameModal')">&times;</button>
+        </div>
+        <div class="form-group">
+            <label for="editSectionNameInput">New Section Name:</label>
+            <input type="text" id="editSectionNameInput" placeholder="Enter new section name">
+        </div>
+        <div class="modal-actions">
+            <button class="btn btn-success" onclick="saveSectionName()">
+                <i class="fas fa-save"></i> Save Changes
+            </button>
+            <button class="btn btn-outline" onclick="closeModal('editSectionNameModal')">
+                <i class="fas fa-times"></i> Cancel
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- New Modal for Question Content -->
+<div id="questionContentModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title" id="questionContentModalTitle">Add/Edit Questions</h2>
+            <button class="modal-close" onclick="closeModal('questionContentModal'); cancelQuestionContentEdit();">&times;</button>
+        </div>
+        <div class="modal-body-content" id="questionContentModalBody">
+            <!-- Question type specific content will be loaded here -->
+            <canvas id="imageEditCanvas" style="display:none; border:1px solid #ddd;"></canvas>
+        </div>
+        <div class="modal-actions">
+            <button class="btn btn-success" onclick="saveQuestionContent()">
+                <i class="fas fa-save"></i> Save Questions
+            </button>
+            <button class="btn btn-outline" onclick="closeModal('questionContentModal'); cancelQuestionContentEdit();">
+                <i class="fas fa-times"></i> Cancel
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Spinner Overlay -->
+<div id="spinnerOverlay" class="spinner-overlay">
+    <div class="spinner"></div>
+</div>
+
+<script>
+    // Global variables for modals
+    let confirmResolve;
+    let currentQuestionTypeSectionId = null;
+    let currentEditSectionId = null;
+    let currentEditingBlock = null;
+    let questionBlockCounter = 0;
+    const attachmentCanvasStates = {};
+    const sectionQuestionData = {};
+
+    // Handle logo upload and display
+    function handleLogoUpload(event) {
+        const logoInput = event.target;
+        const logoPreview = document.getElementById('logoPreview');
+        const removeLogoBtn = document.getElementById('removeLogoBtn');
+
+        if (logoInput.files && logoInput.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                logoPreview.src = e.target.result;
+                logoPreview.style.display = 'block';
+                removeLogoBtn.style.display = 'inline-block';
+            };
+            reader.readAsDataURL(logoInput.files[0]);
+        } else {
+            logoPreview.src = '';
+            logoPreview.style.display = 'none';
+            removeLogoBtn.style.display = 'none';
+        }
+    }
+
+    // Remove logo
+    function removeLogo() {
+        const logoInput = document.getElementById('logoUpload');
+        const logoPreview = document.getElementById('logoPreview');
+        const removeLogoBtn = document.getElementById('removeLogoBtn');
+
+        logoInput.value = '';
+        logoPreview.src = '';
+        logoPreview.style.display = 'none';
+        removeLogoBtn.style.display = 'none';
+        customAlert('Logo removed.', 'Info');
+    }
+
+    // Custom Alert Function
+    function customAlert(message, title = 'Alert') {
+        return new Promise(resolve => {
+            document.getElementById('customAlertTitle').textContent = title;
+            document.getElementById('customAlertBody').textContent = message;
+            document.getElementById('customAlertModal').style.display = 'flex';
+            const okButton = document.querySelector('#customAlertModal .btn');
+            okButton.onclick = () => {
+                closeModal('customAlertModal');
+                resolve();
+            };
+        });
+    }
+
+    // Custom Confirm Function
+    function customConfirm(message, title = 'Confirm') {
+        return new Promise(resolve => {
+            document.getElementById('customConfirmTitle').textContent = title;
+            document.getElementById('customConfirmBody').textContent = message;
+            document.getElementById('customConfirmModal').style.display = 'flex';
+            confirmResolve = resolve;
+        });
+    }
+
+    function confirmCallback(result) {
+        if (confirmResolve) {
+            confirmResolve(result);
+            confirmResolve = null;
+        }
+    }
+
+    // Show/Hide Spinner
+    function showSpinner() {
+        document.getElementById('spinnerOverlay').style.display = 'flex';
+    }
+
+    function hideSpinner() {
+        document.getElementById('spinnerOverlay').style.display = 'none';
+    }
+
+    // Close any modal
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+
+    // --- Page Navigation Functions ---
+    function showQuestionMain() {
+        const title = document.getElementById('title').value.trim();
+        const std = document.getElementById('std').value.trim();
+        const subject = document.getElementById('subject').value.trim();
+        const marks = document.getElementById('marks').value.trim();
+
+        if (!title || !std || !subject || !marks) {
+            customAlert('Please fill in all required fields (Title, Class/Grade, Subject, Total Marks) in the header before proceeding.', 'Missing Information');
+            return;
+        }
+
+        document.getElementById('questionPaperHeader').style.display = 'none';
+        document.getElementById('questionMain').style.display = 'block';
+    }
+
+    function showQuestionHeader() {
+        document.getElementById('questionMain').style.display = 'none';
+        document.getElementById('questionPaperHeader').style.display = 'block';
+    }
+
+    // Section counter
+    let sectionCounter = 1;
+
+    // Toggle section visibility (Hide/Show) for print only
+    function toggleSectionVisibility(sectionId) {
+        const section = document.getElementById(sectionId);
+        const hideShowButton = section.querySelector('.btn-hide-show');
+        
+        let isHiddenForPrint = section.dataset.hideTitleForPrint === 'true';
+
+        if (isHiddenForPrint) {
+            section.dataset.hideTitleForPrint = 'false';
+            hideShowButton.innerHTML = '<i class="fas fa-eye-slash"></i> Hide';
+            hideShowButton.classList.remove('btn-show');
+            hideShowButton.classList.add('btn-hide');
+        } else {
+            section.dataset.hideTitleForPrint = 'true';
+            hideShowButton.innerHTML = '<i class="fas fa-eye"></i> Show';
+            hideShowButton.classList.remove('btn-hide');
+            hideShowButton.classList.add('btn-show');
+        }
+    }
+
+    // Open Edit Section Name Modal
+    function openEditSectionNameModal(sectionId) {
+        currentEditSectionId = sectionId;
+        const sectionTitleElement = document.querySelector(`#${sectionId} .section-title`);
+        const editInput = document.getElementById('editSectionNameInput');
+        editInput.value = sectionTitleElement.textContent;
+        document.getElementById('editSectionNameModal').style.display = 'flex';
+        editInput.focus();
+    }
+
+    // Save Section Name from Modal
+    function saveSectionName() {
+        if (currentEditSectionId) {
+            const newName = document.getElementById('editSectionNameInput').value.trim();
+            if (newName) {
+                document.querySelector(`#${currentEditSectionId} .section-title`).textContent = newName;
+                customAlert('Section name updated successfully!', 'Success');
+                closeModal('editSectionNameModal');
+                currentEditSectionId = null;
+            } else {
+                customAlert('Section name cannot be empty.', 'Error');
+            }
+        }
+    }
+
+    // Delete section
+    async function deleteSection(sectionId) {
+        const confirmation = await customConfirm('Are you sure you want to delete this section and all its contents?', 'Delete Section');
+        if (confirmation) {
+            document.getElementById(sectionId).remove();
+            delete sectionQuestionData[sectionId];
+            customAlert('Section deleted successfully!', 'Success');
+        }
+    }
+
+    // --- Question Type Specific Rendering (within Modal) ---
+
+    // Helper to get common title and marks section for modals
+    function getCommonModalHeader(existingData = {}) {
+        return `
+            <div class="form-group">
+                <label for="modal-question-title"><i class="fas fa-heading"></i> Question Title:</label>
+                <input type="text" id="modal-question-title" placeholder="Enter common question title for this block" value="${existingData.commonTitle || ''}">
+            </div>
+            <div class="form-group">
+                <label for="modal-question-marks"><i class="fas fa-star"></i> Total Marks:</label>
+                <input type="number" id="modal-question-marks" placeholder="e.g., 5" class="question-marks-input" min="0" value="${existingData.marks || ''}">
+            </div>
+        `;
+    }
+
+    // Function to render content for "Fill in the Blanks (with Options)"
+    function renderFillInBlanksWithOptionsModal(existingBlockData = {}) {
+        const modalBody = document.getElementById('questionContentModalBody');
+        modalBody.innerHTML = `
+            ${getCommonModalHeader(existingBlockData)}
+            <div id="modal-questions-container">
+                <!-- Individual question blocks will be added here -->
+            </div>
+            <button type="button" class="btn add-question-btn" onclick="addFillInBlanksQuestionToModal(true)">
+                <i class="fas fa-plus"></i> Add More Question
+            </button>
+        `;
+        
+        if (existingBlockData.questions && existingBlockData.questions.length > 0) {
+            existingBlockData.questions.forEach(q => addFillInBlanksQuestionToModal(true, q.text, q.options.map(o => o.replace(/^[A-Z]\.\s/, '')).join('\n')));
+        } else {
+            addFillInBlanksQuestionToModal(true);
+        }
+    }
+
+    // Function to render content for "Fill in the Blanks (Without Option)"
+    function renderFillInBlanksNoOptionsModal(existingBlockData = {}) {
+        const modalBody = document.getElementById('questionContentModalBody');
+        modalBody.innerHTML = `
+            ${getCommonModalHeader(existingBlockData)}
+            <div id="modal-questions-container">
+                <!-- Individual question blocks will be added here -->
+            </div>
+            <button type="button" class="btn add-question-btn" onclick="addFillInBlanksQuestionToModal(false)">
+                <i class="fas fa-plus"></i> Add More Question
+            </button>
+        `;
+        
+        if (existingBlockData.questions && existingBlockData.questions.length > 0) {
+            existingBlockData.questions.forEach(q => addFillInBlanksQuestionToModal(false, q.text));
+        } else {
+            addFillInBlanksQuestionToModal(false);
+        }
+    }
+
+    // Function to add a single fill-in-blanks question within the modal
+    function addFillInBlanksQuestionToModal(includeOptions, questionText = '', optionsText = '') {
+        questionBlockCounter++;
+        const questionBlockId = `modal-qblock-fib-${questionBlockCounter}`;
+        const questionsContainer = document.getElementById(`modal-questions-container`);
+        
+        const questionBlock = document.createElement('div');
+        questionBlock.className = 'question-block';
+        questionBlock.id = questionBlockId;
+        questionBlock.draggable = true;
+        
+        let optionsHtml = '';
+        if (includeOptions) {
+            optionsHtml = `
+                <div class="form-group">
+                    <label for="${questionBlockId}-options"><i class="fas fa-list-ol"></i> Options (one per line):</label>
+                    <textarea id="${questionBlockId}-options" rows="4" placeholder="e.g., Paris\nLondon\nBerlin\nRome" required>${optionsText}</textarea>
+                </div>
+            `;
+        }
+
+        questionBlock.innerHTML = `
+            <div class="question-block-header" style="cursor: grab;">
+                <span class="question-block-handle"><i class="fas fa-grip-vertical"></i></span>
+                <h4>Question ${questionsContainer.children.length + 1}</h4>
+                <button type="button" class="remove-question-btn" onclick="deleteQuestionBlockFromModal('${questionBlockId}')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="form-group">
+                <label for="${questionBlockId}-text"><i class="fas fa-question"></i> Enter Question Text:</label>
+                <textarea id="${questionBlockId}-text" rows="2" placeholder="e.g., The capital of France is _______." required>${questionText}</textarea>
+            </div>
+            ${optionsHtml}
+        `;
+        questionsContainer.appendChild(questionBlock);
+
+        // Attach drag and drop listeners
+        questionBlock.addEventListener('dragstart', handleDragStartModal);
+        questionBlock.addEventListener('dragover', handleDragOverModal);
+        questionBlock.addEventListener('dragleave', handleDragLeaveModal);
+        questionBlock.addEventListener('drop', handleDropModal);
+        questionBlock.addEventListener('dragend', handleDragEndModal);
+        renumberQuestionsInModal('modal-questions-container');
+    }
+
+    // --- Render Find Odd Man Out Modal ---
+    function renderOddManOutModal(existingBlockData = {}) {
+        const modalBody = document.getElementById('questionContentModalBody');
+        modalBody.innerHTML = `
+            ${getCommonModalHeader(existingBlockData)}
+            <div id="modal-odd-man-out-questions-container">
+                <!-- Individual odd man out question blocks will be added here -->
+            </div>
+            <button type="button" class="btn add-question-btn" onclick="addOddManOutQuestionToModal()">
+                <i class="fas fa-plus"></i> Add More Question
+            </button>
+        `;
+        
+        if (existingBlockData.questions && existingBlockData.questions.length > 0) {
+            existingBlockData.questions.forEach(q => addOddManOutQuestionToModal(q.text, q.options.map(o => o.replace(/^[A-Z]\.\s/, '')).join('\n')));
+        } else {
+            addOddManOutQuestionToModal();
+        }
+    }
+
+    function addOddManOutQuestionToModal(questionText = '', optionsText = '') {
+        questionBlockCounter++;
+        const questionBlockId = `modal-qblock-oddmanout-${questionBlockCounter}`;
+        const questionsContainer = document.getElementById(`modal-odd-man-out-questions-container`);
+        
+        const questionBlock = document.createElement('div');
+        questionBlock.className = 'question-block';
+        questionBlock.id = questionBlockId;
+        questionBlock.draggable = true;
+        
+        questionBlock.innerHTML = `
+            <div class="question-block-header" style="cursor: grab;">
+                <span class="question-block-handle"><i class="fas fa-grip-vertical"></i></span>
+                <h4>Question ${questionsContainer.children.length + 1}</h4>
+                <button type="button" class="remove-question-btn" onclick="deleteQuestionBlockFromModal('${questionBlockId}')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="form-group">
+                <label for="${questionBlockId}-text"><i class="fas fa-question"></i> Enter statement for Odd Man Out:</label>
+                <textarea id="${questionBlockId}-text" rows="2" placeholder="e.g., Apple, Banana, Potato, Orange" required>${questionText}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="${questionBlockId}-options"><i class="fas fa-list-ol"></i> Options (one per line):</label>
+                <textarea id="${questionBlockId}-options" rows="4" placeholder="e.g., Apple\nBanana\nPotato\nOrange" required>${optionsText}</textarea>
+            </div>
+        `;
+        questionsContainer.appendChild(questionBlock);
+
+        questionBlock.addEventListener('dragstart', handleDragStartModal);
+        questionBlock.addEventListener('dragover', handleDragOverModal);
+        questionBlock.addEventListener('dragleave', handleDragLeaveModal);
+        questionBlock.addEventListener('drop', handleDropModal);
+        questionBlock.addEventListener('dragend', handleDragEndModal);
+        renumberQuestionsInModal('modal-odd-man-out-questions-container');
+    }
+
+    // --- Render Add Question (General Question) Modal ---
+    function renderAddQuestionModal(existingBlockData = {}) {
+        const modalBody = document.getElementById('questionContentModalBody');
+        modalBody.innerHTML = `
+            ${getCommonModalHeader(existingBlockData)}
+            <div id="modal-add-question-container">
+                <!-- Individual general question blocks will be added here -->
+            </div>
+            <button type="button" class="btn add-question-btn" onclick="addAddQuestionQuestionToModal()">
+                <i class="fas fa-plus"></i> Add More Question
+            </button>
+        `;
+        
+        if (existingBlockData.questions && existingBlockData.questions.length > 0) {
+            existingBlockData.questions.forEach(q => addAddQuestionQuestionToModal(q.text, q.options.join('\n')));
+        } else {
+            addAddQuestionQuestionToModal();
+        }
+    }
+
+    function addAddQuestionQuestionToModal(questionText = '', optionsText = '') {
+        questionBlockCounter++;
+        const questionBlockId = `modal-qblock-add-q-${questionBlockCounter}`;
+        const questionsContainer = document.getElementById(`modal-add-question-container`);
+        
+        const questionBlock = document.createElement('div');
+        questionBlock.className = 'question-block';
+        questionBlock.id = questionBlockId;
+        questionBlock.draggable = true;
+        
+        questionBlock.innerHTML = `
+            <div class="question-block-header" style="cursor: grab;">
+                <span class="question-block-handle"><i class="fas fa-grip-vertical"></i></span>
+                <h4>Question ${questionsContainer.children.length + 1}</h4>
+                <button type="button" class="remove-question-btn" onclick="deleteQuestionBlockFromModal('${questionBlockId}')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="form-group">
+                <label for="${questionBlockId}-text"><i class="fas fa-question"></i> Enter Question Text (Optional):</label>
+                <textarea id="${questionBlockId}-text" rows="2" placeholder="e.g., Explain the process of photosynthesis.">${questionText}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="${questionBlockId}-options"><i class="fas fa-list-ol"></i> Points/Options (one per line):</label>
+                <textarea id="${questionBlockId}-options" rows="4" placeholder="e.g., Point 1: Light-dependent reactions\nPoint 2: Light-independent reactions">${optionsText}</textarea>
+            </div>
+        `;
+        questionsContainer.appendChild(questionBlock);
+
+        questionBlock.addEventListener('dragstart', handleDragStartModal);
+        questionBlock.addEventListener('dragover', handleDragOverModal);
+        questionBlock.addEventListener('dragleave', handleDragLeaveModal);
+        questionBlock.addEventListener('drop', handleDropModal);
+        questionBlock.addEventListener('dragend', handleDragEndModal);
+        renumberQuestionsInModal('modal-add-question-container');
+    }
+
+    // Function to render content for "Match the column"
+    function renderMatchColumnModal(existingBlockData = {}) {
+        const modalBody = document.getElementById('questionContentModalBody');
+        modalBody.innerHTML = `
+            ${getCommonModalHeader(existingBlockData)}
+            <div id="modal-match-sets-container">
+                <!-- Individual match sets will be added here -->
+            </div>
+            <button type="button" class="btn add-match-set-btn" onclick="addMatchColumnSetToModal()">
+                <i class="fas fa-plus"></i> Add More Match the Column Set
+            </button>
+        `;
+
+        if (existingBlockData.sets && existingBlockData.sets.length > 0) {
+            existingBlockData.sets.forEach(set => addMatchColumnSetToModal(set));
+        } else {
+            addMatchColumnSetToModal();
+        }
+    }
+
+    function addMatchColumnSetToModal(existingSetData = {}) {
+        questionBlockCounter++;
+        const setId = `modal-match-set-${questionBlockCounter}`;
+        const setsContainer = document.getElementById('modal-match-sets-container');
+
+        const matchSetBlock = document.createElement('div');
+        matchSetBlock.className = 'question-block';
+        matchSetBlock.id = setId;
+        matchSetBlock.draggable = true;
+
+        matchSetBlock.innerHTML = `
+            <div class="question-block-header">
+                <span class="question-block-handle"><i class="fas fa-grip-vertical"></i></span>
+                <h4>Match Set ${setsContainer.children.length + 1}</h4>
+                <button type="button" class="remove-question-btn" onclick="deleteQuestionBlockFromModal('${setId}')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="match-column-headers">
+                <div class="form-group">
+                    <label for="${setId}-colA-header"><i class="fas fa-columns"></i> Column A Header:</label>
+                    <input type="text" id="${setId}-colA-header" placeholder="e.g., Column I" value="${existingSetData.columnAHeader || ''}">
+                </div>
+                <div class="form-group">
+                    <label for="${setId}-colB-header"><i class="fas fa-columns"></i> Column B Header:</label>
+                    <input type="text" id="${setId}-colB-header" placeholder="e.g., Column II" value="${existingSetData.columnBHeader || ''}">
+                </div>
+            </div>
+            <div id="${setId}-pairs-container">
+                <!-- Match pairs will be added here -->
+            </div>
+            <button type="button" class="btn add-match-pair-btn" onclick="addMatchColumnPairToModal('${setId}')">
+                <i class="fas fa-plus"></i> Add More Pair
+            </button>
+        `;
+        setsContainer.appendChild(matchSetBlock);
+
+        if (existingSetData.pairs && existingSetData.pairs.length > 0) {
+            existingSetData.pairs.forEach(pair => addMatchColumnPairToModal(setId, pair.left, pair.right));
+        } else {
+            addMatchColumnPairToModal(setId);
+        }
+
+        matchSetBlock.addEventListener('dragstart', handleDragStartModal);
+        matchSetBlock.addEventListener('dragover', handleDragOverModal);
+        matchSetBlock.addEventListener('dragleave', handleDragLeaveModal);
+        matchSetBlock.addEventListener('drop', handleDropModal);
+        matchSetBlock.addEventListener('dragend', handleDragEndModal);
+        renumberQuestionsInModal('modal-match-sets-container');
+    }
+
+    function addMatchColumnPairToModal(setId, leftText = '', rightText = '') {
+        const pairsContainer = document.getElementById(`${setId}-pairs-container`);
+        const pairDiv = document.createElement('div');
+        pairDiv.className = 'match-pair-item';
+
+        pairDiv.innerHTML = `
+            <span>${pairsContainer.children.length + 1}.</span>
+            <input type="text" class="match-left-input" placeholder="Left Item" value="${leftText}">
+            <span>${String.fromCharCode(65 + pairsContainer.children.length)}.</span>
+            <input type="text" class="match-right-input" placeholder="Right Item" value="${rightText}">
+            <button type="button" class="remove-pair-btn" onclick="this.closest('.match-pair-item').remove(); renumberMatchPairs('${setId}-pairs-container');">
+                <i class="fas fa-times"></i>
+            </button>
+        `;
+        pairsContainer.appendChild(pairDiv);
+        renumberMatchPairs(`${setId}-pairs-container`);
+    }
+
+    function renumberMatchPairs(containerId) {
+        const pairsContainer = document.getElementById(containerId);
+        if (!pairsContainer) return;
+        
+        const pairItems = pairsContainer.querySelectorAll('.match-pair-item');
+        pairItems.forEach((item, index) => {
+            item.querySelector('span:first-child').textContent = `${index + 1}.`;
+            item.querySelector('span:nth-child(3)').textContent = `${String.fromCharCode(65 + index)}.`;
+        });
+    }
+
+    // Function to render content for "True or False"
+    function renderTrueFalseModal(existingBlockData = {}) {
+        const modalBody = document.getElementById('questionContentModalBody');
+        modalBody.innerHTML = `
+            ${getCommonModalHeader(existingBlockData)}
+            <div id="modal-true-false-questions-container">
+                <!-- Individual true/false questions will be added here -->
+            </div>
+            <button type="button" class="btn add-question-btn" onclick="addTrueFalseQuestionToModal()">
+                <i class="fas fa-plus"></i> Add More Question
+            </button>
+        `;
+
+        if (existingBlockData.questions && existingBlockData.questions.length > 0) {
+            existingBlockData.questions.forEach(q => addTrueFalseQuestionToModal(q.text, q.options.join('\n')));
+        } else {
+            addTrueFalseQuestionToModal();
+        }
+    }
+
+    function addTrueFalseQuestionToModal(questionText = '', optionsText = '') {
+        questionBlockCounter++;
+        const questionId = `modal-tf-q-${questionBlockCounter}`;
+        const questionsContainer = document.getElementById('modal-true-false-questions-container');
+
+        const questionBlock = document.createElement('div');
+        questionBlock.className = 'question-block';
+        questionBlock.id = questionId;
+        questionBlock.draggable = true;
+
+        questionBlock.innerHTML = `
+            <div class="question-block-header">
+                <span class="question-block-handle"><i class="fas fa-grip-vertical"></i></span>
+                <h4>Question ${questionsContainer.children.length + 1}</h4>
+                <button type="button" class="remove-question-btn" onclick="deleteQuestionBlockFromModal('${questionId}')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="form-group">
+                <label for="${questionId}-text"><i class="fas fa-question"></i> Enter True or False Question Text:</label>
+                <textarea id="${questionId}-text" rows="2" placeholder="e.g., Water boils at 0°C." required>${questionText}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="${questionId}-options"><i class="fas fa-list-ol"></i> Options (one per line, e.g., True\\nFalse. Optional.):</label>
+                <textarea id="${questionId}-options" rows="3" placeholder="e.g., True\nFalse">${optionsText}</textarea>
+            </div>
+        `;
+        questionsContainer.appendChild(questionBlock);
+
+        questionBlock.addEventListener('dragstart', handleDragStartModal);
+        questionBlock.addEventListener('dragover', handleDragOverModal);
+        questionBlock.addEventListener('dragleave', handleDragLeaveModal);
+        questionBlock.addEventListener('drop', handleDropModal);
+        questionBlock.addEventListener('dragend', handleDragEndModal);
+        renumberQuestionsInModal('modal-true-false-questions-container');
+    }
+
+    // --- Render Attachment Modal ---
+    function renderAttachmentModal(existingBlockData = {}) {
+        const modalBody = document.getElementById('questionContentModalBody');
+        modalBody.innerHTML = `
+            ${getCommonModalHeader(existingBlockData)}
+            <div id="modal-attachments-container">
+                <!-- Individual attachment blocks will be added here -->
+            </div>
+            <button type="button" class="btn add-attachment-btn" onclick="addAttachmentItemToModal()">
+                <i class="fas fa-plus"></i> Add More Attachment
+            </button>
+        `;
+
+        // Hide common header elements for attachment type
+        document.getElementById('modal-question-title').closest('.form-group').style.display = 'none';
+        document.getElementById('modal-question-marks').closest('.form-group').style.display = 'none';
+
+        if (existingBlockData.attachments && existingBlockData.attachments.length > 0) {
+            existingBlockData.attachments.forEach(att => addAttachmentItemToModal(att));
+        } else {
+            addAttachmentItemToModal();
+        }
+    }
+
+    function addAttachmentItemToModal(existingAttachmentData = {}) {
+        questionBlockCounter++;
+        const attachmentId = `modal-attachment-${questionBlockCounter}`;
+        const attachmentsContainer = document.getElementById('modal-attachments-container');
+
+        const attachmentBlock = document.createElement('div');
+        attachmentBlock.className = 'question-block attachment-item';
+        attachmentBlock.id = attachmentId;
+        attachmentBlock.draggable = true;
+
+        attachmentBlock.innerHTML = `
+            <div class="question-block-header">
+                <span class="question-block-handle"><i class="fas fa-grip-vertical"></i></span>
+                <h4>Attachment ${attachmentsContainer.children.length + 1}</h4>
+                <button type="button" class="remove-question-btn" onclick="deleteQuestionBlockFromModal('${attachmentId}')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="form-group">
+                <label for="${attachmentId}-file"><i class="fas fa-upload"></i> Upload Image (JPG/PNG):</label>
+                <input type="file" id="${attachmentId}-file" accept="image/png, image/jpeg" onchange="previewAttachment('${attachmentId}')">
+            </div>
+            <div class="form-group">
+                <label for="${attachmentId}-url"><i class="fas fa-link"></i> Or Paste Image URL:</label>
+                <input type="text" id="${attachmentId}-url" placeholder="e.g., https://example.com/image.png" value="${existingAttachmentData.imageUrl || ''}" oninput="previewAttachment('${attachmentId}')">
+            </div>
+            <div class="attachment-preview-container">
+                 <canvas id="${attachmentId}-canvas" style="display: none;"></canvas>
+                 <img id="${attachmentId}-preview-fallback" src="" alt="Image preview" style="display: none; position: absolute; max-width: 100%; max-height: 100%; object-fit: contain;">
+            </div>
+            <div class="image-edit-controls">
+                <button type="button" onclick="rotateCanvas('${attachmentId}', 90)">
+                    <i class="fas fa-redo"></i> Rotate +90°
+                </button>
+                <button type="button" onclick="rotateCanvas('${attachmentId}', -90)">
+                    <i class="fas fa-undo"></i> Rotate -90°
+                </button>
+                <button type="button" onclick="flipCanvas('${attachmentId}', 'horizontal')">
+                    <i class="fas fa-arrows-alt-h"></i> Flip Horizontal
+                </button>
+                <button type="button" onclick="flipCanvas('${attachmentId}', 'vertical')">
+                    <i class="fas fa-arrows-alt-v"></i> Flip Vertical
+                </button>
+                <button type="button" onclick="resetCanvas('${attachmentId}')">
+                    <i class="fas fa-sync"></i> Reset Image
+                </button>
+            </div>
+            <div class="attachment-options">
+                <div class="form-group">
+                    <label for="${attachmentId}-width"><i class="fas fa-arrows-alt-h"></i> Width (e.g., 200px or 50%):</label>
+                    <input type="text" id="${attachmentId}-width" value="${existingAttachmentData.width || ''}" placeholder="e.g., 200px">
+                </div>
+                <div class="form-group">
+                    <label for="${attachmentId}-height"><i class="fas fa-arrows-alt-v"></i> Height (e.g., 150px or auto):</label>
+                    <input type="text" id="${attachmentId}-height" value="${existingAttachmentData.height || ''}" placeholder="e.g., auto">
+                </div>
+                <div class="form-group">
+                    <label for="${attachmentId}-float"><i class="fas fa-align-left"></i> Float (for text wrapping):</label>
+                    <select id="${attachmentId}-float">
+                        <option value="none" ${existingAttachmentData.float === 'none' ? 'selected' : ''}>None</option>
+                        <option value="left" ${existingAttachmentData.float === 'left' ? 'selected' : ''}>Left</option>
+                        <option value="right" ${existingAttachmentData.float === 'right' ? 'selected' : ''}>Right</option>
+                    </select>
+                </div>
+            </div>
+        `;
+        attachmentsContainer.appendChild(attachmentBlock);
+
+        // Initialize canvas state for this attachment
+        attachmentCanvasStates[attachmentId] = {
+            image: new Image(),
+            canvas: document.getElementById(`${attachmentId}-canvas`),
+            ctx: document.getElementById(`${attachmentId}-canvas`).getContext('2d'),
+            originalImageSrc: existingAttachmentData.originalImageSrc || '',
+            transforms: existingAttachmentData.transforms || { rotation: 0, flipH: false, flipV: false }
+        };
+
+        const initialSrc = existingAttachmentData.imageSrc || existingAttachmentData.imageUrl;
+        if (initialSrc) {
+            previewAttachment(attachmentId, initialSrc, existingAttachmentData.originalImageSrc);
+        }
+
+        attachmentBlock.addEventListener('dragstart', handleDragStartModal);
+        attachmentBlock.addEventListener('dragover', handleDragOverModal);
+        attachmentBlock.addEventListener('dragleave', handleDragLeaveModal);
+        attachmentBlock.addEventListener('drop', handleDropModal);
+        attachmentBlock.addEventListener('dragend', handleDragEndModal);
+        renumberQuestionsInModal('modal-attachments-container');
+    }
+
+    async function previewAttachment(attachmentId, initialSrc = null, originalSrc = null) {
+        const fileInput = document.getElementById(`${attachmentId}-file`);
+        const urlInput = document.getElementById(`${attachmentId}-url`);
+        const canvas = document.getElementById(`${attachmentId}-canvas`);
+        const fallbackImg = document.getElementById(`${attachmentId}-preview-fallback`);
+        const state = attachmentCanvasStates[attachmentId];
+
+        let imageToLoad = '';
+
+        if (initialSrc) {
+            imageToLoad = initialSrc;
+        } else if (fileInput.files && fileInput.files[0]) {
+            imageToLoad = await new Promise(resolve => {
+                const reader = new FileReader();
+                reader.onload = e => resolve(e.target.result);
+                reader.readAsDataURL(fileInput.files[0]);
+            });
+            state.originalImageSrc = imageToLoad;
+            urlInput.value = '';
+        } else if (urlInput.value.trim()) {
+            imageToLoad = urlInput.value.trim();
+            state.originalImageSrc = imageToLoad;
+        } else {
+            canvas.style.display = 'none';
+            fallbackImg.style.display = 'none';
+            return;
+        }
+
+        state.image.onload = () => {
+            canvas.style.display = 'block';
+            fallbackImg.style.display = 'none';
+            if (!initialSrc || (initialSrc && imageToLoad !== originalSrc)) { 
+                state.transforms = { rotation: 0, flipH: false, flipV: false };
+            }
+            applyCanvasTransforms(attachmentId);
+        };
+        state.image.onerror = () => {
+            canvas.style.display = 'none';
+            fallbackImg.src = 'https://placehold.co/150x100/FF0000/FFFFFF?text=Error';
+            fallbackImg.style.display = 'block';
+            console.error('Error loading image for canvas:', imageToLoad);
+        };
+        state.image.src = imageToLoad;
+    }
+
+    function applyCanvasTransforms(attachmentId) {
+        const state = attachmentCanvasStates[attachmentId];
+        if (!state || !state.image.complete || !state.image.naturalWidth) {
+            state.canvas.style.display = 'none';
+            document.getElementById(`${attachmentId}-preview-fallback`).src = state.image.src || 'https://placehold.co/150x100/FF0000/FFFFFF?text=Error';
+            document.getElementById(`${attachmentId}-preview-fallback`).style.display = 'block';
+            return;
+        }
+
+        const img = state.image;
+        const canvas = state.canvas;
+        const ctx = state.ctx;
+        const transforms = state.transforms;
+
+        let width = img.naturalWidth;
+        let height = img.naturalHeight;
+
+        const containerWidth = canvas.parentNode.offsetWidth;
+        const containerHeight = canvas.parentNode.offsetHeight;
+
+        const aspectRatio = width / height;
+        let drawWidth = containerWidth;
+        let drawHeight = containerWidth / aspectRatio;
+
+        if (drawHeight > containerHeight) {
+            drawHeight = containerHeight;
+            drawWidth = containerHeight * aspectRatio;
+        }
+
+        canvas.width = drawWidth;
+        canvas.height = drawHeight;
+        
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.save();
+
+        ctx.translate(canvas.width / 2, canvas.height / 2);
+
+        if (transforms.flipH) {
+            ctx.scale(-1, 1);
+        }
+        if (transforms.flipV) {
+            ctx.scale(1, -1);
+        }
+
+        ctx.rotate(transforms.rotation * Math.PI / 180);
+
+        ctx.drawImage(img, -canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height);
+        
+        ctx.restore();
+    }
+
+    function rotateCanvas(attachmentId, angle) {
+        const state = attachmentCanvasStates[attachmentId];
+        if (state && state.image.complete && state.image.naturalWidth) {
+            state.transforms.rotation = (state.transforms.rotation + angle + 360) % 360;
+            applyCanvasTransforms(attachmentId);
+        } else {
+            customAlert('Please upload an image first to apply transformations.', 'Image Missing');
+        }
+    }
+
+    function flipCanvas(attachmentId, direction) {
+        const state = attachmentCanvasStates[attachmentId];
+        if (state && state.image.complete && state.image.naturalWidth) {
+            if (direction === 'horizontal') {
+                state.transforms.flipH = !state.transforms.flipH;
+            } else if (direction === 'vertical') {
+                state.transforms.flipV = !state.transforms.flipV;
+            }
+            applyCanvasTransforms(attachmentId);
+        } else {
+            customAlert('Please upload an image first to apply transformations.', 'Image Missing');
+        }
+    }
+
+    function resetCanvas(attachmentId) {
+        const state = attachmentCanvasStates[attachmentId];
+        if (state && state.originalImageSrc) {
+            state.transforms = { rotation: 0, flipH: false, flipV: false };
+            state.image.src = state.originalImageSrc;
+        } else {
+             customAlert('No original image to reset to or image not loaded.', 'Reset Failed');
+        }
+    }
+
+    // General function to delete a question/set block from any modal
+    function deleteQuestionBlockFromModal(blockId) {
+        const block = document.getElementById(blockId);
+        if (block) {
+            const parentContainerId = block.parentNode.id;
+            if (block.classList.contains('attachment-item')) {
+                delete attachmentCanvasStates[blockId];
+            }
+            block.remove();
+            renumberQuestionsInModal(parentContainerId);
+        }
+    }
+
+    // General function to re-number question/set titles within the modal
+    function renumberQuestionsInModal(containerId) {
+        const questionsContainer = document.getElementById(containerId);
+        if (!questionsContainer) return;
+
+        const questionBlocks = questionsContainer.querySelectorAll('.question-block');
+        questionBlocks.forEach((block, index) => {
+            const titleElement = block.querySelector('.question-block-header h4');
+            if (containerId.includes('match-sets')) {
+                titleElement.textContent = `Match Set ${index + 1}`;
+            } else if (containerId.includes('attachments')) {
+                titleElement.textContent = `Attachment ${index + 1}`;
+            }
+            else {
+                titleElement.textContent = `Question ${index + 1}`;
+            }
+        });
+    }
+
+    // Drag and Drop functionality for items WITHIN THE MODAL
+    let draggedModalItem = null;
+    let dragModalParentContainer = null;
+
+    function handleDragStartModal(e) {
+        draggedModalItem = this;
+        dragModalParentContainer = this.parentNode;
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', this.id); 
+        this.classList.add('dragging'); 
+        setTimeout(() => { this.style.opacity = '0.4'; }, 0);
+    }
+
+    function handleDragOverModal(e) {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        const target = e.target.closest('.question-block');
+
+        if (target && target !== draggedModalItem && dragModalParentContainer === target.parentNode) {
+            const targetRect = target.getBoundingClientRect();
+            const targetMiddle = targetRect.top + targetRect.height / 2;
+
+            if (e.clientY > targetMiddle) {
+                if (target.nextSibling) {
+                    dragModalParentContainer.insertBefore(draggedModalItem, target.nextSibling);
+                } else {
+                    dragModalParentContainer.appendChild(draggedModalItem);
+                }
+            } else {
+                dragModalParentContainer.insertBefore(draggedModalItem, target);
+            }
+            renumberQuestionsInModal(dragModalParentContainer.id);
+        }
+    }
+
+    function handleDragLeaveModal(e) { /* no-op */ }
+    function handleDropModal(e) { e.stopPropagation(); }
+
+    function handleDragEndModal(e) {
+        if (draggedModalItem) {
+            draggedModalItem.style.opacity = '1';
+            draggedModalItem.classList.remove('dragging');
+            draggedModalItem = null;
+            dragModalParentContainer = null;
+        }
+    }
+
+    // Options for Question Type
+    const questionTypes = [
+        { value: "fill-blanks-options", text: "Fill in the Blanks (with options)", icon: "fas fa-edit", renderFunction: renderFillInBlanksWithOptionsModal, isModal: true },
+        { value: "fill-blanks-no-options", text: "Fill in the Blanks (Without Option)", icon: "fas fa-edit", renderFunction: renderFillInBlanksNoOptionsModal, isModal: true },
+        { value: "match-column", text: "Match the column", icon: "fas fa-columns", renderFunction: renderMatchColumnModal, isModal: true },
+        { value: "true-false", text: "True or False", icon: "fas fa-check-circle", renderFunction: renderTrueFalseModal, isModal: true },
+        { value: "odd-man-out", text: "Find odd man out", icon: "fas fa-user-minus", renderFunction: renderOddManOutModal, isModal: true },
+        { value: "add-question", text: "Add Question", icon: "fas fa-question-circle", renderFunction: renderAddQuestionModal, isModal: true },
+        { value: "attachment", text: "Attachment", icon: "fas fa-paperclip", renderFunction: renderAttachmentModal, isModal: true }
+    ];
+
+    // Open Question Type Selection Modal (for adding a new block)
+    function openQuestionTypeModal(sectionId) {
+        currentQuestionTypeSectionId = sectionId;
+
+        const optionsContainer = document.getElementById('questionTypeOptions');
+        optionsContainer.innerHTML = '';
+
+        questionTypes.forEach(type => {
+            const optionDiv = document.createElement('div');
+            optionDiv.className = 'modal-option-item';
+            optionDiv.innerHTML = `<i class="${type.icon}"></i> ${type.text}`;
+            optionDiv.dataset.value = type.value;
+            optionDiv.onclick = () => addQuestionBlock(type.value, type.text);
+            optionsContainer.appendChild(optionDiv);
+        });
+
+        document.getElementById('questionTypeModal').style.display = 'flex';
+    }
+
+    // Function to add a new question block to a section
+    function addQuestionBlock(typeValue, typeText) {
+        const sectionId = currentQuestionTypeSectionId;
+        if (!sectionId) {
+            customAlert("Error: No section selected for adding a question block.", "Error");
+            return;
+        }
+
+        const newBlockId = `block-${typeValue}-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+
+        const newBlock = {
+            id: newBlockId,
+            type: typeValue,
+            data: {}
+        };
+
+        if (!sectionQuestionData[sectionId]) {
+            sectionQuestionData[sectionId] = { blocks: [] };
+        }
+        sectionQuestionData[sectionId].blocks.push(newBlock);
+
+        closeModal('questionTypeModal');
+        openContentEditorForBlock(sectionId, newBlockId, typeText);
+        updateSectionContentSummary(sectionId);
+    }
+
+    // Function to open the content editor modal for an existing question block
+    function openContentEditorForBlock(sectionId, blockId, blockTypeText) {
+        currentEditingBlock = { sectionId: sectionId, blockId: blockId };
+        
+        const section = sectionQuestionData[sectionId];
+        const block = section ? section.blocks.find(b => b.id === blockId) : null;
+
+        if (!block) {
+            customAlert("Error: Question block not found for editing.", "Error");
+            return;
+        }
+
+        const typeDefinition = questionTypes.find(t => t.value === block.type);
+
+        if (!typeDefinition || !typeDefinition.isModal || !typeDefinition.renderFunction) {
+            customAlert("This question type does not have an editable content modal.", "Info");
+            return;
+        }
+
+        document.getElementById('questionContentModalTitle').textContent = `Edit ${blockTypeText} Questions`;
+        typeDefinition.renderFunction(block.data);
+        document.getElementById('questionContentModal').style.display = 'flex';
+    }
+
+    // Save content from the question content modal
+    async function saveQuestionContent() {
+        if (!currentEditingBlock) {
+            customAlert("Error: No question block selected for saving content.", "Error");
+            return;
+        }
+
+        const { sectionId, blockId } = currentEditingBlock;
+        const block = sectionQuestionData[sectionId].blocks.find(b => b.id === blockId);
+        if (!block) {
+            customAlert("Error: Question block not found.", "Error");
+            return;
+        }
+
+        let dataToSave = {};
+        const selectedType = block.type;
+
+        const commonTitleInput = document.getElementById('modal-question-title');
+        const totalMarksInput = document.getElementById('modal-question-marks');
+        
+        if (selectedType !== 'attachment') {
+            const commonTitle = commonTitleInput.value.trim();
+            const totalMarks = totalMarksInput.value.trim();
+
+            if (!commonTitle) {
+                await customAlert("Please enter a Question Title for this block.", "Missing Information");
+                return;
+            }
+            if (!totalMarks || isNaN(totalMarks) || parseInt(totalMarks) <= 0) {
+                await customAlert("Please enter valid positive number for Total Marks.", "Missing Information");
+                return;
+            }
+            dataToSave.commonTitle = commonTitle;
+            dataToSave.marks = totalMarks;
+        } else {
+            dataToSave.commonTitle = commonTitleInput ? commonTitleInput.value.trim() : '';
+            dataToSave.marks = totalMarksInput ? totalMarksInput.value.trim() : '';
+        }
+
+        if (selectedType === 'fill-blanks-options' || selectedType === 'fill-blanks-no-options' || selectedType === 'odd-man-out' || selectedType === 'add-question') {
+            const questions = [];
+            const questionBlocks = document.querySelectorAll(`#modal-${selectedType.includes('fill-blanks') ? 'questions' : (selectedType.includes('odd-man-out') ? 'odd-man-out-questions' : 'add-question')}-container .question-block`);
+            
+            let hasEmptyQuestionText = false;
+            let hasFillInBlanksOptionsEmpty = false;
+
+            questionBlocks.forEach(qBlock => {
+                const qText = qBlock.querySelector('textarea[id$="-text"]').value.trim();
+                let options = [];
+
+                if (selectedType === 'fill-blanks-options' || selectedType === 'odd-man-out') {
+                    const optTextRaw = qBlock.querySelector('textarea[id$="-options"]').value.trim();
+                    options = optTextRaw.split('\n')
+                                            .map(opt => opt.trim())
+                                            .filter(opt => opt !== ''); 
+                    if (options.length === 0) hasFillInBlanksOptionsEmpty = true;
+                } else if (selectedType === 'add-question') {
+                    const optTextRaw = qBlock.querySelector('textarea[id$="-options"]').value.trim();
+                    options = optTextRaw.split('\n')
+                                            .map(opt => opt.trim())
+                                            .filter(opt => opt !== '');
+                }
+
+                if (selectedType !== 'add-question' && !qText) {
+                    hasEmptyQuestionText = true;
+                }
+                questions.push({ text: qText, options: options }); 
+            });
+
+            if (hasEmptyQuestionText) {
+                await customAlert("Some question texts are empty. Please fill them or delete the empty question block(s).", "Validation Error");
+                return; 
+            }
+            if (selectedType === 'fill-blanks-options' && hasFillInBlanksOptionsEmpty) {
+                await customAlert("Some Fill in the Blanks (with options) questions have no options entered. Please add options or delete the empty question block(s).", "Validation Error");
+                return; 
+            }
+            if (questions.length === 0) {
+                await customAlert("No questions have been added. Please add at least one question.", "Validation Error");
+                return;
+            }
+            dataToSave.questions = questions;
+
+        } else if (selectedType === 'match-column') {
+            const sets = [];
+            const matchSetBlocks = document.querySelectorAll('#modal-match-sets-container .question-block');
+
+            let hasEmptyHeader = false;
+            let hasCompletelyEmptyPairInAnySet = false;
+
+            matchSetBlocks.forEach(setBlock => {
+                const colAHeader = setBlock.querySelector('input[id$="-colA-header"]').value.trim();
+                const colBHeader = setBlock.querySelector('input[id$="-colB-header"]').value.trim();
+                
+                if (!colAHeader || !colBHeader) {
+                    hasEmptyHeader = true;
+                }
+
+                const pairs = [];
+                let currentSetHasAnyFilledPair = false;
+
+                setBlock.querySelectorAll('.match-pair-item').forEach(pairItem => {
+                    const left = pairItem.querySelector('.match-left-input').value.trim();
+                    const right = pairItem.querySelector('.match-right-input').value.trim();
+                    
+                    if (!left && !right) {
+                        hasCompletelyEmptyPairInAnySet = true;
+                    } else {
+                        currentSetHasAnyFilledPair = true;
+                    }
+                    pairs.push({ left, right });
+                });
+                
+                if (pairs.length === 0 || !currentSetHasAnyFilledPair) {
+                     hasCompletelyEmptyPairInAnySet = true;
+                }
+
+                sets.push({ columnAHeader: colAHeader, columnBHeader: colBHeader, pairs });
+            });
+
+            if (hasEmptyHeader) {
+                await customAlert("Some column headers are empty. Please fill them for all match sets.", "Validation Error");
+                return;
+            }
+            if (hasCompletelyEmptyPairInAnySet) {
+                await customAlert("Some match sets have completely empty pairs or no valid pairs. Please fill them or remove the empty sets/pairs.", "Validation Error");
+                return;
+            }
+            if (sets.length === 0) {
+                await customAlert("No match column sets have been added. Please add at least one set.", "Validation Error");
+                return;
+            }
+
+            dataToSave.sets = sets;
+
+        } else if (selectedType === 'true-false') {
+            const questions = [];
+            const tfQuestionBlocks = document.querySelectorAll('#modal-true-false-questions-container .question-block');
+
+            let hasEmptyQuestionText = false;
+
+            tfQuestionBlocks.forEach(qBlock => {
+                const qText = qBlock.querySelector('textarea[id$="-text"]').value.trim();
+                const optTextRaw = qBlock.querySelector('textarea[id$="-options"]').value.trim();
+                const options = optTextRaw.split('\n')
+                                            .map(opt => opt.trim())
+                                            .filter(opt => opt !== '');
+                
+                if (!qText) hasEmptyQuestionText = true;
+                
+                questions.push({ text: qText, options: options });
+            });
+
+            if (hasEmptyQuestionText) {
+                await customAlert("Some true/false question texts are empty. Please fill them or delete the empty question blocks.", "Validation Error");
+                return;
+            }
+            if (questions.length === 0) {
+                 await customAlert("No true/false questions have been added. Please add at least one question.", "Validation Error");
+                return;
+            }
+
+            dataToSave.questions = questions;
+
+        } else if (selectedType === 'attachment') {
+            const attachments = [];
+            const attachmentBlocks = document.querySelectorAll('#modal-attachments-container .question-block');
+
+            let hasEmptyAttachment = false;
+
+            for (const attBlock of attachmentBlocks) {
+                const attachmentId = attBlock.id;
+                const state = attachmentCanvasStates[attachmentId];
+
+                const urlInput = attBlock.querySelector('input[type="text"][id$="-url"]');
+                const width = attBlock.querySelector('input[id$="-width"]').value.trim();
+                const height = attBlock.querySelector('input[id$="-height"]').value.trim();
+                const float = attBlock.querySelector('select[id$="-float"]').value;
+
+                let imageSrcFinal = '';
+
+                if (state && state.canvas && state.image.complete && state.image.naturalWidth) {
+                    imageSrcFinal = state.canvas.toDataURL('image/png');
+                } else if (urlInput.value.trim()) {
+                    imageSrcFinal = urlInput.value.trim();
+                }
+
+                if (!imageSrcFinal) {
+                    hasEmptyAttachment = true;
+                }
+                
+                attachments.push({
+                    imageUrl: urlInput.value.trim(),
+                    imageSrc: imageSrcFinal,
+                    originalImageSrc: state ? state.originalImageSrc : '',
+                    width: width,
+                    height: height,
+                    float: float,
+                    transforms: state ? state.transforms : { rotation: 0, flipH: false, flipV: false }
+                });
+            }
+            
+            if (hasEmptyAttachment) {
+                await customAlert("Some attachments are empty (no file selected or URL provided). Please add an image or remove the empty attachment blocks.", "Validation Error");
+                return;
+            }
+            if (attachments.length === 0) {
+                await customAlert("No attachments have been added. Please add at least one.", "Validation Error");
+                return;
+            }
+            dataToSave.attachments = attachments;
+        }
+
+        block.data = dataToSave;
+        updateSectionContentSummary(sectionId);
+
+        customAlert("Questions saved successfully!", "Success");
+        closeModal('questionContentModal');
+        currentEditingBlock = null;
+    }
+
+    function cancelQuestionContentEdit() {
+        currentEditingBlock = null;
+    }
+
+    // Updates the summary display for a section on the main page
+    function updateSectionContentSummary(sectionId) {
+        const summaryDiv = document.getElementById(`${sectionId}-content`);
+        const sectionBlocks = sectionQuestionData[sectionId]?.blocks || [];
+
+        let summaryHtml = '';
+        if (sectionBlocks.length === 0) {
+            summaryHtml = `<span id="${sectionId}-content-summary-text">No content added for this section.</span>`;
+        } else {
+            summaryHtml = `<div class="question-blocks-summary-list">`;
+            sectionBlocks.forEach(block => {
+                const typeDef = questionTypes.find(t => t.value === block.type);
+                const typeText = typeDef ? typeDef.text : 'Unknown Type';
+                let blockSummary = typeText;
+
+                const commonTitlePart = block.data.commonTitle ? `: "${block.data.commonTitle.substring(0, 30)}${block.data.commonTitle.length > 30 ? '...' : ''}"` : '';
+                const marksPart = block.data.marks ? ` [${block.data.marks} M]` : '';
+
+                if (block.type === 'fill-blanks-options' || block.type === 'fill-blanks-no-options' || block.type === 'true-false' || block.type === 'odd-man-out' || block.type === 'add-question') {
+                    const numQuestions = block.data.questions ? block.data.questions.length : 0;
+                    blockSummary += `${commonTitlePart} (${numQuestions} Qs)${marksPart}`;
+                } else if (block.type === 'match-column') {
+                    const numSets = block.data.sets ? block.data.sets.length : 0;
+                    blockSummary += `${commonTitlePart} (${numSets} Sets)${marksPart}`;
+                } else if (block.type === 'attachment') {
+                    const numAttachments = block.data.attachments ? block.data.attachments.length : 0;
+                    blockSummary = `Attachments (${numAttachments} Images)`;
+                }
+
+                summaryHtml += `
+                    <div class="summary-block-item">
+                        <span>${blockSummary}</span>
+                        <button class="edit-content-btn" onclick="openContentEditorForBlock('${sectionId}', '${block.id}', '${typeText}')">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="delete-block-btn" onclick="deleteQuestionBlock('${sectionId}', '${block.id}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+            });
+            summaryHtml += `</div>`;
+        }
+
+        summaryHtml += `
+            <button class="btn add-question-block-btn" onclick="openQuestionTypeModal('${sectionId}')">
+                <i class="fas fa-plus"></i> Add Question Block
+            </button>
+        `;
+        summaryDiv.innerHTML = summaryHtml;
+    }
+
+    // Function to delete an individual question block within a section
+    async function deleteQuestionBlock(sectionId, blockId) {
+        const confirmation = await customConfirm('Are you sure you want to delete this question block?', 'Delete Block');
+        if (confirmation) {
+            const section = sectionQuestionData[sectionId];
+            if (section) {
+                section.blocks = section.blocks.filter(block => block.id !== blockId);
+                updateSectionContentSummary(sectionId);
+                customAlert('Question block deleted successfully!', 'Success');
+            }
+        }
+    }
+
+    // Add new section
+    function addNewSection() {
+        sectionCounter++;
+        const sectionId = `section-${sectionCounter}`;
+        const sectionLetter = String.fromCharCode(64 + sectionCounter);
+        
+        const newSection = document.createElement('div');
+        newSection.className = 'section';
+        newSection.id = sectionId;
+        newSection.draggable = true;
+        newSection.dataset.hideTitleForPrint = 'false';
+        newSection.innerHTML = `
+            <div class="section-header">
+                <h3 class="section-title">Section ${sectionLetter}</h3>
+                <div class="section-controls">
+                    <button class="btn-hide-show btn-hide" onclick="toggleSectionVisibility('${sectionId}')">
+                        <i class="fas fa-eye-slash"></i> Hide
+                    </button>
+                    <button class="section-edit-btn" onclick="openEditSectionNameModal('${sectionId}')">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                    <button class="section-delete-btn" onclick="deleteSection('${sectionId}')">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </div>
+            </div>
+            
+            <div class="question-type-content section-content-summary" id="${sectionId}-content">
+                <span id="${sectionId}-content-summary-text">No content added for this section.</span>
+                <button class="btn add-question-block-btn" onclick="openQuestionTypeModal('${sectionId}')">
+                    <i class="fas fa-plus"></i> Add Question Block
+                </button>
+            </div>
+        `;
+        
+        newSection.addEventListener('dragstart', handleDragStart);
+        newSection.addEventListener('dragover', handleDragOver);
+        newSection.addEventListener('dragleave', handleDragLeave);
+        newSection.addEventListener('drop', handleDrop);
+        newSection.addEventListener('dragend', handleDragEnd);
+        
+        document.getElementById('sections-container').appendChild(newSection);
+        updateSectionContentSummary(sectionId);
+    }
+
+    // Question content generation
+function generatePaper() {
+    showSpinner();
+
+    setTimeout(() => {
+        const title = document.getElementById('title').value;
+        const std = document.getElementById('std').value;
+        const test = document.getElementById('test').value;
+        const subject = document.getElementById('subject').value;
+        const marks = document.getElementById('marks').value;
+        const instructions = document.getElementById('instructions').value;
+        const logoPreview = document.getElementById('logoPreview');
+
+        const modalLogo = document.getElementById('modalLogo');
+
+        document.getElementById('modalTitle').textContent = title || 'Question Paper';
+
+        const infoFields = {
+            'modalSTD': std,
+            'modalTest': test,
+            'modalSubject': subject,
+            'modalMarks': marks
+        };
+
+        for (const [id, value] of Object.entries(infoFields)) {
+            const element = document.getElementById(id);
+            const parentItem = element.closest('.paper-info-item');
+            if (value) {
+                element.textContent = value;
+                parentItem.style.display = 'inline-flex';
+            } else {
+                parentItem.style.display = 'none';
+            }
+        }
+
+        if (instructions) {
+            document.getElementById('modalInstructions').innerHTML = `
+                <span class="paper-info-label">General Instructions</span>
+                <span class="paper-info-value">${instructions}</span>
+            `;
+            document.getElementById('modalInstructions').style.display = 'block';
+        } else {
+            document.getElementById('modalInstructions').innerHTML = '';
+            document.getElementById('modalInstructions').style.display = 'none';
+        }
+
+        const modalSections = document.getElementById('modalSections');
+        modalSections.innerHTML = '';
+        
+        const sections = document.querySelectorAll('.section');
+        sections.forEach(sectionElement => {
+            const sectionId = sectionElement.id;
+            const sectionTitle = sectionElement.querySelector('.section-title').textContent;
+            const hideTitleForPrint = sectionElement.dataset.hideTitleForPrint === 'true';
+
+            const paperSectionDiv = document.createElement('div');
+            paperSectionDiv.className = 'paper-section';
+            
+            let sectionContentHtml = '';
+
+            if (!hideTitleForPrint) {
+                sectionContentHtml += `<h3 class="paper-section-title">${sectionTitle}</h3>`;
+            }
+
+            const sectionBlocks = sectionQuestionData[sectionId]?.blocks || [];
+
+            if (sectionBlocks.length > 0) {
+                sectionBlocks.forEach(block => {
+                    const typeDefinition = questionTypes.find(t => t.value === block.type);
+                    const data = block.data;
+
+                    // Show common title and marks for all question types
+                    if (data.commonTitle || data.marks) {
+                        sectionContentHtml += `<div class="preview-question-title-container">`;
+                        if (data.commonTitle) {
+                            sectionContentHtml += `<p class="preview-question-title-text">${data.commonTitle}</p>`;
+                        }
+                        if (data.marks) {
+                            sectionContentHtml += `<span class="preview-question-marks">[${data.marks} Marks]</span>`;
+                        }
+                        sectionContentHtml += `</div>`;
+                    }
+
+                    if (block.type === 'fill-blanks-options' || block.type === 'fill-blanks-no-options' || block.type === 'odd-man-out' || block.type === 'add-question') {
+                        const isOptionsAlphabetized = block.type === 'fill-blanks-options' || block.type === 'odd-man-out';
+                        const isOptionsNumbered = block.type === 'add-question';
+                        
+                        if (data.questions && data.questions.length > 0) {
+                            let blockQuestionNumber = 1;
+                            data.questions.forEach(q => {
+                                const shouldDisplay = q.text || (q.options && q.options.length > 0);
+                                
+                                if (shouldDisplay) { 
+                                    sectionContentHtml += `<div class="question-block-container">`;
+                                    
+                                    // For all question types, show question text if it exists
+                                    if (q.text && q.text.trim() !== '') {
+                                        sectionContentHtml += `<p class="preview-question-text">${blockQuestionNumber}. ${q.text}</p>`;
+                                    }
+                                    
+                                    if (q.options && q.options.length > 0) {
+                                        if (isOptionsNumbered) {
+                                            sectionContentHtml += `<ol class="preview-options-list numbered">`;
+                                        } else {
+                                            sectionContentHtml += '<ul class="preview-options-list">';
+                                        }
+                                        q.options.forEach((opt, optIndex) => {
+                                            if (isOptionsAlphabetized) {
+                                                sectionContentHtml += `<li>${String.fromCharCode(65 + optIndex)}. ${opt}</li>`;
+                                            } else {
+                                                sectionContentHtml += `<li>${opt}</li>`;
+                                            }
+                                        });
+                                        if (isOptionsNumbered) {
+                                            sectionContentHtml += '</ol>';
+                                        } else {
+                                            sectionContentHtml += '</ul>';
+                                        }
+                                    }
+                                    sectionContentHtml += `</div>`;
+                                    blockQuestionNumber++;
+                                }
+                            });
+                        }
+                    }
+                    // Other question types (match-column, true-false, attachment) remain unchanged
+                    else if (block.type === 'match-column') {
+                        if (data.sets && data.sets.length > 0) {
+                            data.sets.forEach(set => {
+                                const filteredPairs = set.pairs.filter(pair => pair.left || pair.right);
+                                if (filteredPairs.length > 0) {
+                                    sectionContentHtml += `<div class="question-block-container">`;
+                                    sectionContentHtml += `<table class="preview-match-table">`;
+                                    sectionContentHtml += `<thead><tr><th></th><th>${set.columnAHeader || 'Column A'}</th><th></th><th>${set.columnBHeader || 'Column B'}</th></tr></thead>`;
+                                    sectionContentHtml += `<tbody>`;
+                                    filteredPairs.forEach((pair, index) => {
+                                        sectionContentHtml += `<tr><td>${index + 1}.</td><td>${pair.left}</td><td>${String.fromCharCode(65 + index)}.</td><td>${pair.right}</td></tr>`;
+                                    });
+                                    sectionContentHtml += `</tbody></table>`;
+                                    sectionContentHtml += `</div>`;
+                                }
+                            });
+                        }
+                    }
+                    else if (block.type === 'true-false') {
+                        if (data.questions && data.questions.length > 0) {
+                            let blockQuestionNumber = 1;
+                            data.questions.forEach(q => {
+                                if (q.text) {
+                                    sectionContentHtml += `<div class="question-block-container">`;
+                                    sectionContentHtml += `<p class="preview-question-text">${blockQuestionNumber}. ${q.text}</p>`;
+                                    if (q.options && q.options.length > 0) {
+                                        sectionContentHtml += '<ul class="preview-options-list">';
+                                        q.options.forEach((opt, optIndex) => {
+                                            sectionContentHtml += `<li>${String.fromCharCode(65 + optIndex)}. ${opt}</li>`;
+                                        });
+                                        sectionContentHtml += '</ul>';
+                                    }
+                                    sectionContentHtml += `</div>`;
+                                    blockQuestionNumber++;
+                                }
+                            });
+                        }
+                    }
+                    else if (block.type === 'attachment') {
+                        if (data.attachments && data.attachments.length > 0) {
+                            sectionContentHtml += `<div class="clearfix">`;
+                            data.attachments.forEach(att => {
+                                if (att.imageSrc) {
+                                    const floatClass = att.float === 'left' ? 'float-left' : (att.float === 'right' ? 'float-right' : '');
+                                    sectionContentHtml += `<div class="preview-attachment-item ${floatClass}" style="width: ${att.width || 'auto'}; height: ${att.height || 'auto'};">`;
+                                    sectionContentHtml += `<img src="${att.imageSrc}" alt="${att.alt || 'Attachment'}" style="width: ${att.width || 'auto'}; height: ${att.height || 'auto'}; max-width: 100%; max-height: 100%; object-fit: contain;">`;
+                                    sectionContentHtml += `</div>`;
+                                }
+                            });
+                            sectionContentHtml += `</div>`;
+                        }
+                    }
+                });
+            } else {
+                sectionContentHtml += `<p>No content added for this section yet.</p>`;
+            }
+            
+            paperSectionDiv.innerHTML = sectionContentHtml;
+            modalSections.appendChild(paperSectionDiv);
+        });
+
+        if (logoPreview.src) {
+            modalLogo.src = logoPreview.src;
+            modalLogo.style.display = 'inline-block';
+            setTimeout(() => {
+                const titleElement = document.getElementById('modalTitle');
+                const titleHeight = titleElement.offsetHeight;
+                modalLogo.style.maxHeight = `${titleHeight * 1.2}px`;
+            }, 0);
+        } else {
+            modalLogo.style.display = 'none';
+        }
+        
+        document.getElementById('previewModal').style.display = "flex";
+        hideSpinner();
+    }, 500);
+}
+
+// Print question paper
+function printQuestionPaper() {
+    const printWindow = window.open('', '', 'width=800,height=900');
+    
+    let stylesHtml = '';
+    const stylesheets = document.querySelectorAll('link[rel="stylesheet"], style');
+    stylesheets.forEach(sheet => {
+        if (sheet.href) {
+            stylesHtml += `<link rel="stylesheet" type="text/css" href="${sheet.href}">`;
+        } else {
+            stylesHtml += `<style>${sheet.innerHTML}</style>`;
+        }
+    });
+
+    printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>${document.getElementById('title').value || 'Question Paper'}</title>
+            ${stylesHtml}
+            <style>
+                /*
+                 * IMPORTANT: Add the following CSS rules to your stylesheet
+                 * to control page breaks effectively during printing.
+                 */
+                @media print {
+                    .question-block-container {
+                        page-break-inside: avoid !important;
+                    }
+
+                    .paper-section-title {
+                        page-break-after: avoid !important; /* Keep section title with its first content */
+                    }
+
+                    .preview-question-text,
+                    .preview-options-list,
+                    .preview-match-table,
+                    .preview-attachment-item {
+                        page-break-inside: avoid !important;
+                    }
+
+                    /* Ensures the instructions block doesn't split */
+                    #modalInstructions {
+                        page-break-inside: avoid !important;
+                    }
+                }
+            </style>
+        </head>
+        <body>
+            <div class="modal-content">
+                <div class="modal-header">
+                    ${document.getElementById('modalLogo').outerHTML}
+                    <h2 class="modal-title">${document.getElementById('modalTitle').textContent}</h2>
+                </div>
+                <div class="modal-scrollable-body">
+                    <div class="paper-info">
+                        ${document.getElementById('printSTD').outerHTML}
+                        ${document.getElementById('printTest').outerHTML}
+                        ${document.getElementById('printSubject').outerHTML}
+                        ${document.getElementById('printMarks').outerHTML}
+                    </div>
+                    ${document.getElementById('modalInstructions').outerHTML}
+                    <div class="paper-sections">
+                        </div>
+                </div>
+            </div>
+        </body>
+        </html>
+    `);
+
+    const modalSectionsToClone = document.getElementById('modalSections').cloneNode(true);
+    printWindow.document.querySelector('.paper-sections').appendChild(modalSectionsToClone);
+
+    printWindow.document.close();
+    printWindow.focus();
+    setTimeout(() => {
+        printWindow.print();
+    }, 300); 
+}
+
+// Drag and Drop functionality for sections
+let draggedItem = null;
+let dragParentContainer = null;
+
+function handleDragStart(e) {
+    draggedItem = this;
+    dragParentContainer = this.parentNode;
+
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', this.id); 
+
+    this.classList.add('dragging'); 
+    setTimeout(() => {
+        this.style.opacity = '0.4';
+    }, 0);
+}
+
+function handleDragOver(e) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+
+    const target = e.target.closest('.section');
+
+    if (target && target !== draggedItem) {
+        const targetContainer = document.getElementById('sections-container');
+
+        if (draggedItem.classList.contains('section') && target.classList.contains('section')) {
+            const targetRect = target.getBoundingClientRect();
+            const targetMiddle = targetRect.top + targetRect.height / 2;
+
+            if (e.clientY > targetMiddle) {
+                if (target.nextSibling) {
+                    targetContainer.insertBefore(draggedItem, target.nextSibling);
+                } else {
+                    targetContainer.appendChild(draggedItem);
+                }
+            } else {
+                targetContainer.insertBefore(draggedItem, target);
+            }
+        }
+    }
+}
+
+function handleDragLeave(e) {
+    // Not strictly necessary with the current dragover logic, but good practice
+}
+
+function handleDrop(e) {
+    e.stopPropagation();
+}
+
+function handleDragEnd(e) {
+    if (draggedItem) {
+        draggedItem.style.opacity = '1';
+        draggedItem.classList.remove('dragging');
+        draggedItem = null;
+        dragParentContainer = null;
+    }
+}
+
+// Attach drag and drop listeners to initial elements
+document.querySelectorAll('.section').forEach(section => {
+    section.addEventListener('dragstart', handleDragStart);
+    section.addEventListener('dragover', handleDragOver);
+    section.addEventListener('dragleave', handleDragLeave);
+    section.addEventListener('drop', handleDrop);
+    section.addEventListener('dragend', handleDragEnd);
+});
+
+// Initial setup for the default section's summary
+document.addEventListener('DOMContentLoaded', () => {
+    updateSectionContentSummary('section-1');
+});
+
+</script>
+
+</body>
+</html>

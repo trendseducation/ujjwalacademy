@@ -1,0 +1,334 @@
+ <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Demo Miscellaneous Income Form</title>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="https://trendseducation.github.io/ujjwalacademy/Study%20Material/loginscript.js"></script>
+    <style>
+      body {
+        font-family: 'Roboto', sans-serif;
+        background: linear-gradient(135deg, #a5f0b9, #2575fc);
+        height: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+      }
+      .form-container {
+        max-width: 500px;
+        width: 90%;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .form-container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      .form-group label {
+        font-weight: 500;
+        color: #495057;
+		font-size: 16px;
+        margin-bottom: 8px;
+      }
+      .form-control {
+        border-radius: 8px;
+        padding: 8px;
+        font-size: 14px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid #ced4da;
+      }
+	  .position-relative input{
+	  padding-left: 43px	  
+	  }
+	  .position-relative Select{
+	  padding-left: 40px	  
+	  }
+	  
+	  .position-relative textarea{
+	  padding-left: 40px	  
+	  }
+
+      .form-control:focus {
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+        border-color: #007bff;
+      }
+      .input-icon {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6a11cb;
+        font-size: 18px;
+      }
+      .btn-primary {
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        border: none;
+        border-radius: 8px;
+        padding: 12px;
+        font-size: 16px;
+        font-weight: 500;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+      .progress-circle {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; }
+      }
+      .success-popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        color: white;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 16px;
+        animation: fadeIn 0.5s ease;
+      }
+      .success-popup.fade-out {
+        animation: fadeOut 0.5s ease;
+      }
+      h4 {
+        color: #6a11cb;
+        font-weight: 600;
+        margin-bottom: 20px;
+	  .form-control:focus {
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        border-color: #007bff;
+      }
+	  .calendar-icon {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #007bff;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+   <div class="form-container">
+      <h4 class="text-center">Demo Miscellaneous Income Form</h4>
+      <form id="submit">
+		
+            <div class="form-group">
+            <label for="date">Enter Date:</label>
+            <div class="position-relative">
+			<input
+              class="form-control"
+              type="date"
+              name="Date"
+              id="date"
+            />
+			<i class="fas fa-calendar-alt input-icon"></i>
+          </div></div>
+          <div class="form-group">
+            <label for="Expenses_Name">Income Name:</label>
+            <div class="position-relative">
+			<input
+              class="form-control"
+              type="text"
+              name="Expenses_Name"
+              id="Expenses_Name"
+              placeholder="Enter Expenses Name"
+            />
+			<i class="fas fa-money-bill-wave input-icon"></i>
+          </div></div>
+		  <div class="form-group">
+            <label for="Mobile_No">Mobile Number:</label>
+            <div class="position-relative">
+			<input
+              class="form-control"
+              type="tel"
+              name="Mobile_No"
+              id="Mobile_No"
+              placeholder="Contact Number"
+			  pattern="^\d{10}$"
+              title="Please enter a valid 10-digit phone number"
+            />
+			<i class="fas fa-phone input-icon"></i>
+			</div></div>
+			<div class="form-group">
+            <label for="Receipt_No">Receipt No:</label>
+            <div class="position-relative">
+			<input
+              class="form-control"
+              type="text"
+              name="Receipt_No"
+              id="Receipt_No"
+              placeholder="Enter Receipt No"
+            />
+			<i class="fas fa-receipt input-icon"></i>
+          </div></div>
+			<div class="form-group">
+            <label for="text_dropdown">Payment Mode</label>
+            <div class="position-relative">
+			<select class="form-control" name="Payment_Mode" id="text_dropdown">
+              <option value="">Select Payment Mode</option>
+              <option value="UPI">UPI</option>
+			  <option value="Bank Transfer">Bank Transfer</option>
+			   <option value="Cash">Cash</option>
+            </select>
+			<i class="fas fa-money-bill-wave input-icon"></i>
+          </div></div>
+			<div class="form-group">
+            <label for="Transaction_No">Transaction No:</label>
+            <div class="position-relative">
+			<input
+              class="form-control"
+              type="text"
+              name="Transaction_No"
+              id="Transaction_No"
+              placeholder="Enter Transaction No (Optional)"
+            />
+			<i class="fas fa-credit-card input-icon"></i>
+          </div></div>
+		  <div class="form-group">
+            <label for="Amount">Amount:</label>
+            <div class="position-relative">
+			<input
+              class="form-control"
+              type="tel"
+              name="Amount"
+              id="Amount"
+              placeholder="Enter Expenses Amount"
+              title="Please enter a Expenses Amount"
+            />
+			<i class="fas fa-rupee-sign input-icon"></i>
+			</div></div>
+			<div class="form-group">
+			<label for="Note">Note:</label>
+            <div class="position-relative">
+			<input
+              class="form-control"
+              type="text"
+              name="Note"
+              id="Note"
+              placeholder="Enter Note (Optional)"
+            />
+			<i class="fas fa-sticky-note input-icon"></i>
+          </div></div>
+          <button type="submit" class="btn btn-primary btn-block">
+            Submit
+          </button>
+        </form>
+        <div class="progress-circle">
+          <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+	
+	<script>
+ const scriptURL = "https://script.google.com/macros/s/AKfycbwD-29kpCjkWmA4G0GdHC1IXpbF7GaCpZb5NN-ufwiUO9y12QPIVRYdIHmFmeWUHEx9/exec";
+  const spreadsheetId = "13LTaaP2v4aepRG-05dC1caYxRTNMSjPESMga7Oqwv5Q";
+  const sheetName = "class_Income"; // Change this to any sheet name
+  const form = document.forms["submit"];
+  const progressCircle = document.querySelector(".progress-circle");
+  const submitButton = document.querySelector("button[type='submit']"); // Get the submit button
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    progressCircle.style.display = "block";
+    submitButton.disabled = true; // Disable the submit button
+
+    // Create FormData object and append sheetName and spreadsheetId
+    var formData = new FormData(form);
+    formData.append("sheetName", sheetName);
+    formData.append("spreadsheetId", spreadsheetId);
+
+    fetch(scriptURL, { method: "POST", body: formData })
+      .then((response) => {
+        progressCircle.style.display = "none";
+        submitButton.disabled = false; // Re-enable the submit button
+        
+        // Show success popup
+        const successPopup = document.createElement("div");
+        successPopup.classList.add("success-popup");
+        successPopup.innerHTML = "Submitted Successfully!";
+        
+        // Add the popup to the body
+        document.body.appendChild(successPopup);
+
+        // Close popup after 3 seconds
+        setTimeout(() => {
+          successPopup.classList.add("fade-out");
+          setTimeout(() => {
+            successPopup.remove();
+          }, 500);
+        }, 3000);
+
+        // Reset the form after submission
+        form.reset();
+      })
+      .catch((error) => {
+        progressCircle.style.display = "none";
+        submitButton.disabled = false; // Re-enable the submit button in case of error
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Something went wrong. Please try again!',
+        });
+      });
+  });
+  
+  // Experience Function
+  
+  const dropdown = document.getElementById('experience');
+        const sections = document.querySelectorAll('.form-section');
+
+        dropdown.addEventListener('change', (event) => {
+            // Hide all sections
+            sections.forEach(section => section.classList.add('hidden'));
+
+            // Show the selected section
+            const selectedValue = event.target.value;
+            if (selectedValue) {
+                document.getElementById(selectedValue).classList.remove('hidden');
+            }
+        });
+</script>
+  </body>
+</html>

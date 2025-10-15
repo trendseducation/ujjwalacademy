@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fees Form</title>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="https://trendseducation.github.io/ujjwalacademy/Study%20Material/loginscript.js"></script>
+    <style>
+      body {
+        font-family: 'Roboto', sans-serif;
+        background: linear-gradient(135deg, #a5f0b9, #2575fc);
+        height: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+      }
+      .form-container {
+        max-width: 500px;
+        width: 90%;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .form-container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        font-weight: 500;
+        color: #495057;
+        margin-bottom: 8px;
+      }
+      .form-control {
+        border-radius: 8px;
+        padding: 8px;
+        font-size: 14px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid #ced4da;
+      }
+	  
+	  .form-control2 {
+        border-radius: 8px;
+        padding: 8px;
+        font-size: 14px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid #ced4da;
+		background: white;
+      }
+	  .position-relative input{
+	  padding-left: 43px	  
+	  }
+	  .position-relative Select{
+	  padding-left: 40px	  
+	  }
+	  
+	  .position-relative textarea{
+	  padding-left: 40px	  
+	  }
+
+      .form-control:focus, .form-control2:focus {
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+        border-color: #007bff;
+      }
+      .input-icon {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6a11cb;
+        font-size: 18px;
+      }
+      .btn-primary {
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        border: none;
+        border-radius: 8px;
+        padding: 12px;
+        font-size: 16px;
+        font-weight: 500;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+      .progress-circle {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; }
+      }
+      .success-popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        color: white;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 16px;
+        animation: fadeIn 0.5s ease;
+      }
+      .success-popup.fade-out {
+        animation: fadeOut 0.5s ease;
+      }
+      h4 {
+        color: #6a11cb;
+        font-weight: 600;
+        margin-bottom: 20px;
+      }
+	  
+	  <!... For Installment section CSS code>
+
+        .installment-header {
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #007bff;
+            font-weight: 500;
+            margin-bottom: 15px;
+            text-align: center;
+            border-radius: 6px;
+            width: 100%;
+        }
+
+        .form-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            background-color: #f9f9f9;
+			border: 2px solid black;
+			box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            font-size: 0.9em;
+        }
+
+        select, input[type="text"], input[type="number"], input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 0.95em;
+        }
+
+        select {
+            background-color: #fff;
+            color: #555;
+        }
+
+        input[type="text"], input[type="number"], input[type="date"] {
+            background-color: #fefefe;
+        }
+
+        .cancel-button {
+            display: block;
+            width: 90%;
+            margin: 10px auto;
+            padding: 12px 20px;
+            background-color: #ff4d4d;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        .cancel-button:hover {
+            background-color: #e63939;
+        }
+
+        .installment-selector {
+            margin-bottom: 20px;
+        }
+
+        .installment-selector label {
+            font-size: 1em;
+            color: #333;
+        }
+		 @media (max-width: 768px) {
+		    .containerers {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            label, select, input {
+                font-size: 0.85em;
+            }
+
+            .cancel-button {
+                font-size: 0.85em;
+            }
+			}
+      .success-popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        color: white;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 16px;
+        animation: fadeIn 0.5s ease;
+      }
+      .success-popup.fade-out {
+        animation: fadeOut 0.5s ease;
+      }
+      h4 {
+        color: #6a11cb;
+        font-weight: 600;
+        margin-bottom: 20px;
+      }
+	  .error-message {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 5px;
+  display: none;
+}
+
+     /* Success Popup */
+.success-popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #4CAF50;
+  color: white;
+  padding: 15px 25px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.5s;
+}
+
+.success-popup.fade-out {
+  opacity: 0;
+}
+
+.success-content i {
+  margin-right: 10px;
+  font-size: 1.2em;
+}
+
+/* Duplicate Record Popup */
+.duplicate-record-popup {
+  border-radius: 10px;
+  max-width: 500px;
+}
+
+.duplicate-record-title {
+  color: #d32f2f;
+  font-weight: bold;
+}
+
+.duplicate-record-content {
+  font-size: 1.1em;
+  padding: 10px 0;
+}
+
+.duplicate-record-button {
+  background-color: #d32f2f !important;
+  padding: 8px 20px !important;
+  border-radius: 5px !important;
+}
+
+/* Error Message */
+.error-message {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 5px;
+  display: none;
+}
+
+/* Error styling */
+.is-invalid {
+  border-color: #dc3545 !important;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: none;
+}
+
+/* SweetAlert Popup Customization */
+.duplicate-error-popup {
+  border-radius: 10px;
+  max-width: 500px;
+}
+
+.duplicate-error-button {
+  background-color: #dc3545 !important;
+  padding: 8px 20px !important;
+  border-radius: 5px !important;
+}
+  /* Spinner Overlay Styles */
+  .submit-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: all 0.3s ease;
+  }
+  
+  .spinner-container {
+    text-align: center;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    width: 100%;
+  }
+  
+  .spinner-border {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-width: 0.35em;
+    color: #4e73df;
+    animation: spin 1s linear infinite;
+  }
+  
+  .spinner-text {
+    margin-top: 1.5rem;
+    font-weight: 600;
+    color: #4e73df;
+    font-size: 1.1rem;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Full-Screen Popup */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+        .popup-content {
+            background: white;
+            width: 90%;
+            max-width: 400px;
+            height: 80%;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            animation: slideUp 0.3s ease-in-out;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .popup-content h3 {
+            margin: 0;
+            padding-bottom: 10px;
+            color: #007bff;
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            cursor: pointer;
+            color: red;
+            font-weight: bold;
+        }
+        .student-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            border-radius: 10px;
+            padding: 10px;
+            background: #f9f9f9;
+            display: none;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .student-list div {
+            padding: 12px;
+            margin-bottom: 8px;
+            background: white;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 300;
+            transition: 0.3s;
+            cursor: pointer;
+            border: 1px solid #007bff;
+        }
+        .student-list div:hover {
+            background: #007bff;
+            color: white;
+        }
+        .studspinner {
+            font-size: 26px;
+            color: red;
+            margin-top: 20px;
+        }
+		checking-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(0,0,0,0.1);
+  border-radius: 50%;
+  border-top-color: #000;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+        <h4 class="text-center mb-4">Fees Collection Form</h4>
+        <form id="submitform" oninput="calculateValues()">
+		
+		<div class="form-group">
+            <label for="text_dropdown">Academic Year: <span style="color: red;">*</span></label>
+            <select class="form-control" name="Academic_Year" id="text_dropdown" required>
+              <option value="" disabled selected hidden>Select</option>
+              <option value="2025-26">2025-26</option>
+			   <option value="2026-27">2026-27</option>
+            </select>
+          </div>
+          <div class="form-group">
+  <label for="text_dropdown">Student Name: <span style="color: red;">*</span></label>
+  <div class="form-control2" onclick="openPopup()" name="Name_of_Student_display" id="Name_of_Student_display" readonly required>Select Student Name</div>
+  <input type="hidden" name="Name_of_Student" id="Name_of_Student" required>
+</div> 
+		  
+		  <div class="popup" id="popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <h3>Select Student Name</h3>
+            <div class="studspinner" id="spinner"><i class="fas fa-spinner fa-spin"></i> Please Wait...</div>
+            <div class="student-list" id="studentList"></div>
+        </div>
+    </div>
+		  
+		  			<!-- Installment HTML code -->
+			<div class="containererspage33">
+        <div class="installment-selector">
+            <label for="installment-selector">Select Installment:</label>
+            <select id="installment-selector" onchange="showInstallmentDetails()">
+                <option value="">-- Select an Installment --</option>
+                <option value="1">Installment 1</option>
+                <option value="2">Installment 2</option>
+                <option value="3">Installment 3</option>
+                <option value="4">Installment 4</option>
+                <option value="5">Installment 5</option>
+            </select>
+        </div>
+		  
+	<!-- Installments 1 -->
+	
+	            <div id="installment-1" class="form-section">
+            <label for="receipt-no-1">Receipt No:</label>
+            <input class="form-control" name="Receipt_No_1" type="text" id="receipt-no-1" placeholder="Enter Receipt No">
+
+            <label for="receipt-date-1">Receipt Date:</label>
+            <input class="form-control" type="date" name="Receipt_Date_I" id="receipt-date-1" placeholder="Enter Receipt Date">
+
+            <label for="payment-mode-1">Payment Mode:</label>
+            <select class="form-control" name="Payment_Method_I" id="payment-mode-1" onchange="showFields(1, this.value)">
+                <option value="">Select Payment Mode</option>
+                <option value="UPI">UPI</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+                <option value="Cash">Cash</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <div id="transaction-no-1" style="display: none;">
+                <label for="transaction-1">Transaction No:</label>
+                <input class="form-control" name="Transaction_ID_I" type="text" id="transaction-1" placeholder="Enter Transaction No">
+            </div>
+            
+			<div id="transaction-banks-1" style="display: none;">
+                <label for="transaction-bank-1">Transaction No:</label>
+                <input class="form-control" name="Bank_Trans_No_1" type="text" id="transaction-bank-1" placeholder="Enter Transaction No">
+            </div>
+
+            <div id="tell-me-1" style="display: none;">
+                <label for="transaction-tell-1">Tell Me:</label>
+                <input class="form-control" name="Other_Trans_No_1" type="text" id="transaction-tell-1" placeholder="Enter Details">
+            </div>
+             
+			<label for="Next-Ins-date1">Next Installment Date</label>
+            <input class="form-control" name="Next_Installment_Date_2" type="date" id="Next-Ins-date1" placeholder="Enter Next Installment Date">
+			
+            <label for="amount-1">Amount:</label>
+            <input class="form-control" name="Instalment_I" type="number" id="amount-1" placeholder="Enter Amount">
+
+            <button class="cancel-button" onclick="cancelSection(1)">Cancel</button>
+        </div>
+		  
+		  <!-- Installments 2 -->
+		
+        <div id="installment-2" class="form-section">
+            <label for="receipt-no-2">Receipt No:</label>
+            <input class="form-control" name="Reciept_No_II" type="text" id="receipt-no-2" placeholder="Enter Receipt No">
+
+            <label for="receipt-date-2">Receipt Date:</label>
+            <input class="form-control" name="Receipt_Date_II" type="date" id="receipt-date-2" placeholder="Enter Receipt Date">
+
+            <label for="payment-mode-2">Payment Mode:</label>
+            <select class="form-control" name="Payment_Method_II" id="payment-mode-2" onchange="showFields(2, this.value)">
+                <option value="">Select Payment Mode</option>
+                <option value="UPI">UPI</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+                <option value="Cash">Cash</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <div id="transaction-no-2" style="display: none;">
+                <label for="transaction-2">Transaction No:</label>
+                <input class="form-control" name="Transaction_ID_II" type="text" id="transaction-2" placeholder="Enter Transaction No">
+            </div>
+			
+			<div id="transaction-banks-2" style="display: none;">
+                <label for="transaction-bank-2">Transaction No:</label>
+                <input class="form-control" name="Bank_Trans_No_2" type="text" id="transaction-bank-2" placeholder="Enter Transaction No">
+            </div>
+
+            <div id="tell-me-2" style="display: none;">
+                <label for="other-2">Tell Me:</label>
+                <input class="form-control" name="Other_Trans_No_2" type="text" id="other-2" placeholder="Enter Details">
+            </div>
+			
+			<label for="Next-Ins-date2">Next Installment Date</label>
+            <input class="form-control" name="Next_Installment_Date_3" type="date" id="Next-Ins-date2" placeholder="Enter Next Installment Date">
+
+            <label for="amount-2">Amount:</label>
+            <input class="form-control" name="Instalment_II" type="number" id="amount-2" placeholder="Enter Amount">
+
+            <button class="cancel-button" onclick="cancelSection(2)">Cancel</button>
+        </div>
+        <!-- Installments 3 -->
+		
+        <div id="installment-3" class="form-section">
+            <label for="receipt-no-3">Receipt No:</label>
+            <input class="form-control" name="Receipt_No_III" type="text" id="receipt-no-3" placeholder="Enter Receipt No">
+
+            <label for="receipt-date-3">Receipt Date:</label>
+            <input class="form-control" name="Receipt_Date_III" type="date" id="receipt-date-3" placeholder="Enter Receipt Date">
+
+            <label for="payment-mode-3">Payment Mode:</label>
+            <select class="form-control" name="Payment_Method_III" id="payment-mode-3" onchange="showFields(3, this.value)">
+                <option value="">Select Payment Mode</option>
+                <option value="UPI">UPI</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+                <option value="Cash">Cash</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <div id="transaction-no-3" style="display: none;">
+                <label for="transaction-3">Transaction No:</label>
+                <input class="form-control" name="Transaction_ID_III" type="text" id="transaction-3" placeholder="Enter Transaction No">
+            </div>
+			
+			<div id="transaction-banks-3" style="display: none;">
+                <label for="transaction-bank-3">Transaction No:</label>
+                <input class="form-control" name="Bank_Trans_No_3" type="text" id="transaction-bank-3" placeholder="Enter Transaction No">
+            </div>
+
+            <div id="tell-me-3" style="display: none;">
+                <label for="other-3">Tell Me:</label>
+                <input class="form-control" name="Other_Trans_No_3" type="text" id="other-3" placeholder="Enter Details">
+            </div>
+			
+			<label for="Next-Ins-date3">Next Installment Date</label>
+            <input class="form-control" name="Next_Installment_Date_4" type="date" id="Next-Ins-date3" placeholder="Enter Next Installment Date">
+
+            <label for="amount-3">Amount:</label>
+            <input class="form-control" name="Instalment_III" type="number" id="amount-3" placeholder="Enter Amount">
+
+            <button class="cancel-button" onclick="cancelSection(3)">Cancel</button>
+        </div>
+        <!-- Installments 4 -->
+		
+        <div id="installment-4" class="form-section">
+            <label for="receipt-no-4">Receipt No:</label>
+            <input class="form-control" name="Receipt_No_IV" type="text" id="receipt-no-4" placeholder="Enter Receipt No">
+
+            <label for="receipt-date-4">Receipt Date:</label>
+            <input class="form-control" name="Receipt_Date_IV" type="date" id="receipt-date-4" placeholder="Enter Receipt Date">
+
+            <label for="payment-mode-4">Payment Mode:</label>
+            <select class="form-control" name="Payment_Method_IV" id="payment-mode-4" onchange="showFields(4, this.value)">
+                <option value="">Select Payment Mode</option>
+                <option value="UPI">UPI</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+                <option value="Cash">Cash</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <div id="transaction-no-4" style="display: none;">
+                <label for="transaction-4">Transaction No:</label>
+                <input class="form-control" name="Transaction_ID_IV" class="form-control" name="" type="text" id="transaction-4" placeholder="Enter Transaction No">
+            </div>
+			
+			<div id="transaction-banks-4" style="display: none;">
+                <label for="transaction-bank-4">Transaction No:</label>
+                <input class="form-control" name="Bank_Trans_No_4" type="text" id="transaction-bank-4" placeholder="Enter Transaction No">
+            </div>
+
+            <div id="tell-me-4" style="display: none;">
+                <label for="other-4">Tell Me:</label>
+                <input class="form-control" name="Other_Trans_No_4" type="text" id="other-4" placeholder="Enter Details">
+            </div>
+			
+			<label for="Next-Ins-date4">Next Installment Date</label>
+            <input class="form-control" name="Next_Installment_Date_5" type="date" id="Next-Ins-date4" placeholder="Enter Next Installment Date">
+
+            <label for="amount-4">Amount:</label>
+            <input class="form-control" name="Instalment_IV" type="number" id="amount-4" placeholder="Enter Amount">
+
+            <button class="cancel-button" onclick="cancelSection(4)">Cancel</button>
+        </div>
+        <!-- Installments 5 -->
+		
+        <div id="installment-5" class="form-section">
+            <label for="receipt-no-5">Receipt No:</label>
+            <input class="form-control" name="Receipt_No_V" type="text" id="receipt-no-5" placeholder="Enter Receipt No">
+
+            <label for="receipt-date-5">Receipt Date:</label>
+            <input class="form-control" name="Receipt_Date_V" type="date" id="receipt-date-5" placeholder="Enter Receipt Date">
+
+            <label for="payment-mode-5">Payment Mode:</label>
+            <select class="form-control" name="Payment_Method_V" id="payment-mode-5" onchange="showFields(5, this.value)">
+                <option value="">Select Payment Mode</option>
+                <option value="UPI">UPI</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+                <option value="Cash">Cash</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <div id="transaction-no-5" style="display: none;">
+                <label for="transaction-5">Transaction No:</label>
+                <input class="form-control" name="Transaction_ID_V" type="text" id="transaction-5" placeholder="Enter Transaction No">
+            </div>
+			
+			<div id="transaction-banks-5" style="display: none;">
+                <label for="transaction-bank-5">Transaction No:</label>
+                <input class="form-control" name="Bank_Trans_No_5" type="text" id="transaction-bank-5" placeholder="Enter Transaction No">
+            </div>
+
+            <div id="tell-me-5" style="display: none;">
+                <label for="other-5">Tell Me:</label>
+                <input class="form-control" name="Other_Trans_No_5" type="text" id="other-5" placeholder="Enter Details">
+            </div>
+
+            <label for="amount-5">Amount:</label>
+            <input class="form-control" name="Instalment_V" type="number" id="amount-5" placeholder="Enter Amount">
+
+            <button class="cancel-button" onclick="cancelSection(5)">Cancel</button>
+		  </div>
+		  <label for="TotalfeesRec">Total_Receive_Fees:</label>
+            <input class="form-control" name="Total_Receive_Fees" type="number" id="TotalfeesRec" readonly style="background-color: #ebe6e6">
+		  <label for="Bal_Fees">Balance Fees:</label>
+            <input class="form-control" name="Bal_Fees" type="number" id="Bal_Fees" readonly style="background-color: #ebe6e6">
+			<label for="Total_fees">Total Fees:<span style="color:red;">*</span></label>
+            <input class="form-control" name="Total_fees" type="number" id="Total_fees" placeholder="Enter Amount" required>
+			<label for="Note">Note:</label>
+            <input class="form-control" name="Note" type="text" id="Note" placeholder="Types any Information">
+
+<!-- Update your button to include an ID -->
+<button type="submit" class="btn btn-primary btn-block" id="submitButton">
+  Submit
+</button>
+    </div></form>
+	
+	        <!-- Add this overlay div right before your form closing tag -->
+<div class="submit-overlay" id="submitOverlay">
+  <div class="spinner-container">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <div class="spinner-text">Submitting your data...</div>
+  </div>
+</div>
+	<script src="installmentfunction.js"></script>
+<script>
+  // Configuration constants
+  const scriptURL = "https://script.google.com/macros/s/AKfycbwD-29kpCjkWmA4G0GdHC1IXpbF7GaCpZb5NN-ufwiUO9y12QPIVRYdIHmFmeWUHEx9/exec";
+  const SPREADSHEET_ID = '1DESNawg8LGf4Xqfenx7gW21spEzinRSUebadAXVTuH4';
+  const sheetName = "11th_Com";
+  const ADMSPREADSHEET_ID = '1pOVgqO_tbahTkk8KNlTtlMmXvSskj9HPcKenlCRJaTU';
+  const adm_sheetName = "11th_Com";
+  
+  // DOM elements
+  const form = document.forms["submitform"];
+  const submitButton = document.getElementById("submitButton");
+  const submitOverlay = document.getElementById("submitOverlay");
+  const studentNameDisplay = document.getElementById("Name_of_Student_display");
+  const studentNameInput = document.getElementById("Name_of_Student");
+  let existingRecords = [];
+
+  // Initialize when page loads
+  document.addEventListener("DOMContentLoaded", async function() {
+    await fetchExistingRecords();
+    
+    // Add event listeners for amount calculation
+    document.getElementById('amount-1').addEventListener('input', calculateValues);
+    document.getElementById('amount-2').addEventListener('input', calculateValues);
+    document.getElementById('amount-3').addEventListener('input', calculateValues);
+    document.getElementById('amount-4').addEventListener('input', calculateValues);
+    document.getElementById('amount-5').addEventListener('input', calculateValues);
+    document.getElementById('Total_fees').addEventListener('input', calculateValues);
+  });
+
+  // Fetch existing records from Google Sheet
+  async function fetchExistingRecords() {
+    try {
+      const url = `${scriptURL}?action=getRecords&spreadsheetId=${SPREADSHEET_ID}&sheetName=${sheetName}`;
+      const response = await fetch(url);
+      const data = await response.json();
+      
+      if (data && data.records) {
+        existingRecords = data.records;
+      }
+    } catch (error) {
+      console.error("Error fetching records:", error);
+    }
+  }
+
+  // Check if student already exists in the sheet
+  async function checkStudentExists(studentName) {
+    try {
+      // Show checking spinner
+      const originalContent = studentNameDisplay.innerHTML;
+      studentNameDisplay.innerHTML = `
+        <span class="checking-status">
+          <span class="checking-spinner"></span>
+          Verifying student...
+        </span>
+      `;
+      
+      const url = `${scriptURL}?action=getRecords&spreadsheetId=${SPREADSHEET_ID}&sheetName=${sheetName}`;
+      const response = await fetch(url);
+      const data = await response.json();
+      
+      // Restore original content
+      studentNameDisplay.innerHTML = originalContent;
+      
+      if (data && data.records) {
+        return data.records.some(record => 
+          record.Name_of_Student && record.Name_of_Student.toLowerCase() === studentName.toLowerCase()
+        );
+      }
+      return false;
+    } catch (error) {
+      console.error("Error checking student:", error);
+      studentNameDisplay.textContent = studentName; // Restore student name on error
+      return false;
+    }
+  }
+
+  // Form submission handler with instant spinner
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    
+    // Validate student name is selected
+    const studentName = studentNameInput.value;
+    if (!studentName || studentName === '') {
+      showErrorPopup('Please select a student name');
+      return;
+    }
+    
+    // Immediately show spinner and disable button
+    submitOverlay.style.display = "flex";
+    submitButton.disabled = true;
+    
+    try {
+      // Show checking status
+      const originalContent = studentNameDisplay.innerHTML;
+      studentNameDisplay.innerHTML = `
+        <span class="checking-status">
+          <span class="checking-spinner"></span>
+          Verifying student...
+        </span>
+      `;
+      
+      // Check if student already exists
+      const studentExists = await checkStudentExists(studentName);
+      if (studentExists) {
+        studentNameDisplay.textContent = studentName; // Restore the name
+        showErrorPopup('Student already exists. Kindly update fees details.');
+        return;
+      }
+      
+      // If student doesn't exist, proceed with submission
+      const formData = new FormData(form);
+      formData.append("sheetName", sheetName);
+      formData.append("spreadsheetId", SPREADSHEET_ID);
+
+      const response = await fetch(scriptURL, { 
+        method: "POST", 
+        body: formData 
+      });
+      
+      if (!response.ok) throw new Error("Network response was not ok");
+      
+      showSuccessPopup();
+      form.reset();
+      // Reset the student name display
+      studentNameDisplay.textContent = 'Select Student Name';
+      studentNameInput.value = '';
+      await fetchExistingRecords();
+    } catch (error) {
+      showErrorPopup('Something went wrong. Please try again!');
+      console.error('Submission error:', error);
+      // Restore the student name display in case of error
+      studentNameDisplay.textContent = studentName;
+    } finally {
+      submitOverlay.style.display = "none";
+      submitButton.disabled = false;
+    }
+  });
+
+  // Show success popup
+  function showSuccessPopup() {
+    Swal.fire({
+      title: 'Success!',
+      text: 'Form submitted successfully!',
+      icon: 'success',
+      confirmButtonText: 'OK'
+    });
+  }
+
+  // Show error popup
+  function showErrorPopup(message) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: message,
+    });
+  }
+  
+  // Amount automatic Calculation Function
+  function calculateValues() {
+    const amount1 = parseFloat(document.getElementById('amount-1').value) || 0;
+    const amount2 = parseFloat(document.getElementById('amount-2').value) || 0;
+    const amount3 = parseFloat(document.getElementById('amount-3').value) || 0;
+    const amount4 = parseFloat(document.getElementById('amount-4').value) || 0;
+    const amount5 = parseFloat(document.getElementById('amount-5').value) || 0;
+    const totalFees = parseFloat(document.getElementById('Total_fees').value) || 0;
+
+    const TotalfeesRec = amount1 + amount2 + amount3 + amount4 + amount5;
+    const Bal_Fees = totalFees - TotalfeesRec;
+
+    document.getElementById('TotalfeesRec').value = TotalfeesRec.toFixed(2);
+    document.getElementById('Bal_Fees').value = Bal_Fees.toFixed(2);
+  }
+  
+  function openPopup() {
+    document.getElementById("popup").style.display = "flex";
+    fetchStudentNames();
+  }
+
+  function closePopup() {
+    document.getElementById("popup").style.display = "none";
+  }
+
+  async function fetchStudentNames() {
+    document.getElementById("spinner").style.display = "block";
+    document.getElementById("studentList").style.display = "none";
+
+    try {
+      const response = await fetch(`${scriptURL}?action=getColumnBData&spreadsheetId=${ADMSPREADSHEET_ID}&sheetName=${adm_sheetName}`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+
+      let studentList = document.getElementById("studentList");
+      studentList.innerHTML = "";
+
+      if (Array.isArray(data)) {
+        data.forEach(name => {
+          if (name) {
+            let div = document.createElement("div");
+            div.textContent = name;
+            div.onclick = async function() {
+              document.getElementById("popup").style.display = "none";
+              const originalContent = studentNameDisplay.innerHTML;
+              studentNameDisplay.innerHTML = `
+                <span class="checking-status">
+                  <span class="checking-spinner"></span>
+                  Verifying student...
+                </span>
+              `;
+              
+              try {
+                const studentExists = await checkStudentExists(name);
+                if (studentExists) {
+                  showErrorPopup('Student already exists. Kindly update fees details.');
+                  studentNameDisplay.textContent = 'Select Student Name';
+                  studentNameInput.value = '';
+                } else {
+                  studentNameDisplay.textContent = name;
+                  studentNameInput.value = name;
+                }
+              } catch (error) {
+                console.error("Error checking student:", error);
+                studentNameDisplay.textContent = 'Select Student Name';
+                studentNameInput.value = '';
+                showErrorPopup("Error checking student. Please try again.");
+              }
+            };
+            studentList.appendChild(div);
+          }
+        });
+      } else {
+        throw new Error(data.error || "Unknown error occurred");
+      }
+
+      document.getElementById("spinner").style.display = "none";
+      studentList.style.display = "block";
+
+    } catch (error) {
+      console.error("Error fetching student names:", error);
+      showErrorPopup("Error fetching student names: " + error.message);
+      document.getElementById("spinner").style.display = "none";
+      closePopup();
+    }
+  }
+</script>
+</body>
+</html>

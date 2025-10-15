@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Balace fees</title>
+	<script src="https://trendseducation.github.io/ujjwalacademy/Study%20Material/loginscript.js"></script>
+  <style>
+     body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .blur {
+      filter: blur(8px);
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      padding: 16px;
+    }
+
+    .card {
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      text-align: center;
+      padding: 14px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .icon {
+      font-size: 48px;
+      color: #555;
+      margin-bottom: 8px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .name {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .description {
+      font-size: 14px;
+      color: #666;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .container {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+	  /* Spinner Styles */
+    #spinner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .spinner {
+      border: 6px solid #ddd;
+      border-top: 6px solid #4CAF50;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+	<div id="spinner">
+    <div class="spinner"></div>
+  </div>
+  <header style="text-align: center; padding: 10px; background-color: #4CAF50; color: white;">
+    <h2>Ujjwal Academy Fees Collection</h2>
+  </header>
+  <h4 style="align-items: left; background-color: white; border-radius: 10px; border: 2px solid #000000; box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px; padding: 12px; text-align: center;"><span style="color: black;">Balance Fees Details</span></h4>
+  <main>
+    <div class="container">
+  <div class="card">
+    <a href="11thComBalFee.html">
+    <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/FeesForm1.png" alt="Icon" style="width: 50px; height: 50px; padding: 10px;">
+  <div class="name">11th Commerce Balance Fees</div>
+    </a>
+  </div>
+  <div class="card">
+    <a href="12thComBalFee.html">
+    <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/FeesForm1.png" alt="Icon" style="width: 50px; height: 50px; padding: 10px;">
+  <div class="name">12th Commerce Balance Fees</div>
+    </a>
+  </div>
+  <div class="card">
+    <a href="11thSciBalFee.html">
+    <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/FeesForm1.png" alt="Icon" style="width: 50px; height: 50px; padding: 10px;">
+  <div class="name">11th Science Balance Fees</div>
+    </a>
+  </div>
+  <div class="card">
+    <a href="12thSciBalFee.html">
+    <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/FeesForm1.png" alt="Icon" style="width: 50px; height: 50px; padding: 10px;">
+  <div class="name">12th Science Balance Fees</div>
+    </a>
+  </div>
+  </div>
+  </main>
+	<script>
+    // Show spinner on page load and hide when loaded
+    window.addEventListener('load', () => {
+      const spinner = document.getElementById('spinner');
+      spinner.style.display = 'none';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Test Chapter Records</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<script src="https://trendseducation.github.io/ujjwalacademy/Study%20Material/loginscript.js"></script>
+    <style>
+    :root {
+    --primary-color: #4361ee;
+    --secondary-color: #3f37c9;
+    --accent-color: #4895ef;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+    --success-color: #4cc9f0;
+    --danger-color: #f72585;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f5f7fa;
+    color: var(--dark-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px 0;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+h2 {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.search-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    padding: 10px;
+    width: 100%;
+}
+
+.search-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    position: absolute;
+    left: 18px;
+    color: #7a7a7a;
+    font-size: 1rem;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 12px 15px 12px 35px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    background: #f9f9f9;
+    font-weight: 500;
+}
+
+#searchInput:focus {
+    border-color: #4361ee;
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+    background: #fff;
+    outline: none;
+}
+
+.search-actions {
+    position: absolute;
+    right: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.filter-toggle {
+    background: transparent;
+    border: none;
+    color: #7a7a7a;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    padding: 5px;
+    border-radius: 6px;
+}
+
+.filter-toggle:hover {
+    color: #4361ee;
+    background: rgba(67, 97, 238, 0.1);
+}
+
+.filter-container {
+    display: none;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.filter-container.visible {
+    display: block;
+}
+
+.filter-row {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+}
+
+.filter-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filter-group label {
+    font-size: 0.85rem;
+    color: #555;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.styled-select, .styled-date {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    background: #f9f9f9;
+    transition: all 0.3s;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.styled-select {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    padding-right: 35px;
+}
+
+.styled-select:focus, .styled-date:focus {
+    border-color: #4361ee;
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+    background: #fff;
+    outline: none;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+.btn-refresh {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.btn-refresh:hover {
+    background-color: #3aa8d8;
+    transform: translateY(-2px);
+}
+
+input, select {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-family: inherit;
+    min-width: 200px;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(72, 149, 239, 0.2);
+}
+
+.table-container {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow-x: auto;
+    margin-bottom: 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+    position: sticky;
+    top: 0;
+}
+
+tr:hover {
+    background-color: #f8f9fa;
+}
+
+.loading-spinner {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.no-data {
+    text-align: center;
+    padding: 30px;
+    color: #666;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.page-btn {
+    padding: 8px 15px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.page-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    width: 85%;
+    max-width: 750px;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+.modal-body {
+    padding: 10px 0;
+}
+
+.modal-footer {
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    text-align: right;
+    margin-top: 20px;
+}
+
+.close-btn {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-btn:hover {
+    color: #333;
+}
+
+.details-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 20px 0;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.details-table th {
+    background: linear-gradient(135deg, #4361ee, #3f37c9);
+    color: white;
+    padding: 15px;
+    text-align: left;
+    font-weight: 500;
+}
+
+.details-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #f0f0f0;
+    background-color: white;
+}
+
+.details-table tr:last-child td {
+    border-bottom: none;
+}
+
+.details-table tr:hover td {
+    background-color: #f9f9f9;
+}
+
+.result-summary {
+    margin-top: 25px;
+    padding: 20px;
+    background: linear-gradient(to right, #f8f9fa, #ffffff);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    border-left: 4px solid #4361ee;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding: 8px 0;
+}
+
+.absent-reason {
+    padding: 20px;
+    background-color: #fff8f8;
+    border-left: 4px solid #f44336;
+    margin: 20px 0;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(244, 67, 54, 0.1);
+}
+
+.action-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.get-result-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.get-result-btn:hover {
+    background-color: #3e8e41;
+    transform: translateY(-2px);
+}
+
+.reason-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.reason-btn:hover {
+    background-color: #d32f2f;
+    transform: translateY(-2px);
+}
+
+.present {
+    color: #4CAF50;
+    font-weight: 600;
+}
+
+.absent {
+    color: #F44336;
+    font-weight: 600;
+}
+
+.pass {
+    color: #4CAF50;
+    font-weight: 600;
+}
+
+.fail {
+    color: #F44336;
+    font-weight: 600;
+}
+
+.test-chapter {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    color: #4361ee;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #ddd;
+}
+
+.class-info {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 3px;
+}
+
+.stream-badge {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 4px 8px;
+    background: #4361ee;
+    color: white;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .search-filter {
+        padding: 12px;
+        border-radius: 10px;
+    }
+    
+    #searchInput {
+        padding: 12px 20px 12px 40px;
+        font-size: 0.95rem;
+    }
+    
+    .filter-row {
+        flex-direction: row;
+        gap: 12px;
+    }
+    
+    .filter-toggle {
+        font-size: 1rem;
+    }
+    
+    .styled-select, .styled-date {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+    
+    .controls {
+        flex-direction: column;
+    }
+    
+    .search-filter {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    input, select {
+        width: 100%;
+    }
+    
+    th, td {
+        padding: 10px 8px;
+        font-size: 0.9rem;
+    }
+    
+    .filter-row select,
+    .filter-row input {
+        width: 100%;
+    }
+    
+    .modal-content {
+        width: 90%;
+        padding: 15px;
+    }
+    
+    .details-table th, 
+    .details-table td {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+}
+    </style>
+</head>
+<body>
+   <div class="container">
+    <header>
+        <h2><i class="fas fa-graduation-cap"></i> Student Test Records</h2>
+        <p>View and manage student Test records</p>
+    </header>
+
+    <div class="controls">
+    <div class="search-filter">
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="searchInput" placeholder="Search by student name..." aria-label="Search">
+        </div>
+        <div class="filter-row">
+            <select id="streamFilter" aria-label="Filter by stream">
+                <option value="">All Streams</option>
+                <option value="11th Com">11th Commerce</option>
+                <option value="12th Com">12th Commerce</option>
+                <option value="11th Sci">11th Science</option>
+                <option value="12th Sci">12th Science</option>
+            </select>
+            <input type="date" id="dateFilter" aria-label="Filter by date">
+        </div>
+    </div>
+</div>
+
+    <div class="table-container">
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>Date <i class="fas fa-sort"></i></th>
+                    <th>Student Name <i class="fas fa-sort"></i></th>
+                    <th>Attendance <i class="fas fa-sort"></i></th>
+                    <th>Action <i class="fas fa-sort"></i></th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- Data will be inserted here by JavaScript -->
+            </tbody>
+        </table>
+        <div id="noData" class="no-data" style="display: none;">
+            <i class="fas fa-database" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.5;"></i>
+            <h3>No data available</h3>
+            <p>Click "Refresh Data" to load records</p>
+        </div>
+    </div>
+
+    <div class="pagination" id="pagination">
+        <!-- Pagination buttons will be inserted here by JavaScript -->
+    </div>
+</div>
+
+<div class="loading-spinner" id="loadingSpinner">
+    <div class="spinner"></div>
+</div>
+
+<!-- Popup Modal -->
+<div id="detailsModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modalTitle">Student Details</h3>
+            <span class="close-btn">&times;</span>
+        </div>
+        <div class="modal-body" id="modalBody">
+            <!-- Content will be inserted here -->
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" id="closeModalBtn">Close</button>
+        </div>
+    </div>
+</div>
+
+<script>
+   // Replace this with your deployed Google Apps Script web app URL
+const scriptUrl = "https://script.google.com/macros/s/AKfycby0RQo2xUkQebklTLnxTLoXulQV_7nZV0PTMFV-gaCXhzuv3ngk0fol3HkYAx6l1k8/exec";
+
+// Spreadsheet configuration
+const spreadsheetConfig = {
+    spreadsheetId: "143lXUGRWDGHzmznZ_q0yNrXTmkMn97raWmodAMZEP8I",
+    sheets: ["11th_Com", "12th_Com", "11th_Sci", "12th_Sci", "8th_Std", "9th_Std", "10th_Std"],
+    columns: {
+        date: 1,
+        studentName: 2,
+        chapterName: 3,
+        attendance: 4,
+        english: 5,
+        hindi: 6,
+        marathi: 7,
+        bkAccountancy: 8,    // Science: Biology | School: Science | Commerce: BK & Accountancy
+        ocManagement: 9,     // Science: Physics | School: History | Commerce: OC & Management
+        economy: 10,         // Science: Chemistry | School: Geography | Commerce: Economy
+        sp: 11,              // Science: Geography | Commerce: Secretarial Practice
+        mathp1: 12,
+        mathp2: 13,
+        totalObtained: 14,
+        totalMarks: 15,
+        percentage: 16,
+        result: 17,
+        note: 18
+    }
+};
+
+let allData = [];
+let filteredData = [];
+let currentPage = 1;
+const rowsPerPage = 10;
+let sortColumn = null;
+let sortDirection = 1;
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadData();
+    
+    document.getElementById('streamFilter').addEventListener('change', filterData);
+    document.getElementById('searchInput').addEventListener('input', filterData);
+    document.getElementById('dateFilter').addEventListener('change', filterData);
+    
+    document.querySelectorAll('th').forEach((th, index) => {
+        th.addEventListener('click', () => {
+            sortColumn = index;
+            sortDirection = sortColumn === index ? -sortDirection : 1;
+            sortData();
+            renderTable();
+        });
+    });
+    
+    document.querySelector('.close-btn').addEventListener('click', closeModal);
+    document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+    window.addEventListener('click', function(event) {
+        if (event.target === document.getElementById('detailsModal')) {
+            closeModal();
+        }
+    });
+});
+
+function showLoading() {
+    document.getElementById('loadingSpinner').style.display = 'flex';
+}
+
+function hideLoading() {
+    document.getElementById('loadingSpinner').style.display = 'none';
+}
+
+function loadData() {
+    showLoading();
+    allData = [];
+    
+    const fetchPromises = spreadsheetConfig.sheets.map(sheetName => {
+        return fetch(`${scriptUrl}?spreadsheetId=${encodeURIComponent(spreadsheetConfig.spreadsheetId)}&sheetName=${encodeURIComponent(sheetName)}`)
+            .then(response => {
+                if (!response.ok) throw new Error(`Failed to fetch data from ${sheetName}`);
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    console.error(`Error in ${sheetName}:`, data.error);
+                    return [];
+                }
+                return data.map(item => [...item, sheetName.replace('_', ' ')]);
+            })
+            .catch(error => {
+                console.error(`Error loading ${sheetName}:`, error);
+                return [];
+            });
+    });
+    
+    Promise.all(fetchPromises)
+        .then(results => {
+            allData = results.flat();
+            filterData();
+            hideLoading();
+        })
+        .catch(error => {
+            console.error('Error loading data:', error);
+            hideLoading();
+            alert('Error loading data. Please try again.');
+        });
+}
+
+function filterData() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const selectedDate = document.getElementById('dateFilter').value;
+    const selectedStream = document.getElementById('streamFilter').value;
+    
+    filteredData = allData.filter(item => {
+        const studentName = item[spreadsheetConfig.columns.studentName - 1]?.toString().toLowerCase() || '';
+        const dateValue = item[spreadsheetConfig.columns.date - 1];
+        const stream = item[18] || '';
+        
+        const matchesSearch = studentName.includes(searchTerm);
+        
+        let matchesDate = true;
+        if (selectedDate) {
+            const itemDate = new Date(dateValue);
+            const filterDate = new Date(selectedDate);
+            matchesDate = itemDate.toDateString() === filterDate.toDateString();
+        }
+        
+        let matchesStream = true;
+        if (selectedStream) {
+            matchesStream = stream === selectedStream;
+        }
+        
+        return matchesSearch && matchesDate && matchesStream;
+    });
+    
+    currentPage = 1;
+    renderTable();
+    renderPagination();
+}
+
+function sortData() {
+    if (sortColumn !== null) {
+        filteredData.sort((a, b) => {
+            let dataColumn;
+            if (sortColumn === 0) dataColumn = spreadsheetConfig.columns.date - 1;
+            else if (sortColumn === 1) dataColumn = spreadsheetConfig.columns.studentName - 1;
+            else if (sortColumn === 2) dataColumn = spreadsheetConfig.columns.attendance - 1;
+            
+            let valA = a[dataColumn];
+            let valB = b[dataColumn];
+            
+            if (dataColumn === spreadsheetConfig.columns.date - 1) {
+                valA = new Date(valA).getTime();
+                valB = new Date(valB).getTime();
+            } else {
+                valA = valA?.toString().toLowerCase() || '';
+                valB = valB?.toString().toLowerCase() || '';
+            }
+            
+            if (valA < valB) return -1 * sortDirection;
+            if (valA > valB) return 1 * sortDirection;
+            return 0;
+        });
+    }
+}
+
+function renderTable() {
+    const tableBody = document.getElementById('tableBody');
+    const noDataDiv = document.getElementById('noData');
+    
+    if (filteredData.length === 0) {
+        tableBody.innerHTML = '';
+        noDataDiv.style.display = 'block';
+        return;
+    }
+    
+    noDataDiv.style.display = 'none';
+    sortData();
+    
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const endIndex = Math.min(startIndex + rowsPerPage, filteredData.length);
+    const pageData = filteredData.slice(startIndex, endIndex);
+    
+    tableBody.innerHTML = pageData.map((item, index) => {
+        const dateObj = new Date(item[spreadsheetConfig.columns.date - 1]);
+        const formattedDate = dateObj.toLocaleDateString('en-GB', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric'
+        });
+        
+        const attendance = item[spreadsheetConfig.columns.attendance - 1];
+        const attendanceClass = attendance === 'Present' ? 'present' : 'absent';
+        const actionBtnClass = attendance === 'Present' ? 'get-result-btn' : 'reason-btn';
+        const actionBtnText = attendance === 'Present' ? 'Get Result' : 'Reason';
+        const classInfo = item[18] || '';
+        
+        return `
+            <tr>
+                <td>${formattedDate}</td>
+                <td>
+                    ${item[spreadsheetConfig.columns.studentName - 1]}
+                    <div class="class-info">${classInfo}</div>
+                </td>
+                <td class="${attendanceClass}">${attendance}</td>
+                <td>
+                    <button class="action-btn ${actionBtnClass}" onclick="showDetails(${startIndex + index})">
+                        <i class="fas ${attendance === 'Present' ? 'fa-award' : 'fa-question-circle'}"></i> ${actionBtnText}
+                    </button>
+                </td>
+            </tr>
+        `;
+    }).join('');
+    
+    document.querySelectorAll('th i').forEach(icon => {
+        icon.className = 'fas fa-sort';
+    });
+    
+    if (sortColumn !== null) {
+        const th = document.querySelectorAll('th')[sortColumn];
+        const icon = th.querySelector('i');
+        icon.className = sortDirection === 1 ? 'fas fa-sort-up' : 'fas fa-sort-down';
+    }
+}
+
+function showDetails(index) {
+    const item = filteredData[index];
+    const modal = document.getElementById('detailsModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+    
+    const attendance = item[spreadsheetConfig.columns.attendance - 1];
+    const studentName = item[spreadsheetConfig.columns.studentName - 1];
+    const testChapter = item[spreadsheetConfig.columns.chapterName - 1];
+    const stream = item[18] || '';
+    const note = item[spreadsheetConfig.columns.note - 1] || ''; // Corrected index
+    
+    modalTitle.textContent = `${studentName}'s ${attendance === 'Present' ? 'Test Results' : 'Absence Details'}`;
+    
+    if (attendance === 'Present') {
+        let percentage = item[spreadsheetConfig.columns.percentage - 1];
+        if (percentage && !isNaN(percentage)) {
+            if (percentage <= 1) percentage = (percentage * 100).toFixed(2);
+            percentage += '%';
+        } else {
+            percentage = 'N/A';
+        }
+        
+        const result = item[spreadsheetConfig.columns.result - 1];
+        const resultClass = result && result.toString().toLowerCase().includes('pass') ? 'pass' : 'fail';
+        const isScienceStream = stream.includes('11th Sci') || stream.includes('12th Sci');
+        const isSchoolStream = stream.includes('8th Std') || stream.includes('9th Std') || stream.includes('10th Std');
+        
+        const createSubjectRow = (subjectName, value) => {
+            if (value && value.toString().trim() !== '') {
+                return `
+                    <tr>
+                        <td>${subjectName}</td>
+                        <td class="marks-cell">${value}</td>
+                    </tr>
+                `;
+            }
+            return '';
+        };
+        
+        const english = item[spreadsheetConfig.columns.english - 1];
+        const hindi = item[spreadsheetConfig.columns.hindi - 1];
+        const marathi = item[spreadsheetConfig.columns.marathi - 1];
+        const mathp1 = item[spreadsheetConfig.columns.mathp1 - 1];
+        const mathp2 = item[spreadsheetConfig.columns.mathp2 - 1];
+        const scienceOrPhysicsOrAccountancy = item[spreadsheetConfig.columns.bkAccountancy - 1];
+        const historyOrChemistryOrManagement = item[spreadsheetConfig.columns.ocManagement - 1];
+        const geographyOrGeographyOrEconomy = item[spreadsheetConfig.columns.economy - 1];
+        const spOrBio = item[spreadsheetConfig.columns.sp - 1];
+        
+        modalBody.innerHTML = `
+            <div class="test-chapter">
+                <i class="fas fa-book-open"></i> Test Chapter: ${testChapter || 'N/A'}
+                <span class="stream-badge">${stream}</span>
+            </div>
+            
+            <table class="details-table">
+                <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Marks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${createSubjectRow('English', english)}
+                    ${createSubjectRow('Hindi', hindi)}
+                    ${createSubjectRow('Marathi', marathi)}
+                    ${createSubjectRow('Maths Part 1', mathp1)}
+                    ${createSubjectRow('Maths Part 2', mathp2)}
+                    ${
+                        isScienceStream
+                            ? `
+                                ${createSubjectRow('Physics', scienceOrPhysicsOrAccountancy)}
+                                ${createSubjectRow('Chemistry', historyOrChemistryOrManagement)}
+                                ${createSubjectRow('Geography', geographyOrGeographyOrEconomy)}
+                                ${createSubjectRow('Biology', spOrBio)}
+                            `
+                            : isSchoolStream
+                            ? `
+                                ${createSubjectRow('Science', scienceOrPhysicsOrAccountancy)}
+                                ${createSubjectRow('History', historyOrChemistryOrManagement)}
+                                ${createSubjectRow('Geography', geographyOrGeographyOrEconomy)}
+                            `
+                            : `
+                                ${createSubjectRow('BK & Accountancy', scienceOrPhysicsOrAccountancy)}
+                                ${createSubjectRow('OC & Management', historyOrChemistryOrManagement)}
+                                ${createSubjectRow('Economy', geographyOrGeographyOrEconomy)}
+                                ${createSubjectRow('Secretarial Practice (SP)', spOrBio)}
+                            `
+                    }
+                </tbody>
+            </table>
+            
+             <div class="result-summary">
+                <div class="summary-row">
+                    <span><strong>Total Marks Obtained:</strong></span>
+                    <span>${item[spreadsheetConfig.columns.totalObtained - 1] || '-'}</span>
+                </div>
+                <div class="summary-row">
+                    <span><strong>Total Marks:</strong></span>
+                    <span>${item[spreadsheetConfig.columns.totalMarks - 1] || '-'}</span>
+                </div>
+                <hr>
+                <div class="summary-row">
+                    <span><strong>Percentage:</strong> ${percentage}</span>
+                    <span><strong>Result:</strong> <span class="${resultClass}">${result || '-'}</span></span>
+                </div>
+                <div style="text-align: center; margin-top: 15px; font-style: italic; color: #666;">
+                    ${note || '-'}
+                </div>
+            </div>
+        `;
+    } else {
+        modalBody.innerHTML = `
+            <div class="test-chapter">
+                <i class="fas fa-book-open"></i> Test Chapter: ${testChapter || 'N/A'}
+                <span class="stream-badge">${stream}</span>
+            </div>
+            
+            <div class="absent-reason">
+                <h4><i class="fas fa-exclamation-circle"></i> Reason for Absence</h4>
+                <p>${note || 'No reason provided'}</p>
+            </div>
+        `;
+    }
+    
+    modal.style.display = 'block';
+}
+
+function closeModal() {
+    document.getElementById('detailsModal').style.display = 'none';
+}
+
+function renderPagination() {
+    const paginationDiv = document.getElementById('pagination');
+    const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+    
+    if (totalPages <= 1) {
+        paginationDiv.innerHTML = '';
+        return;
+    }
+    
+    let paginationHTML = '';
+    
+    paginationHTML += `
+        <button class="page-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+            <i class="fas fa-chevron-left"></i>
+        </button>
+    `;
+    
+    for (let i = 1; i <= totalPages; i++) {
+        paginationHTML += `
+            <button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">
+                ${i}
+            </button>
+        `;
+    }
+    
+    paginationHTML += `
+        <button class="page-btn" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    `;
+    
+    paginationDiv.innerHTML = paginationHTML;
+}
+
+function changePage(page) {
+    const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+    
+    if (page < 1 || page > totalPages) return;
+    
+    currentPage = page;
+    renderTable();
+    renderPagination();
+    
+    document.querySelector('.table-container').scrollIntoView({
+        behavior: 'smooth'
+    });
+}
+
+window.changePage = changePage;
+window.showDetails = showDetails;
+window.closeModal = closeModal;
+</script>
+</body>
+</html>

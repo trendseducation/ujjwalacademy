@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Exam Record</title>
+    <script src="https://trendseducation.github.io/ujjwalacademy/Study%20Material/loginscript.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Modern Color Palette */
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4895ef;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --success-color: #4cc9f0;
+            --warning-color: #f8961e;
+            --danger-color: #f72585;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Container Styles */
+        .container {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            width: 100%;
+            max-width: 800px;
+            padding: 30px;
+            margin: 20px auto;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Header Styles */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .header h2 {
+            color: var(--primary-color);
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-color);
+            font-size: 14px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e9ecef;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: var(--transition);
+            background-color: #f8f9fa;
+            color: var(--dark-color);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+            background-color: white;
+        }
+
+        .form-control[readonly] {
+            background-color: #e9ecef;
+            cursor: pointer;
+        }
+
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 16px;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            background: #adb5bd;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        /* Grid System for Responsive Layout */
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -10px;
+        }
+
+        .col {
+            flex: 1;
+            padding: 0 10px;
+            min-width: 200px;
+        }
+
+        /* Spinner Styles */
+        .spinner-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeInOverlay 0.3s ease-in-out;
+        }
+
+        @keyframes fadeInOverlay {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary-color);
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Overlay and Popup Styles */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            animation: fadeInOverlay 0.3s ease-in-out;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            z-index: 1001;
+            width: 95%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow: hidden;
+            animation: slideIn 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translate(-50%, -60%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        .popup-header {
+            padding: 20px;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .popup-header h2 {
+            color: var(--primary-color);
+            font-size: 22px;
+            margin: 0;
+        }
+
+        .popup-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #6c757d;
+            transition: var(--transition);
+        }
+
+        .popup-close:hover {
+            color: var(--danger-color);
+        }
+
+        .popup-body {
+            padding: 20px;
+            overflow-y: auto;
+            max-height: calc(80vh - 130px);
+        }
+
+        .popup-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            gap: 10px;
+            background: white;
+        }
+
+        .popup-footer .btn {
+            flex: 1;
+            padding: 12px;
+        }
+
+        /* Student List Styles */
+        #searchBar {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        #searchBar:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        #studentList {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #studentList li {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e9ecef;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+        }
+
+        #studentList li:hover {
+            background-color: #f8f9fa;
+            transform: translateX(5px);
+        }
+
+        #studentList li i {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+
+        /* Message Popup Styles */
+        .message-popup {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .message-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            color: var(--success-color);
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .message-text {
+            font-size: 18px;
+            margin-bottom: 25px;
+            color: var(--dark-color);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .header h2 {
+                font-size: 24px;
+            }
+            
+            .form-control {
+                padding: 12px 15px;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+            }
+            
+            .col {
+                flex: 100%;
+                margin-bottom: 15px;
+            }
+            
+            .popup {
+                width: 95%;
+                max-width: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header h2 {
+                font-size: 22px;
+            }
+            
+            .popup-footer {
+                flex-direction: column;
+            }
+            
+            .popup-footer .btn {
+                width: 100%;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Result Indicators */
+        #result {
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pass {
+            color: var(--success-color);
+        }
+
+        .fail {
+            color: var(--danger-color);
+        }
+
+        /* Floating Labels Effect */
+        .float-label {
+            position: relative;
+        }
+
+        .float-label label {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            color: #6c757d;
+            transition: var(--transition);
+            pointer-events: none;
+            background: white;
+            padding: 0 5px;
+        }
+
+        .float-label .form-control:focus + label,
+        .float-label .form-control:not(:placeholder-shown) + label {
+            top: -10px;
+            left: 15px;
+            font-size: 12px;
+            color: var(--primary-color);
+            background: white;
+        }
+
+        /* Toggle Switch for Attendance */
+        .switch-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .switch-label {
+            margin-right: 15px;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: var(--transition);
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: var(--transition);
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Card Styles for Subject Fields */
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .card-title {
+            font-size: 18px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-title i {
+            margin-right: 10px;
+        }
+
+        /* Input Group Styles */
+        .input-group {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .input-group .form-control {
+            flex: 1;
+            padding-right: 40px;
+        }
+
+        .input-group-append {
+            position: absolute;
+            right: 10px;
+            color: #6c757d;
+        }
+
+        /* Animation for Form Sections */
+        .form-section {
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h2><i class="fas fa-clipboard-check"></i> 11th Sci Test Submission</h2>
+    </div>
+
+    <div class="form-section">
+        <div class="form-group float-label">
+            <input class="form-control" type="text" id="studentName" name="Student Name" placeholder=" " readonly onclick="openPopup()">
+            <label><i class="fas fa-user-graduate"></i> Student Name</label>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group float-label">
+                    <input type="date" id="dateInput" class="form-control" placeholder=" " required>
+                    <label><i class="far fa-calendar-alt"></i> Test Date</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group float-label">
+                    <input type="text" id="testChapter" class="form-control" placeholder=" " required>
+                    <label><i class="fas fa-book"></i> Test Chapter</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label><i class="fas fa-user-check"></i> Attendance</label>
+            <select id="attendance" class="form-control" required onchange="handleAttendanceChange()">
+                <option value="">Select Attendance</option>
+                <option value="Present">Present</option>
+                <option value="Absent">Absent</option>
+            </select>
+        </div>
+
+        <div id="subjectFieldsAbsent" style="display: none;">
+            <div class="form-group float-label">
+                <input type="text" id="note" class="form-control" placeholder=" ">
+                <label><i class="fas fa-sticky-note"></i> Reason (Optional)</label>
+            </div>
+        </div>
+
+        <!-- Present Fields -->
+        <div id="subjectFields" style="display: none;">
+            <div class="card">
+                <div class="card-title"><i class="fas fa-language"></i> Languages</div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group float-label">
+                            <input type="number" id="english" class="form-control" placeholder=" " oninput="calculateTotal()">
+                            <label>English</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group float-label">
+                            <input type="number" id="hindi" class="form-control" placeholder=" " oninput="calculateTotal()">
+                            <label>Hindi</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group float-label">
+                            <input type="number" id="marathi" class="form-control" placeholder=" " oninput="calculateTotal()">
+                            <label>Marathi</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><i class="fas fa-calculator"></i> Science Subjects</div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group float-label">
+                            <input type="number" id="biology" class="form-control" placeholder=" " oninput="calculateTotal()">
+                            <label>Biology</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group float-label">
+                            <input type="number" id="physics" class="form-control" placeholder=" " oninput="calculateTotal()">
+                            <label>Physics</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group float-label">
+                            <input type="number" id="chemistry" class="form-control" placeholder=" " oninput="calculateTotal()">
+                            <label>Chemistry</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group float-label">
+                            <input type="number" id="geography" class="form-control" placeholder=" " oninput="calculateTotal()">
+                            <label>Geography</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><i class="fas fa-square-root-alt"></i> Mathematics</div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group float-label">
+                            <input type="number" id="mathsp1" class="form-control" placeholder=" " oninput="calculateTotal()">
+                            <label>Maths Part 1</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group float-label">
+                            <input type="number" id="mathsp2" class="form-control" placeholder=" " oninput="calculateTotal()">
+                            <label>Maths Part 2</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><i class="fas fa-chart-line"></i> Results</div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group float-label">
+                            <input type="number" id="totalmarksobtain" class="form-control" placeholder=" " readonly style="background-color: #f8f9fa">
+                            <label>Total Marks Obtained</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group float-label">
+                            <input type="number" id="totalmarks" class="form-control" placeholder=" " oninput="calculateTotal()">
+                            <label>Total Marks</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group float-label">
+                            <input type="text" id="percentage" class="form-control" placeholder=" " readonly style="background-color: #f8f9fa">
+                            <label>Percentage</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group float-label">
+                            <input type="text" id="result" class="form-control" placeholder=" " readonly style="background-color: #f8f9fa">
+                            <label>Result</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group float-label">
+                    <input type="text" id="notes" class="form-control" placeholder=" ">
+                    <label><i class="fas fa-sticky-note"></i> Notes (Optional)</label>
+                </div>
+            </div>
+        </div>
+
+        <button id="submitButton" class="btn" onclick="checkAndAddStudent()">
+            <i class="fas fa-paper-plane"></i> Submit
+        </button>
+    </div>
+</div>
+
+<!-- Spinner Overlay -->
+<div class="spinner-overlay" id="spinnerOverlay">
+    <div class="spinner"></div>
+</div>
+
+<!-- Overlay and Popup for Student Selection -->
+<div class="overlay" id="overlay"></div>
+<div class="popup" id="popup">
+    <div class="popup-header">
+        <h2><i class="fas fa-users"></i> Select Student</h2>
+        <button class="popup-close" onclick="closePopup()">&times;</button>
+    </div>
+    <div class="popup-body">
+        <input type="text" id="searchBar" placeholder="Search student name..." class="form-control" oninput="filterStudents()">
+        <div class="spinner" id="popupSpinner" style="display: none;"></div>
+        <ul id="studentList"></ul>
+    </div>
+    <div class="popup-footer">
+        <button class="btn" onclick="openAddStudentPopup()">
+            <i class="fas fa-user-plus"></i> Add Student
+        </button>
+        <button class="btn" style="background: #6c757d;" onclick="closePopup()">
+            <i class="fas fa-times"></i> Close
+        </button>
+    </div>
+</div>
+
+<!-- Add Student Popup -->
+<div class="popup" id="addStudentPopup">
+    <div class="popup-header">
+        <h2><i class="fas fa-user-plus"></i> Add Student</h2>
+        <button class="popup-close" onclick="closeAddStudentPopup()">&times;</button>
+    </div>
+    <div class="popup-body">
+        <div class="form-group float-label">
+            <input type="text" id="newStudentName" class="form-control" placeholder=" ">
+            <label><i class="fas fa-user-graduate"></i> Student Name</label>
+        </div>
+    </div>
+    <div class="popup-footer">
+        <button id="addstudentbtn" class="btn" onclick="addStudent()">
+            <i class="fas fa-check"></i> Add
+        </button>
+        <button class="btn" style="background: #6c757d;" onclick="closeAddStudentPopup()">
+            <i class="fas fa-times"></i> Cancel
+        </button>
+    </div>
+</div>
+
+<!-- Message Popup -->
+<div class="popup" id="messagePopup">
+    <div class="popup-body">
+        <div class="message-popup">
+            <div class="message-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <p class="message-text" id="messageText"></p>
+        </div>
+    </div>
+    <div class="popup-footer">
+        <button class="btn" onclick="closeMessagePopup()">
+            <i class="fas fa-check"></i> OK
+        </button>
+    </div>
+</div>
+
+<script>
+    const scriptUrl = "https://script.google.com/macros/s/AKfycbxwQUk5wtlatSWFc5_D7N-WBK0HTQF9sn3R_N99n1LH5NMcAsY5UTiTavhsed5MveOw/exec";
+    let studentData = []; // To store fetched student names
+	let spreadsheetId = "143lXUGRWDGHzmznZ_q0yNrXTmkMn97raWmodAMZEP8I";
+    let sheetName = "11th_Sci"; // Default sheet name, can be changed dynamically
+
+    // Fetch student names from Google Sheet
+    function fetchStudentNames() {
+        const popupSpinner = document.getElementById("popupSpinner");
+        const studentList = document.getElementById("studentList");
+
+        popupSpinner.style.display = "block"; // Show spinner
+        studentList.innerHTML = ""; // Clear existing list
+
+        // Pass the sheetName as a parameter in the fetch request
+        fetch(`${scriptUrl}?action=getStudents&sheetName=${encodeURIComponent(sheetName)}&spreadsheetId=${encodeURIComponent(spreadsheetId)}`)
+            .then(response => response.json())
+            .then(data => {
+                if (Array.isArray(data)) {
+                    studentData = data; // Store fetched data
+                    populateStudentList(data); // Populate the list in the popup
+                } else {
+                    console.error("Invalid data format:", data);
+                    showMessage("Error fetching student data.", false);
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching student names:", error);
+                showMessage("Error fetching student data.", false);
+            })
+            .finally(() => {
+                popupSpinner.style.display = "none"; // Hide spinner
+            });
+    }
+
+    // Populate student list in the popup
+    function populateStudentList(students) {
+        const studentList = document.getElementById("studentList");
+        studentList.innerHTML = ""; // Clear existing list
+        
+        if (students.length === 0) {
+            const li = document.createElement("li");
+            li.textContent = "No students found";
+            li.style.cursor = "default";
+            li.style.color = "#6c757d";
+            li.style.textAlign = "center";
+            li.style.padding = "20px";
+            studentList.appendChild(li);
+            return;
+        }
+        
+        students.forEach(name => {
+            const li = document.createElement("li");
+            li.innerHTML = `<i class="fas fa-user"></i> ${name}`;
+            li.onclick = () => selectStudent(name);
+            studentList.appendChild(li);
+        });
+    }
+
+    // Filter student names based on search input
+    function filterStudents() {
+        const searchTerm = document.getElementById("searchBar").value.toLowerCase();
+        const filteredStudents = studentData.filter(name => name.toLowerCase().includes(searchTerm));
+        populateStudentList(filteredStudents);
+    }
+
+    // Select a student from the list
+    function selectStudent(name) {
+        document.getElementById("studentName").value = name;
+        closePopup();
+    }
+
+    // Open popup
+    function openPopup() {
+        document.getElementById("overlay").style.display = "block";
+        document.getElementById("popup").style.display = "block";
+        document.getElementById("searchBar").value = "";
+        document.getElementById("searchBar").focus();
+        fetchStudentNames(); // Fetch data when popup opens
+    }
+
+    // Close popup
+    function closePopup() {
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("popup").style.display = "none";
+    }
+
+    // Open Add Student Popup
+    function openAddStudentPopup() {
+        document.getElementById("addStudentPopup").style.display = "block";
+        document.getElementById("newStudentName").value = "";
+        document.getElementById("newStudentName").focus();
+    }
+
+    // Close Add Student Popup
+    function closeAddStudentPopup() {
+        document.getElementById("addStudentPopup").style.display = "none";
+    }
+
+    // Add Student
+    function addStudent() {
+        const newStudentName = document.getElementById("newStudentName").value.trim();
+        if (newStudentName === "") {
+            showMessage("Please enter a student name.", false);
+            return;
+        }
+
+        const addStudentBtn = document.getElementById("addstudentbtn"); // Get the Add Student button
+        const popupSpinner = document.getElementById("popupSpinner"); // Get the spinner
+
+        // Disable the button and show the spinner above the popup
+        addStudentBtn.disabled = true;
+        addStudentBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding...';
+        
+        // Pass the sheetName as a parameter in the fetch request
+        fetch(`${scriptUrl}?action=addStudent&studentName=${encodeURIComponent(newStudentName)}&sheetName=${encodeURIComponent(sheetName)}&spreadsheetId=${encodeURIComponent(spreadsheetId)}`)
+            .then(response => response.json())
+            .then(data => {
+                addStudentBtn.disabled = false; // Re-enable the button
+                addStudentBtn.innerHTML = '<i class="fas fa-check"></i> Add';
+                showMessage(data.message, true);
+                document.getElementById("newStudentName").value = ""; // Clear the input field
+                closeAddStudentPopup(); // Close the Add Student popup
+                fetchStudentNames(); // Refresh the student list
+            })
+            .catch(error => {
+                addStudentBtn.disabled = false; // Re-enable the button
+                addStudentBtn.innerHTML = '<i class="fas fa-check"></i> Add';
+                showMessage("Error adding student.", false);
+            });
+    }
+
+    // Show message popup
+    function showMessage(message, isSuccess) {
+        const messagePopup = document.getElementById("messagePopup");
+        const messageText = document.getElementById("messageText");
+        const messageIcon = document.querySelector("#messagePopup .message-icon i");
+        
+        messageText.textContent = message;
+        
+        if (isSuccess) {
+            messageIcon.className = "fas fa-check-circle";
+            messageIcon.parentElement.style.color = "var(--success-color)";
+        } else {
+            messageIcon.className = "fas fa-times-circle";
+            messageIcon.parentElement.style.color = "var(--danger-color)";
+        }
+        
+        document.getElementById("overlay").style.display = "block";
+        messagePopup.style.display = "block";
+    }
+
+    // Close message popup
+    function closeMessagePopup() {
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("messagePopup").style.display = "none";
+    }
+
+    // Check and add student
+    function checkAndAddStudent() {
+        const submitButton = document.getElementById("submitButton");
+        const spinnerOverlay = document.getElementById("spinnerOverlay");
+
+        let studentName = document.getElementById("studentName").value.trim();
+        let dateInput = document.getElementById("dateInput").value;
+        let testChapter = document.getElementById("testChapter").value.trim();
+        let attendance = document.getElementById("attendance").value;
+        let english = document.getElementById("english").value.trim();
+        let hindi = document.getElementById("hindi").value.trim();
+        let marathi = document.getElementById("marathi").value.trim();
+        let biology = document.getElementById("biology").value.trim();
+        let physics = document.getElementById("physics").value.trim();
+        let chemistry = document.getElementById("chemistry").value.trim();
+        let geography = document.getElementById("geography").value.trim();
+        let mathsp1 = document.getElementById("mathsp1").value.trim();
+        let mathsp2 = document.getElementById("mathsp2").value.trim();
+        let totalmarksobtain = document.getElementById("totalmarksobtain").value.trim();
+        let totalmarks = document.getElementById("totalmarks").value.trim();
+        let percentage = document.getElementById("percentage").value.trim();
+        let result = document.getElementById("result").value.trim();
+        let note = document.getElementById("note").value.trim();
+        let notes = document.getElementById("notes").value.trim();
+
+        if (studentName === "" || dateInput === "" || testChapter === "" || attendance === "") {
+            showMessage("Please fill all required fields.", false);
+            return;
+        }
+
+        // Disable the submit button and show the spinner overlay
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+        spinnerOverlay.style.display = "flex";
+
+        // Convert Date to "DD MMM YYYY" format
+        let formattedDate = new Date(dateInput).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+
+        // Prepare the URL with all parameters, including sheetName
+        let url = `${scriptUrl}?action=checkAndAddStudent&studentName=${encodeURIComponent(studentName)}&date=${encodeURIComponent(formattedDate)}&testChapter=${encodeURIComponent(testChapter)}&attendance=${encodeURIComponent(attendance)}&sheetName=${encodeURIComponent(sheetName)}&spreadsheetId=${encodeURIComponent(spreadsheetId)}`;
+
+        // Add additional fields if they are not empty
+        if (english !== "") url += `&English=${encodeURIComponent(english)}`;
+        if (hindi !== "") url += `&Hindi=${encodeURIComponent(hindi)}`;
+        if (marathi !== "") url += `&Marathi=${encodeURIComponent(marathi)}`;
+        if (biology !== "") url += `&Biology=${encodeURIComponent(biology)}`;
+        if (physics !== "") url += `&Physics=${encodeURIComponent(physics)}`;
+        if (chemistry !== "") url += `&Chemistry=${encodeURIComponent(chemistry)}`;
+        if (geography !== "") url += `&Geography=${encodeURIComponent(geography)}`;
+        if (mathsp1 !== "") url += `&Maths Part 1=${encodeURIComponent(mathsp1)}`;
+        if (mathsp2 !== "") url += `&Maths Part 2=${encodeURIComponent(mathsp2)}`;
+        if (totalmarksobtain !== "") url += `&Total Marks Obtain=${encodeURIComponent(totalmarksobtain)}`;
+        if (totalmarks !== "") url += `&Total Marks=${encodeURIComponent(totalmarks)}`;
+        if (percentage !== "") url += `&Percentage=${encodeURIComponent(percentage)}`;
+        if (result !== "") url += `&Result=${encodeURIComponent(result)}`;
+        if (note !== "") url += `&Note=${encodeURIComponent(note)}`;
+        if (notes !== "") url += `&Note=${encodeURIComponent(notes)}`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                spinnerOverlay.style.display = "none"; // Hide spinner
+                submitButton.disabled = false; // Re-enable the submit button
+                submitButton.innerHTML = '<i class="fas fa-paper-plane"></i> Submit';
+                showMessage(data.message, data.message.includes("successfully"));
+                
+                // Clear form if successful
+                if (data.message.includes("successfully")) {
+                    document.getElementById("studentName").value = "";
+                    document.getElementById("dateInput").value = "";
+                    document.getElementById("testChapter").value = "";
+                    document.getElementById("attendance").value = "";
+                    
+                    if (attendance === "Present") {
+                        clearPresentFields();
+                    } else {
+                        clearAbsentFields();
+                    }
+                    
+                    handleAttendanceChange(); // Reset the form view
+                }
+            })
+            .catch(error => {
+                spinnerOverlay.style.display = "none"; // Hide spinner
+                submitButton.disabled = false; // Re-enable the submit button
+                submitButton.innerHTML = '<i class="fas fa-paper-plane"></i> Submit';
+                showMessage("Error processing request.", false);
+            });
+    }
+
+    // Handle attendance change
+    function handleAttendanceChange() {
+        const attendance = document.getElementById("attendance").value;
+        const subjectFields = document.getElementById("subjectFields");
+        const subjectFieldsAbsent = document.getElementById("subjectFieldsAbsent");
+
+        if (attendance === "Present") {
+            subjectFields.style.display = "block";
+            subjectFieldsAbsent.style.display = "none";
+            clearAbsentFields();
+        } else if (attendance === "Absent") {
+            subjectFieldsAbsent.style.display = "block";
+            subjectFields.style.display = "none";
+            clearPresentFields();
+        } else {
+            subjectFields.style.display = "none";
+            subjectFieldsAbsent.style.display = "none";
+        }
+    }
+
+    function clearPresentFields() {
+        document.getElementById("english").value = "";
+        document.getElementById("hindi").value = "";
+        document.getElementById("marathi").value = "";
+        document.getElementById("biology").value = "";
+        document.getElementById("physics").value = "";
+        document.getElementById("chemistry").value = "";
+        document.getElementById("geography").value = "";
+        document.getElementById("mathsp1").value = "";
+        document.getElementById("mathsp2").value = "";
+        document.getElementById("totalmarksobtain").value = "";
+        document.getElementById("totalmarks").value = "";
+        document.getElementById("percentage").value = "";
+        document.getElementById("result").value = "";
+        document.getElementById("notes").value = "";
+    }
+
+    function clearAbsentFields() {
+        document.getElementById("note").value = "";
+    }
+
+    function calculateTotal() {
+        const english = parseFloat(document.getElementById("english").value) || 0;
+        const hindi = parseFloat(document.getElementById("hindi").value) || 0;
+        const marathi = parseFloat(document.getElementById("marathi").value) || 0;
+        const biology = parseFloat(document.getElementById("biology").value) || 0;
+        const physics = parseFloat(document.getElementById("physics").value) || 0;
+        const chemistry = parseFloat(document.getElementById("chemistry").value) || 0;
+        const geography = parseFloat(document.getElementById("geography").value) || 0;
+        const mathsp1 = parseFloat(document.getElementById("mathsp1").value) || 0;
+        const mathsp2 = parseFloat(document.getElementById("mathsp2").value) || 0;
+        const totalmarks = parseFloat(document.getElementById("totalmarks").value) || 0;
+        
+        const totalObtained = english + hindi + marathi + biology + physics + chemistry + geography + mathsp1 + mathsp2;
+        document.getElementById("totalmarksobtain").value = totalObtained.toFixed(2);
+
+        if (totalmarks > 0) {
+            const percentage = (totalObtained * 100) / totalmarks;
+            document.getElementById("percentage").value = percentage.toFixed(2) + "%";
+
+            const resultField = document.getElementById("result");
+            if (percentage >= 40) {
+                resultField.value = "Pass";
+                resultField.className = "pass";
+            } else {
+                resultField.value = "Fail";
+                resultField.className = "fail";
+            }
+        } else {
+            document.getElementById("percentage").value = "";
+            document.getElementById("result").value = "";
+            document.getElementById("result").className = "";
+        }
+    }
+
+    // Function to update the sheet name dynamically
+    function updateSheetName(newSheetName) {
+        sheetName = newSheetName; // Update the sheetName variable
+        fetchStudentNames(); // Fetch data for the new sheet
+    }
+
+    // Initialize date field with today's date
+    document.addEventListener('DOMContentLoaded', function() {
+        const today = new Date();
+        const dateInput = document.getElementById('dateInput');
+        dateInput.valueAsDate = today;
+        
+        // Add floating label functionality
+        const floatLabels = document.querySelectorAll('.float-label .form-control');
+        floatLabels.forEach(input => {
+            if (input.value) {
+                input.nextElementSibling.style.top = '-10px';
+                input.nextElementSibling.style.left = '15px';
+                input.nextElementSibling.style.fontSize = '12px';
+                input.nextElementSibling.style.color = 'var(--primary-color)';
+                input.nextElementSibling.style.background = 'white';
+            }
+            
+            input.addEventListener('focus', function() {
+                this.nextElementSibling.style.top = '-10px';
+                this.nextElementSibling.style.left = '15px';
+                this.nextElementSibling.style.fontSize = '12px';
+                this.nextElementSibling.style.color = 'var(--primary-color)';
+                this.nextElementSibling.style.background = 'white';
+            });
+            
+            input.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.nextElementSibling.style.top = '15px';
+                    this.nextElementSibling.style.left = '20px';
+                    this.nextElementSibling.style.fontSize = '';
+                    this.nextElementSibling.style.color = '#6c757d';
+                    this.nextElementSibling.style.background = '';
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
