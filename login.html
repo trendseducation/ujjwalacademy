@@ -1936,25 +1936,25 @@ function handleSuccessfulLogin(name, branch) {
     const branchUrls = {
         kamatghar: {
             admin: 'https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Login%20Portal/Admin/adminKamatghar.html',
-            student: `https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Login%20Portal/Student/Kamatghar/studDashboard.html?studentName=${encodedName}`,
+            student: `Student/studDashboard.html?email=${encodedName}`,
             teacher: `Practice7.html?teacherName=${encodedName}`,
             staff: `Practice10.html?staffName=${encodedName}`
         },
         naka: {
             admin: 'https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Login%20Portal/Admin/adminNaka.html',
-            student: `https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Login%20Portal/Student/Naka/studDashboard.html?studentName=${encodedName}`,
+            student: `https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Login%20Portal/Student/Naka/studDashboard.html?email=${encodedName}`,
             teacher: `Practice8.html?teacherName=${encodedName}`,
             staff: `Practice11.html?staffName=${encodedName}`
         },
         'computer kamatghar': {
             admin: 'practice/practice2.html',
-            student: `https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Login%20Portal/Student/Computer%20Kamatghar/studDashboard.html?studentName=${encodedName}`,
+            student: `https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Login%20Portal/Student/Computer%20Kamatghar/studDashboard.html?email=${encodedName}`,
             teacher: `Practice9.html?teacherName=${encodedName}`,
             staff: `Practice12.html?staffName=${encodedName}`
         },
         mithpada: {
             admin: 'https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Login%20Portal/Admin/adminMithpada.html',
-            student: `https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Login%20Portal/Student/Mithpada/studDashboard.html?studentName=${encodedName}`,
+            student: `https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Login%20Portal/Student/Mithpada/studDashboard.html?email=${encodedName}`,
             teacher: `Pract4.html?teacherName=${encodedName}`,
             staff: `Pract5.html?staffName=${encodedName}`
         }
@@ -2085,4 +2085,3 @@ window.addEventListener('resize', () => {
 </script>
 </body>
 </html>
-
