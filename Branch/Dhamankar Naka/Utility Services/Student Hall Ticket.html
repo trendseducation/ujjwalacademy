@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Directory - Commerce Stream</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding-bottom: 20px;
+        }
+        
+        .container {
+            max-width: 100%;
+            padding: 10px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c3e50, #4a6491);
+            color: white;
+            padding: 20px 15px;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        h1 {
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+        
+        .subtitle {
+            text-align: center;
+            font-size: 0.95rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+        
+        .search-container {
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        #searchBar {
+            width: 100%;
+            padding: 14px 20px 14px 45px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        #searchBar:focus {
+            outline: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            background-color: white;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #4a6491;
+            font-size: 18px;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .result-count {
+            font-weight: 600;
+            color: #2c3e50;
+            padding: 8px 0;
+            font-size: 0.95rem;
+        }
+        
+        .filter-btn {
+            background-color: #4a6491;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .filter-btn:hover {
+            background-color: #3a547e;
+        }
+        
+        .student-table-container {
+            overflow-x: auto;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+            background-color: white;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px;
+        }
+        
+        thead {
+            background-color: #4a6491;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        th {
+            padding: 14px 10px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        th:last-child {
+            border-right: none;
+        }
+        
+        tbody tr {
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.2s;
+        }
+        
+        tbody tr:nth-child(even) {
+            background-color: #f9fafc;
+        }
+        
+        tbody tr:hover {
+            background-color: #eef2f9;
+        }
+        
+        td {
+            padding: 12px 10px;
+            font-size: 0.9rem;
+        }
+        
+        .sr-no {
+            width: 60px;
+            text-align: center;
+            font-weight: 600;
+            color: #4a6491;
+        }
+        
+        .seat-no {
+            width: 90px;
+            font-family: monospace;
+            font-weight: 600;
+        }
+        
+        .stream {
+            width: 110px;
+        }
+        
+        .student-name {
+            min-width: 220px;
+        }
+        
+        .type {
+            width: 80px;
+        }
+        
+        .signature {
+            width: 100px;
+            color: #777;
+            font-style: italic;
+        }
+        
+        .highlight {
+            background-color: #fff9c4;
+            padding: 2px 0;
+            border-radius: 2px;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: #777;
+            font-size: 1.1rem;
+        }
+        
+        .no-results i {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #ccc;
+            display: block;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            color: #666;
+            font-size: 0.85rem;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.4rem;
+            }
+            
+            .subtitle {
+                font-size: 0.85rem;
+            }
+            
+            th, td {
+                padding: 10px 8px;
+                font-size: 0.85rem;
+            }
+            
+            .sr-no {
+                width: 50px;
+            }
+            
+            .seat-no {
+                width: 80px;
+            }
+            
+            .student-name {
+                min-width: 180px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .controls {
+                flex-direction: column;
+            }
+            
+            .filter-btn {
+                width: 100%;
+            }
+            
+            .student-table-container {
+                max-height: 65vh;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-graduation-cap"></i> Student Hall Ticket</h1>
+            <p class="subtitle">Commerce Stream - Total Students: 875</p>
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchBar" placeholder="Search by name, seat number, or any field...">
+            </div>
+        </header>
+        
+        <div class="controls">
+            <div class="result-count" id="resultCount">Showing 875 students</div>
+            <button class="filter-btn" id="resetBtn"><i class="fas fa-redo-alt"></i> Reset Search</button>
+        </div>
+        
+        <div class="student-table-container">
+            <table id="studentTable">
+                <thead>
+                    <tr>
+                        <th class="sr-no">SR.NO</th>
+                        <th class="seat-no">SEAT NO.</th>
+                        <th class="stream">STREAM</th>
+                        <th class="student-name">STUDENT NAME</th>
+                        <th class="type">TYPE</th>
+                        <th class="signature">SIGNATURE</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Student data will be populated here -->
+                </tbody>
+            </table>
+        </div>
+        
+        <footer>
+            <p>Student Directory &copy; 2025 | Commerce Stream | March Exam Hall Ticket</p>
+        </footer>
+    </div>
+
+    <script>
+        // Complete Student data with all 875 entries
+        const studentData = [
+            {srno: 1, seatNo: "M218721", stream: "COMMERCE", name: "CHOUDHARI BHUMIT CHANDRAKANT", type: "", signature: ""},
+            {srno: 2, seatNo: "M218722", stream: "COMMERCE", name: "CHAUDHARY AATISH PAWAN", type: "", signature: ""},
+            {srno: 3, seatNo: "M218724", stream: "COMMERCE", name: "AGRAHARI ARUSHI ARVIND", type: "", signature: ""},
+            {srno: 4, seatNo: "M218725", stream: "COMMERCE", name: "CHAUDHARI ARYAN NARESH", type: "", signature: ""},
+            {srno: 5, seatNo: "M218726", stream: "COMMERCE", name: "AARAGONDA CHETANA MARKANDI", type: "", signature: ""},
+            {srno: 6, seatNo: "M218727", stream: "COMMERCE", name: "CHAKRAKAR DIGAMBER SUBHASHCHANDRA", type: "", signature: ""},
+            {srno: 7, seatNo: "M218728", stream: "COMMERCE", name: "GORITYALA ESHWAR RAJU", type: "", signature: ""},
+            {srno: 8, seatNo: "M218731", stream: "COMMERCE", name: "CHAUDHARY KOMAL KUMARI AVADHKISHOR", type: "", signature: ""},
+            {srno: 9, seatNo: "M218732", stream: "COMMERCE", name: "BHURBHURA MANOJ SANTOSH", type: "", signature: ""},
+            {srno: 10, seatNo: "M218733", stream: "COMMERCE", name: "ALACHETTI MAYURESH SHYAM", type: "", signature: ""},
+            {srno: 11, seatNo: "M218735", stream: "COMMERCE", name: "CHOUDHARY MUKUND RUPKANT", type: "", signature: ""},
+            {srno: 12, seatNo: "M218736", stream: "COMMERCE", name: "CHAUDHARI PINKY RANGARAM", type: "", signature: ""},
+            {srno: 13, seatNo: "M218737", stream: "COMMERCE", name: "CHOUDHARY POOJA BHAVNATH", type: "", signature: ""},
+            {srno: 14, seatNo: "M218738", stream: "COMMERCE", name: "CHOUDHARI PRAVEEN RAJKUMAR", type: "", signature: ""},
+            {srno: 15, seatNo: "M218739", stream: "COMMERCE", name: "AHIRE RAJ PRAVIN", type: "", signature: ""},
+            {srno: 16, seatNo: "M218741", stream: "COMMERCE", name: "CHAUDHARY RAHUL GAUTAM", type: "", signature: ""},
+            {srno: 17, seatNo: "M218742", stream: "COMMERCE", name: "DONTHULLA RAJESHAM VENKATESHAM", type: "", signature: ""},
+            {srno: 18, seatNo: "M218743", stream: "COMMERCE", name: "ADDAGATLA RAKSHITA LAXMAN", type: "", signature: ""},
+            {srno: 19, seatNo: "M218744", stream: "COMMERCE", name: "CHAUDHARI RAMAKANT SANJAY", type: "", signature: ""},
+            {srno: 20, seatNo: "M218745", stream: "COMMERCE", name: "CHOUDHARY RAVINAKUMARI MASRARAM", type: "", signature: ""},
+            {srno: 21, seatNo: "M218746", stream: "COMMERCE", name: "CHAUDHARY RUCHI RAJESH", type: "", signature: ""},
+            {srno: 22, seatNo: "M218747", stream: "COMMERCE", name: "CHOUDHARI SAGAR VIKAS", type: "", signature: ""},
+            {srno: 23, seatNo: "M218748", stream: "COMMERCE", name: "CHOUDHARI SANJANA RAJESH", type: "", signature: ""},
+            {srno: 24, seatNo: "M218749", stream: "COMMERCE", name: "CHOWDHARY SEJAL RANJIT", type: "", signature: ""},
+            {srno: 25, seatNo: "M218751", stream: "COMMERCE", name: "ADDAGATLA SHIVAGANESH RAJESHWAR", type: "", signature: ""},
+            {srno: 26, seatNo: "M218753", stream: "COMMERCE", name: "CHAUDHARI TANNU RAMSHOBHIT", type: "", signature: ""},
+            {srno: 27, seatNo: "M218755", stream: "COMMERCE", name: "ADEP SANJAY RAMESH", type: "", signature: ""},
+            {srno: 28, seatNo: "M218756", stream: "COMMERCE", name: "ANSARI MOHD SAUD MOHD SHAHID", type: "", signature: ""},
+            {srno: 29, seatNo: "M218757", stream: "COMMERCE", name: "MISHRA PRATIK PRAMENDRA", type: "", signature: ""},
+            {srno: 30, seatNo: "M218758", stream: "COMMERCE", name: "TIWARI BHAVESH RAKESH", type: "", signature: ""},
+            {srno: 31, seatNo: "M218760", stream: "COMMERCE", name: "MHATRE TEENA YOGESH", type: "", signature: ""},
+            {srno: 32, seatNo: "M218761", stream: "COMMERCE", name: "RACHA TARUN SANTOSH", type: "", signature: ""},
+            {srno: 33, seatNo: "M218762", stream: "COMMERCE", name: "SINGH SACHIN RAMBABU", type: "", signature: ""},
+            {srno: 34, seatNo: "M218763", stream: "COMMERCE", name: "BHOIR TANISHA SADANAND", type: "", signature: ""},
+            {srno: 35, seatNo: "M218764", stream: "COMMERCE", name: "BHARTI VIJAY BEERU", type: "", signature: ""},
+            {srno: 36, seatNo: "M218766", stream: "COMMERCE", name: "DODA NIDHI SUSHIL", type: "", signature: ""},
+            {srno: 37, seatNo: "M218768", stream: "COMMERCE", name: "BHOIR SUYOG DIPAK", type: "", signature: ""},
+            {srno: 38, seatNo: "M218769", stream: "COMMERCE", name: "WALHEKAR RASHMIT KAILASH", type: "", signature: ""},
+            {srno: 39, seatNo: "M218771", stream: "COMMERCE", name: "KUNWAR AAYUSH MANOJ", type: "", signature: ""},
+            {srno: 40, seatNo: "M218773", stream: "COMMERCE", name: "SONAR PAVAN RAMJI", type: "", signature: ""},
+            {srno: 41, seatNo: "M218774", stream: "COMMERCE", name: "SINGH ARYAN UDAYBHAN", type: "", signature: ""},
+            {srno: 42, seatNo: "M218776", stream: "COMMERCE", name: "GHODKE PRATUSH DEEPAK", type: "", signature: ""},
+            {srno: 43, seatNo: "M218777", stream: "COMMERCE", name: "TELUKULA CHANDU THREENATHRAO", type: "", signature: ""},
+            {srno: 44, seatNo: "M218779", stream: "COMMERCE", name: "GORE RUSHIK KABIR", type: "", signature: ""},
+            {srno: 45, seatNo: "M218780", stream: "COMMERCE", name: "NAIK PURNIMA SHIVAJI", type: "", signature: ""},
+            {srno: 46, seatNo: "M218781", stream: "COMMERCE", name: "KHARAT DHIRAJ DILIP", type: "", signature: ""},
+            {srno: 47, seatNo: "M218782", stream: "COMMERCE", name: "MANBAV SHIVASAI SANTOSH", type: "", signature: ""},
+            {srno: 48, seatNo: "M218783", stream: "COMMERCE", name: "JANGAM SAKSHI SANTOSH", type: "", signature: ""},
+            {srno: 49, seatNo: "M218784", stream: "COMMERCE", name: "KADAVE MANAV RAJESH", type: "", signature: ""},
+            {srno: 50, seatNo: "M218785", stream: "COMMERCE", name: "PATEL SAURABH RAKESH KUMAR", type: "", signature: ""},
+            {srno: 51, seatNo: "M218788", stream: "COMMERCE", name: "PATIL KRISH BABAN", type: "", signature: ""},
+            {srno: 52, seatNo: "M218789", stream: "COMMERCE", name: "PANDEY ANSHIKA DHARMENDRA", type: "", signature: ""},
+            {srno: 53, seatNo: "M218790", stream: "COMMERCE", name: "AHIRE PRATIKSHA EKNATH", type: "", signature: ""},
+            {srno: 54, seatNo: "M218791", stream: "COMMERCE", name: "PATIL RAJ NAGESH", type: "", signature: ""},
+            {srno: 55, seatNo: "M218793", stream: "COMMERCE", name: "ADODE VAIBHAV KAILAS", type: "", signature: ""},
+            {srno: 56, seatNo: "M218794", stream: "COMMERCE", name: "JAISWAR VIKAS SHREERAM", type: "", signature: ""},
+            {srno: 57, seatNo: "M218795", stream: "COMMERCE", name: "KUSMI SUNIL NAGANDAR", type: "", signature: ""},
+            {srno: 58, seatNo: "M218796", stream: "COMMERCE", name: "MENGJI SHILPA AMBADAS", type: "", signature: ""},
+            {srno: 59, seatNo: "M218797", stream: "COMMERCE", name: "SHRAVANE KRUSHNAPRAKASH ANIL", type: "", signature: ""},
+            {srno: 60, seatNo: "M218798", stream: "COMMERCE", name: "JADHAV DIKSHA SHYAMRAO", type: "", signature: ""},
+            {srno: 61, seatNo: "M218799", stream: "COMMERCE", name: "UTLA DHARMARAV PURUSHOTTAM", type: "", signature: ""},
+            {srno: 62, seatNo: "M218800", stream: "COMMERCE", name: "MHATRE HANSIKA NANDU", type: "", signature: ""},
+            {srno: 63, seatNo: "M218801", stream: "COMMERCE", name: "KAMBLE DIPTI DATTA", type: "", signature: ""},
+            {srno: 64, seatNo: "M218802", stream: "COMMERCE", name: "TUMMA CHIRANJEVI SATYANARAYANA", type: "", signature: ""},
+            {srno: 65, seatNo: "M218803", stream: "COMMERCE", name: "GENTYAL PREETI SURYAPRASAD", type: "", signature: ""},
+            {srno: 66, seatNo: "M218805", stream: "COMMERCE", name: "MANDAL KHUSHI SATYANARAYAN", type: "", signature: ""},
+            {srno: 67, seatNo: "M218806", stream: "COMMERCE", name: "MHATRE ARYAN MANIK", type: "", signature: ""},
+            {srno: 68, seatNo: "M218808", stream: "COMMERCE", name: "SHAIKH NAZMEEN MOHD YUSUF", type: "", signature: ""},
+            {srno: 69, seatNo: "M218809", stream: "COMMERCE", name: "ANSARI ZIA AHMED MOHAMMAD AHMED", type: "", signature: ""},
+            {srno: 70, seatNo: "M218810", stream: "COMMERCE", name: "CHAURASIYA AMAN JANARDAN", type: "", signature: ""},
+            {srno: 71, seatNo: "M218811", stream: "COMMERCE", name: "CHAURASIYA NEHA SANOJ", type: "", signature: ""},
+            {srno: 72, seatNo: "M218812", stream: "COMMERCE", name: "CHAURASIYA PRINCE AJAY", type: "", signature: ""},
+            {srno: 73, seatNo: "M218813", stream: "COMMERCE", name: "CHAURASIYA PRIYAM UDAYBHAN", type: "", signature: ""},
+            {srno: 74, seatNo: "M218814", stream: "COMMERCE", name: "CHAURASIYA SAURABH NARESH", type: "", signature: ""},
+            {srno: 75, seatNo: "M218815", stream: "COMMERCE", name: "DARE PRIYA UTTAM", type: "", signature: ""},
+            {srno: 76, seatNo: "M218816", stream: "COMMERCE", name: "CHAURASIYA VIKAS NARESH", type: "", signature: ""},
+            {srno: 77, seatNo: "M218819", stream: "COMMERCE", name: "CHANNE SWADESH INDRAJIT", type: "", signature: ""},
+            {srno: 78, seatNo: "M218820", stream: "COMMERCE", name: "CHAUHAN SAHIL HARIPAL", type: "", signature: ""},
+            {srno: 79, seatNo: "M218821", stream: "COMMERCE", name: "BHUPRAJ RAJITA RAMCHANDRA", type: "", signature: ""},
+            {srno: 80, seatNo: "M218823", stream: "COMMERCE", name: "DANGI MINAKSHI HARISH", type: "", signature: ""},
+            {srno: 81, seatNo: "M218824", stream: "COMMERCE", name: "DESAI SOHAM BAJIRAO", type: "", signature: ""},
+            {srno: 82, seatNo: "M218825", stream: "COMMERCE", name: "ANSARI ANAM DILSHAD HUSSEIN", type: "", signature: ""},
+            {srno: 83, seatNo: "M218826", stream: "COMMERCE", name: "CHILIMPURAM SANJANA DATTU", type: "", signature: ""},
+            {srno: 84, seatNo: "M218828", stream: "COMMERCE", name: "GAIKWAD SAMRUDDHI RAHUL", type: "", signature: ""},
+            {srno: 85, seatNo: "M218829", stream: "COMMERCE", name: "CHAUHAN MAMTA HIMMAT", type: "", signature: ""},
+            {srno: 86, seatNo: "M218832", stream: "COMMERCE", name: "BHOIR ARYAN RAJESH", type: "", signature: ""},
+            {srno: 87, seatNo: "M218833", stream: "COMMERCE", name: "GUPTA ARYAN SHRIRAM", type: "", signature: ""},
+            {srno: 88, seatNo: "M218834", stream: "COMMERCE", name: "GIRI RADHANA MANOJKUMAR", type: "", signature: ""},
+            {srno: 89, seatNo: "M218835", stream: "COMMERCE", name: "CHAUHAN NANDINI LALBABU", type: "", signature: ""},
+            {srno: 90, seatNo: "M218836", stream: "COMMERCE", name: "DAPHALE JANHAVI SANTOSH", type: "", signature: ""},
+            {srno: 91, seatNo: "M218839", stream: "COMMERCE", name: "GUPTA ANJANI PAWAN", type: "", signature: ""},
+            {srno: 92, seatNo: "M218840", stream: "COMMERCE", name: "DARE PRIYANKA UTTAM", type: "", signature: ""},
+            {srno: 93, seatNo: "M218841", stream: "COMMERCE", name: "BHOIR LAVANYA GANESH", type: "", signature: ""},
+            {srno: 94, seatNo: "M218842", stream: "COMMERCE", name: "DUSSA SAGAR YADAGIRI", type: "", signature: ""},
+            {srno: 95, seatNo: "M218843", stream: "COMMERCE", name: "DESITI SWARAJ SENABABU", type: "", signature: ""},
+            {srno: 96, seatNo: "M218844", stream: "COMMERCE", name: "BHAGAT BHARGAVI JITENDRA", type: "", signature: ""},
+            {srno: 97, seatNo: "M218845", stream: "COMMERCE", name: "GAIKWAD HARSH SANJAY", type: "", signature: ""},
+            {srno: 98, seatNo: "M218846", stream: "COMMERCE", name: "GUPTA ATHARV AJAY", type: "", signature: ""},
+            {srno: 99, seatNo: "M218847", stream: "COMMERCE", name: "GANJI MANASA GANESH", type: "", signature: ""},
+            {srno: 100, seatNo: "M218849", stream: "COMMERCE", name: "GADE PRAGATI SURESH", type: "", signature: ""},
+            {srno: 101, seatNo: "M218850", stream: "COMMERCE", name: "GAIKWAD SAWAN DATTATRAY", type: "", signature: ""},
+            {srno: 102, seatNo: "M218851", stream: "COMMERCE", name: "DUSA AKSHAYA AMBADAS", type: "", signature: ""},
+            {srno: 103, seatNo: "M218852", stream: "COMMERCE", name: "BHOSALE PAYAL SHASHIKANT", type: "", signature: ""},
+            {srno: 104, seatNo: "M218853", stream: "COMMERCE", name: "GANGULA GAYATRI GOPI", type: "", signature: ""},
+            {srno: 105, seatNo: "M218855", stream: "COMMERCE", name: "AVDHOOT GAYTRI SWAMI", type: "", signature: ""},
+            {srno: 106, seatNo: "M218856", stream: "COMMERCE", name: "BILLA PRABHU SHRINIVAS", type: "", signature: ""},
+            {srno: 107, seatNo: "M218857", stream: "COMMERCE", name: "ANSARI NABI SARVAR MOHD YASIN", type: "", signature: ""},
+            {srno: 108, seatNo: "M218858", stream: "COMMERCE", name: "SHAIKH ABU KAHAFA ABDUL AZIZ", type: "", signature: ""},
+            {srno: 109, seatNo: "M218860", stream: "COMMERCE", name: "MEMON NIDA ABDUL RAHIM", type: "", signature: ""},
+            {srno: 110, seatNo: "M218861", stream: "COMMERCE", name: "GAJAKOSH DEEPA ASHOK", type: "", signature: ""},
+            {srno: 111, seatNo: "M218862", stream: "COMMERCE", name: "BHANDARI DEVENDRA RAVINDRA", type: "", signature: ""},
+            {srno: 112, seatNo: "M218863", stream: "COMMERCE", name: "BEHERA MADHUSMITA MANOJ", type: "", signature: ""},
+            {srno: 113, seatNo: "M218864", stream: "COMMERCE", name: "GIRI SANDHYA KAUSHAL KUMAR", type: "", signature: ""},
+            {srno: 114, seatNo: "M218865", stream: "COMMERCE", name: "CHAVHAN ADITI VIJAY", type: "", signature: ""},
+            {srno: 115, seatNo: "M218872", stream: "COMMERCE", name: "AMANCHI ADITYA ASHOK", type: "", signature: ""},
+            {srno: 116, seatNo: "M218873", stream: "COMMERCE", name: "CHAUHAN NEHA UMESH", type: "", signature: ""},
+            {srno: 117, seatNo: "M218874", stream: "COMMERCE", name: "BHARTI PREM KUMAR ARVIND KUMAR", type: "", signature: ""},
+            {srno: 118, seatNo: "M218876", stream: "COMMERCE", name: "DEWASI DEEPARAM MANARAM", type: "", signature: ""},
+            {srno: 119, seatNo: "M218877", stream: "COMMERCE", name: "BILLA PRAGATI BHASKAR", type: "", signature: ""},
+            {srno: 120, seatNo: "M218878", stream: "COMMERCE", name: "ADBALWAR GAUTAM SAINATH", type: "", signature: ""},
+            {srno: 121, seatNo: "M218879", stream: "COMMERCE", name: "CHAVAN YOGESH RAJESH", type: "", signature: ""},
+            {srno: 122, seatNo: "M218880", stream: "COMMERCE", name: "ARKADE RAGINEE CHANDRAKANT", type: "", signature: ""},
+            {srno: 123, seatNo: "M218882", stream: "COMMERCE", name: "GHAT AYUSH HANUMAN", type: "", signature: ""},
+            {srno: 124, seatNo: "M218883", stream: "COMMERCE", name: "BHOIR TISHA KALPESH", type: "", signature: ""},
+            {srno: 125, seatNo: "M218884", stream: "COMMERCE", name: "ALDAR VISHAL SUBHASH", type: "", signature: ""},
+            {srno: 126, seatNo: "M218887", stream: "COMMERCE", name: "BHOIR KUSHAL VINOD", type: "", signature: ""},
+            {srno: 127, seatNo: "M218888", stream: "COMMERCE", name: "ANSARI MOHAMMAD KAIF ZAMEEL", type: "", signature: ""},
+            {srno: 128, seatNo: "M218894", stream: "COMMERCE", name: "ANSARI MOHAMMAD MAHFOOZ AHMAD", type: "", signature: ""},
+            {srno: 129, seatNo: "M218896", stream: "COMMERCE", name: "CHAVAN ROHAN SANTOSH", type: "", signature: ""},
+            {srno: 130, seatNo: "M218898", stream: "COMMERCE", name: "ANSARI ISHAQUE MOHD YUSUF", type: "", signature: ""},
+            {srno: 131, seatNo: "M218900", stream: "COMMERCE", name: "DIKONDA CHARAN GANESH", type: "", signature: ""},
+            {srno: 132, seatNo: "M218901", stream: "COMMERCE", name: "BHOIR JANHAVI BALIRAM", type: "", signature: ""},
+            {srno: 133, seatNo: "M218902", stream: "COMMERCE", name: "BHOIR JANHAVI SANTOSH", type: "", signature: ""},
+            {srno: 134, seatNo: "M218903", stream: "COMMERCE", name: "ANSARI MOHD HAMMAD MD HAIDER", type: "", signature: ""},
+            {srno: 135, seatNo: "M218904", stream: "COMMERCE", name: "BHOIR VIDHI GHANSHYAM", type: "", signature: ""},
+            {srno: 136, seatNo: "M218905", stream: "COMMERCE", name: "GUPTA ANSHIKA SANJAY", type: "", signature: ""},
+            {srno: 137, seatNo: "M218906", stream: "COMMERCE", name: "GAUTAM SAHIL RAMSAJIVAN", type: "", signature: ""},
+            {srno: 138, seatNo: "M218907", stream: "COMMERCE", name: "ARKALA ABHINAY RATAN", type: "", signature: ""},
+            {srno: 139, seatNo: "M218908", stream: "COMMERCE", name: "GUPTA KASHISH MANGARU", type: "", signature: ""},
+            {srno: 140, seatNo: "M218909", stream: "COMMERCE", name: "GUPTA KASHISH SONU", type: "", signature: ""},
+            {srno: 141, seatNo: "M218910", stream: "COMMERCE", name: "DONTHA ABHISHEK BALAYYA", type: "", signature: ""},
+            {srno: 142, seatNo: "M218911", stream: "COMMERCE", name: "BHARTI ABHISHEK MAHENDRA KUMAR", type: "", signature: ""},
+            {srno: 143, seatNo: "M218912", stream: "COMMERCE", name: "ANSARI MOHMMAD HASNAIN IRSAD", type: "", signature: ""},
+            {srno: 144, seatNo: "M218913", stream: "COMMERCE", name: "DEVSANI SHREEYA VIJAY", type: "", signature: ""},
+            {srno: 145, seatNo: "M218914", stream: "COMMERCE", name: "DASEWAR SHREYA PRAKASH", type: "", signature: ""},
+            {srno: 146, seatNo: "M218915", stream: "COMMERCE", name: "GOGGURA SHRILEKHA JAGAN", type: "", signature: ""},
+            {srno: 147, seatNo: "M218916", stream: "COMMERCE", name: "GUPTA ANSHU ASHISH", type: "", signature: ""},
+            {srno: 148, seatNo: "M218917", stream: "COMMERCE", name: "CHAUHAN SHUBHAM RAMJATAN", type: "", signature: ""},
+            {srno: 149, seatNo: "M218918", stream: "COMMERCE", name: "GAIKWAD SHUBHANGI VIKAS", type: "", signature: ""},
+            {srno: 150, seatNo: "M218919", stream: "COMMERCE", name: "GUPTA ANSHUKA ANILKUMAR", type: "", signature: ""},
+            {srno: 151, seatNo: "M218920", stream: "COMMERCE", name: "DHAKATE KHUSHI PRADIP", type: "", signature: ""},
+            {srno: 152, seatNo: "M218921", stream: "COMMERCE", name: "BHARATI KHUSHI SATYENDRABAHADUR", type: "", signature: ""},
+            {srno: 153, seatNo: "M218922", stream: "COMMERCE", name: "BALLA SAI KRISHNA VARAKUMAR", type: "", signature: ""},
+            {srno: 154, seatNo: "M218923", stream: "COMMERCE", name: "ERABATTINI YASHWANT BABU", type: "", signature: ""},
+            {srno: 155, seatNo: "M218924", stream: "COMMERCE", name: "CHAVAN VAIBHAVI PRAMOD", type: "", signature: ""},
+            {srno: 156, seatNo: "M218925", stream: "COMMERCE", name: "BHOIR SAVIDHAN VISHWAS", type: "", signature: ""},
+            {srno: 157, seatNo: "M218926", stream: "COMMERCE", name: "ANSARI SAIFUDDIN IKRAMUDDIN", type: "", signature: ""},
+            {srno: 158, seatNo: "M218927", stream: "COMMERCE", name: "GAJUL MALIKAARJUN ANAND", type: "", signature: ""},
+            {srno: 159, seatNo: "M218930", stream: "COMMERCE", name: "GUNDETI NIKHIL PRASAD", type: "", signature: ""},
+            {srno: 160, seatNo: "M218931", stream: "COMMERCE", name: "BOLLI NAVIN NAGESH", type: "", signature: ""},
+            {srno: 161, seatNo: "M218932", stream: "COMMERCE", name: "GEHLOT JINAL RAMESH KUMAR", type: "", signature: ""},
+            {srno: 162, seatNo: "M218933", stream: "COMMERCE", name: "CHAUHAN BINEETA PRAMENDRA", type: "", signature: ""},
+            {srno: 163, seatNo: "M218934", stream: "COMMERCE", name: "BHOIR YAMINI BALIRAM", type: "", signature: ""},
+            {srno: 164, seatNo: "M218935", stream: "COMMERCE", name: "GUPTA ASHISH DINESH", type: "", signature: ""},
+            {srno: 165, seatNo: "M218936", stream: "COMMERCE", name: "BAGAL MONISH SURESH", type: "", signature: ""},
+            {srno: 166, seatNo: "M218938", stream: "COMMERCE", name: "DAWARE KRISHA BHAVESH", type: "", signature: ""},
+            {srno: 167, seatNo: "M218939", stream: "COMMERCE", name: "DONTA ABHISHEK LAXMI NARAYANA", type: "", signature: ""},
+            {srno: 168, seatNo: "M218940", stream: "COMMERCE", name: "BERDE TANISHKA PAVAN", type: "", signature: ""},
+            {srno: 169, seatNo: "M218941", stream: "COMMERCE", name: "DHULE MANISHKA SHARAD", type: "", signature: ""},
+            {srno: 170, seatNo: "M218942", stream: "COMMERCE", name: "BHAGAT KRISHNAKANHAIYA MOTILAL", type: "", signature: ""},
+            {srno: 171, seatNo: "M218943", stream: "COMMERCE", name: "BHAUMIK VISHWANATH GOPAL", type: "", signature: ""},
+            {srno: 172, seatNo: "M218944", stream: "COMMERCE", name: "AGHAM ROHIT DADARAV", type: "", signature: ""},
+            {srno: 173, seatNo: "M218945", stream: "COMMERCE", name: "GUPTA ANKIT RAJESH", type: "", signature: ""},
+            {srno: 174, seatNo: "M218947", stream: "COMMERCE", name: "GUPTA ANKITA BAIJNATH", type: "", signature: ""},
+            {srno: 175, seatNo: "M218948", stream: "COMMERCE", name: "VERMA ADITYA SANJAY", type: "", signature: ""},
+            {srno: 176, seatNo: "M218949", stream: "COMMERCE", name: "FEDARAM VIVEK VITTHAL", type: "", signature: ""},
+            {srno: 177, seatNo: "M218950", stream: "COMMERCE", name: "GAJUL SHRIVIDYA SATISH", type: "", signature: ""},
+            {srno: 178, seatNo: "M218952", stream: "COMMERCE", name: "CHAUHAN RIYA CHHATRAPAL", type: "", signature: ""},
+            {srno: 179, seatNo: "M218953", stream: "COMMERCE", name: "ANSARI FAIZ AHMAD AFROZ AHMAD", type: "", signature: ""},
+            {srno: 180, seatNo: "M218954", stream: "COMMERCE", name: "GANJI SOUJANYA SRINIVAS", type: "", signature: ""},
+            {srno: 181, seatNo: "M218956", stream: "COMMERCE", name: "GUPTA ANIKET GUDDU", type: "", signature: ""},
+            {srno: 182, seatNo: "M218958", stream: "COMMERCE", name: "BHOJAK DAKSH BHAVESH", type: "", signature: ""},
+            {srno: 183, seatNo: "M218959", stream: "COMMERCE", name: "BILLA DEEKSHITHA MAHENDAR", type: "", signature: ""},
+            {srno: 184, seatNo: "M218960", stream: "COMMERCE", name: "GAUD ATULKUMAR GUDDU", type: "", signature: ""},
+            {srno: 185, seatNo: "M218961", stream: "COMMERCE", name: "BAMNE VICKY GOPAL", type: "", signature: ""},
+            {srno: 186, seatNo: "M218962", stream: "COMMERCE", name: "GHAG SEJAL RAJESH", type: "", signature: ""},
+            {srno: 187, seatNo: "M218963", stream: "COMMERCE", name: "CHITTIMILLA ANKITA ANAND", type: "", signature: ""},
+            {srno: 188, seatNo: "M218965", stream: "COMMERCE", name: "GIRI ANJALI ANIL", type: "", signature: ""},
+            {srno: 189, seatNo: "M218966", stream: "COMMERCE", name: "DYAVANAPELLI VINAY VENKATESH", type: "", signature: ""},
+            {srno: 190, seatNo: "M218967", stream: "COMMERCE", name: "ALAM SAMIM NASHARUDDIN", type: "", signature: ""},
+            {srno: 191, seatNo: "M218968", stream: "COMMERCE", name: "GHARAT HIMANI PANDURANG", type: "", signature: ""},
+            {srno: 192, seatNo: "M218969", stream: "COMMERCE", name: "BHOIR TANMAY SUDHIR", type: "", signature: ""},
+            {srno: 193, seatNo: "M218971", stream: "COMMERCE", name: "ANSARI KAMEEZ ABIDALILAL", type: "", signature: ""},
+            {srno: 194, seatNo: "M218972", stream: "COMMERCE", name: "ANSARI SAMIYA ZUBAIR AHMED", type: "", signature: ""},
+            {srno: 195, seatNo: "M218973", stream: "COMMERCE", name: "DASARI SIMRAN AMBADAS", type: "", signature: ""},
+            {srno: 196, seatNo: "M218974", stream: "COMMERCE", name: "GUNDU PREMSAI UPENDRA", type: "", signature: ""},
+            {srno: 197, seatNo: "M218975", stream: "COMMERCE", name: "GUPTA AMAN MANBODH", type: "", signature: ""},
+            {srno: 198, seatNo: "M218976", stream: "COMMERCE", name: "GUPTA AMAN RAKESH KUMAR", type: "", signature: ""},
+            {srno: 199, seatNo: "M218977", stream: "COMMERCE", name: "ADBALVAR NAMRATA DATTA", type: "", signature: ""},
+            {srno: 200, seatNo: "M218978", stream: "COMMERCE", name: "BARAMADE NANDINI SIDDHESHWAR", type: "", signature: ""},
+            {srno: 201, seatNo: "M218979", stream: "COMMERCE", name: "CHAURE MANASI SANTOSH", type: "", signature: ""},
+            {srno: 202, seatNo: "M218980", stream: "COMMERCE", name: "GHARAT MANASVI DHANESH", type: "", signature: ""},
+            {srno: 203, seatNo: "M218981", stream: "COMMERCE", name: "ARAGONDA NAVYA SRINIVAS", type: "", signature: ""},
+            {srno: 204, seatNo: "M218982", stream: "COMMERCE", name: "GARAD PRINCE SATISH", type: "", signature: ""},
+            {srno: 205, seatNo: "M218983", stream: "COMMERCE", name: "CHAUHAN ANCHAL RAGHUPATI", type: "", signature: ""},
+            {srno: 206, seatNo: "M218984", stream: "COMMERCE", name: "ARSHID SANCHITA VITHHAL", type: "", signature: ""},
+            {srno: 207, seatNo: "M218985", stream: "COMMERCE", name: "GUPTA CHANDNI ANUP", type: "", signature: ""},
+            {srno: 208, seatNo: "M218986", stream: "COMMERCE", name: "DUSA NARENDRA KRISHNA", type: "", signature: ""},
+            {srno: 209, seatNo: "M218987", stream: "COMMERCE", name: "CHAVHAN SNEHAL GAJANAN", type: "", signature: ""},
+            {srno: 210, seatNo: "M218988", stream: "COMMERCE", name: "BASUDE GANESH VYANKAT", type: "", signature: ""},
+            {srno: 211, seatNo: "M218989", stream: "COMMERCE", name: "ARYAN DINESH", type: "", signature: ""},
+            {srno: 212, seatNo: "M218990", stream: "COMMERCE", name: "CHANDRAVANSHI ROSHAN PAPPU", type: "", signature: ""},
+            {srno: 213, seatNo: "M218991", stream: "COMMERCE", name: "MOMIN MUNTASHIR AHMED RAVISH AHMED", type: "", signature: ""},
+            {srno: 214, seatNo: "M218994", stream: "COMMERCE", name: "DUBEY SUNNY UDAY SHANKAR", type: "", signature: ""},
+            {srno: 215, seatNo: "M218995", stream: "COMMERCE", name: "AGALAWE POONAM NATHURAM", type: "", signature: ""},
+            {srno: 216, seatNo: "M218996", stream: "COMMERCE", name: "CHAUHAN ROSHAN SINGH NET SINGH", type: "", signature: ""},
+            {srno: 217, seatNo: "M218997", stream: "COMMERCE", name: "BOORLA JYOSHNA PRAKASH", type: "", signature: ""},
+            {srno: 218, seatNo: "M218998", stream: "COMMERCE", name: "BODDULA KOUSHIK GANGADHAR", type: "", signature: ""},
+            {srno: 219, seatNo: "M218999", stream: "COMMERCE", name: "DALVI KRUPALI BALIRAM", type: "", signature: ""},
+            {srno: 220, seatNo: "M219000", stream: "COMMERCE", name: "GAUTAM DIPANJALI TERASNATH", type: "", signature: ""},
+            {srno: 221, seatNo: "M219001", stream: "COMMERCE", name: "BHALERAO PRITESH SUNIL", type: "", signature: ""},
+            {srno: 222, seatNo: "M219002", stream: "COMMERCE", name: "ADE SAMEER GOPAL", type: "", signature: ""},
+            {srno: 223, seatNo: "M219004", stream: "COMMERCE", name: "CHOGALE PRACHITI DINESH", type: "", signature: ""},
+            {srno: 224, seatNo: "M219005", stream: "COMMERCE", name: "BHARTI AARADHNA RAMBABU", type: "", signature: ""},
+            {srno: 225, seatNo: "M219006", stream: "COMMERCE", name: "GUPTA DHIRAJ SATYAWADI", type: "", signature: ""},
+            {srno: 226, seatNo: "M219007", stream: "COMMERCE", name: "GAIKAWAD RAJSHREE PANDURANG", type: "", signature: ""},
+            {srno: 227, seatNo: "M219008", stream: "COMMERCE", name: "GOUNI CHARAN PRAKASH", type: "", signature: ""},
+            {srno: 228, seatNo: "M219009", stream: "COMMERCE", name: "BHARTI KARAN RAMLAUTAN", type: "", signature: ""},
+            {srno: 229, seatNo: "M219010", stream: "COMMERCE", name: "DUDAM SHARANNYA RAMDAS", type: "", signature: ""},
+            {srno: 230, seatNo: "M219011", stream: "COMMERCE", name: "GANJARI PRATHAM SUNIL", type: "", signature: ""},
+            {srno: 231, seatNo: "M219012", stream: "COMMERCE", name: "BODDULA PRATHAMESH RAMU", type: "", signature: ""},
+            {srno: 232, seatNo: "M219013", stream: "COMMERCE", name: "CHAUHAN PRATHMESH SANJAY", type: "", signature: ""},
+            {srno: 233, seatNo: "M219014", stream: "COMMERCE", name: "GAJULA SHRAVAN MALLESHAM", type: "", signature: ""},
+            {srno: 234, seatNo: "M219015", stream: "COMMERCE", name: "CHELMEL PRAVINKUMAR SHRINIVAS", type: "", signature: ""},
+            {srno: 235, seatNo: "M219016", stream: "COMMERCE", name: "GUPTA GAURI KAMLAPRASAD", type: "", signature: ""},
+            {srno: 236, seatNo: "M219017", stream: "COMMERCE", name: "GONE LAHARI MALLESHAM", type: "", signature: ""},
+            {srno: 237, seatNo: "M219018", stream: "COMMERCE", name: "GAIKWAD PRINCE SUBHASH", type: "", signature: ""},
+            {srno: 238, seatNo: "M219019", stream: "COMMERCE", name: "BACHEWAR RISHABH JAGDISH", type: "", signature: ""},
+            {srno: 239, seatNo: "M219020", stream: "COMMERCE", name: "BANSODE KRISHNA GANPATI", type: "", signature: ""},
+            {srno: 240, seatNo: "M219021", stream: "COMMERCE", name: "BHARATI PRIYA RAMBHUJ", type: "", signature: ""},
+            {srno: 241, seatNo: "M219022", stream: "COMMERCE", name: "BHALEKAR RONIT RAJU", type: "", signature: ""},
+            {srno: 242, seatNo: "M219023", stream: "COMMERCE", name: "DANGE SAMRUDDHI VISHWANATH", type: "", signature: ""},
+            {srno: 243, seatNo: "M219024", stream: "COMMERCE", name: "EGGANI SHRUTI ASHOK", type: "", signature: ""},
+            {srno: 244, seatNo: "M219025", stream: "COMMERCE", name: "CHINDAM ARVIND RAMESH", type: "", signature: ""},
+            {srno: 245, seatNo: "M219026", stream: "COMMERCE", name: "DUBEY AYUSH DHIRESHKUMAR", type: "", signature: ""},
+            {srno: 246, seatNo: "M219027", stream: "COMMERCE", name: "DONGRE YASH GURUNATH", type: "", signature: ""},
+            {srno: 247, seatNo: "M219028", stream: "COMMERCE", name: "GANJI VARSHA PRAKASH", type: "", signature: ""},
+            {srno: 248, seatNo: "M219031", stream: "COMMERCE", name: "BOMMA ANUSHA SATISH", type: "", signature: ""},
+            {srno: 249, seatNo: "M219032", stream: "COMMERCE", name: "BARIK SAISHANKAR MAYADHAR", type: "", signature: ""},
+            {srno: 250, seatNo: "M219034", stream: "COMMERCE", name: "GARDAS YASHASVI RAJENDRA", type: "", signature: ""},
+            {srno: 251, seatNo: "M219035", stream: "COMMERCE", name: "BHARTI ANSHIKA MADAN", type: "", signature: ""},
+            {srno: 252, seatNo: "M219036", stream: "COMMERCE", name: "GAUTAM ANSHIKA RAMJANAM", type: "", signature: ""},
+            {srno: 253, seatNo: "M219038", stream: "COMMERCE", name: "BARANWAL SHIVAM MANOJKUMAR", type: "", signature: ""},
+            {srno: 254, seatNo: "M219039", stream: "COMMERCE", name: "CHAUHAN ASHUTOSH AJAY", type: "", signature: ""},
+            {srno: 255, seatNo: "M219040", stream: "COMMERCE", name: "GAJULA VISHWANI NARENDER", type: "", signature: ""},
+            {srno: 256, seatNo: "M219041", stream: "COMMERCE", name: "GUPTA HANSITA MANOJ", type: "", signature: ""},
+            {srno: 257, seatNo: "M219042", stream: "COMMERCE", name: "CHAVHAN ASMITA HANMANT", type: "", signature: ""},
+            {srno: 258, seatNo: "M219043", stream: "COMMERCE", name: "GAUD SUJIT INDRASEN", type: "", signature: ""},
+            {srno: 259, seatNo: "M219044", stream: "COMMERCE", name: "GUPTA AMIT PHOOLCHAND", type: "", signature: ""},
+            {srno: 260, seatNo: "M219045", stream: "COMMERCE", name: "BHOIR SARTHAK GHANSHYAM", type: "", signature: ""},
+            {srno: 261, seatNo: "M219046", stream: "COMMERCE", name: "GAJUL KARTHIK VINOD", type: "", signature: ""},
+            {srno: 262, seatNo: "M219047", stream: "COMMERCE", name: "BHOIR PRATIK NARAYAN", type: "", signature: ""},
+            {srno: 263, seatNo: "M219048", stream: "COMMERCE", name: "BHOIR KASTURI SANJAY", type: "", signature: ""},
+            {srno: 264, seatNo: "M219049", stream: "COMMERCE", name: "CHADADEEPU VISHESH CHANDRASHEKHAR", type: "", signature: ""},
+            {srno: 265, seatNo: "M219051", stream: "COMMERCE", name: "CHAUBEY RUCHI SANJAY", type: "", signature: ""},
+            {srno: 266, seatNo: "M219052", stream: "COMMERCE", name: "BHAGAT ANUJ KAMLESH", type: "", signature: ""},
+            {srno: 267, seatNo: "M219055", stream: "COMMERCE", name: "BHAIRI MOULISHA VARAPRASAD", type: "", signature: ""},
+            {srno: 268, seatNo: "M219057", stream: "COMMERCE", name: "GUPTA ARJUN SANTOSH", type: "", signature: ""},
+            {srno: 269, seatNo: "M219058", stream: "COMMERCE", name: "GUPTA GAURAU DINESH", type: "", signature: ""},
+            {srno: 270, seatNo: "M219059", stream: "COMMERCE", name: "SHUKLA GAURAV VIRENDRA", type: "", signature: ""},
+            {srno: 271, seatNo: "M219061", stream: "COMMERCE", name: "GADDAM KOUSHIK MALLESH", type: "", signature: ""},
+            {srno: 272, seatNo: "M219062", stream: "COMMERCE", name: "GAIKWAD NUTAN BHASKAR", type: "", signature: ""},
+            {srno: 273, seatNo: "M219064", stream: "COMMERCE", name: "BHOIR DHRUV RAJESH", type: "", signature: ""},
+            {srno: 274, seatNo: "M219065", stream: "COMMERCE", name: "GAJARALA VAISHNAVI SATYANARAYAN", type: "", signature: ""},
+            {srno: 275, seatNo: "M219066", stream: "COMMERCE", name: "BHALEKAR VEDANT HEMANT", type: "", signature: ""},
+            {srno: 276, seatNo: "M219067", stream: "COMMERCE", name: "GOSAVI VIVEK SANJAY", type: "", signature: ""},
+            {srno: 277, seatNo: "M219068", stream: "COMMERCE", name: "GHATAL DAVID GURUNATH", type: "", signature: ""},
+            {srno: 278, seatNo: "M219069", stream: "COMMERCE", name: "SINGH DIVYANSHI SHESHKUMAR", type: "", signature: ""},
+            {srno: 279, seatNo: "M219070", stream: "COMMERCE", name: "ANIL GAIKWAD AJINKYA ANIL", type: "", signature: ""},
+            {srno: 280, seatNo: "M219071", stream: "COMMERCE", name: "BOGADI LAXMINARAYANA NARSIMLU", type: "", signature: ""},
+            {srno: 281, seatNo: "M219072", stream: "COMMERCE", name: "DAWARE DIYA PRASHANT", type: "", signature: ""},
+            {srno: 282, seatNo: "M219074", stream: "COMMERCE", name: "GAVALI ARYA SUNIL", type: "", signature: ""},
+            {srno: 283, seatNo: "M219075", stream: "COMMERCE", name: "GUPTA DIVYANSHU RAJU", type: "", signature: ""},
+            {srno: 284, seatNo: "M219076", stream: "COMMERCE", name: "CHAUHAN JYOTI GHANSHYAM", type: "", signature: ""},
+            {srno: 285, seatNo: "M219077", stream: "COMMERCE", name: "PRAJAPATI JITENDER ASHOKKUMAR", type: "", signature: ""},
+            {srno: 286, seatNo: "M219078", stream: "COMMERCE", name: "KESARWANI SEJAL SANJAY", type: "", signature: ""},
+            {srno: 287, seatNo: "M219079", stream: "COMMERCE", name: "PRAJAPATI AACHAL GANGARAM", type: "", signature: ""},
+            {srno: 288, seatNo: "M219080", stream: "COMMERCE", name: "KESARWANI AASHUTOSH RAMDHANI", type: "", signature: ""},
+            {srno: 289, seatNo: "M219081", stream: "COMMERCE", name: "KHAN MOHD ABDAAN ISHTIYAQUE", type: "", signature: ""},
+            {srno: 290, seatNo: "M219082", stream: "COMMERCE", name: "KESARVANI ABHAY ARVIND", type: "", signature: ""},
+            {srno: 291, seatNo: "M219083", stream: "COMMERCE", name: "KUNDARAPU ANKIT NARSIMULU", type: "", signature: ""},
+            {srno: 292, seatNo: "M219085", stream: "COMMERCE", name: "JHA ROHAN ARUN", type: "", signature: ""},
+            {srno: 293, seatNo: "M219086", stream: "COMMERCE", name: "LAL RUPA BIJAY", type: "", signature: ""},
+            {srno: 294, seatNo: "M219087", stream: "COMMERCE", name: "PAL ACHAL CHOTELAL", type: "", signature: ""},
+            {srno: 295, seatNo: "M219088", stream: "COMMERCE", name: "JAIN YASH DHANPAL", type: "", signature: ""},
+            {srno: 296, seatNo: "M219089", stream: "COMMERCE", name: "PADHYACHI DIVAKAR ELUMALAI", type: "", signature: ""},
+            {srno: 297, seatNo: "M219090", stream: "COMMERCE", name: "PRAJAPATI GAURAV BHARAT KUMAR", type: "", signature: ""},
+            {srno: 298, seatNo: "M219091", stream: "COMMERCE", name: "JHA NISHA HARBIND", type: "", signature: ""},
+            {srno: 299, seatNo: "M219092", stream: "COMMERCE", name: "RANGAPURE HARDIK BALAJI", type: "", signature: ""},
+            {srno: 300, seatNo: "M219094", stream: "COMMERCE", name: "KESARWANI ICHCHHA RAJESH", type: "", signature: ""},
+            {srno: 301, seatNo: "M219096", stream: "COMMERCE", name: "PRAJAPATI JAYESH RAJKUMAR", type: "", signature: ""},
+            {srno: 302, seatNo: "M219097", stream: "COMMERCE", name: "PRAJAPATI KHUSHI RAVINDAR", type: "", signature: ""},
+            {srno: 303, seatNo: "M219098", stream: "COMMERCE", name: "PAL ANIL KUMAR RAMESH KUMAR", type: "", signature: ""},
+            {srno: 304, seatNo: "M219099", stream: "COMMERCE", name: "KHAN UBED MAHBOOB", type: "", signature: ""},
+            {srno: 305, seatNo: "M219101", stream: "COMMERCE", name: "KUDIKYALA MALLESH SURESH", type: "", signature: ""},
+            {srno: 306, seatNo: "M219102", stream: "COMMERCE", name: "PRAJAPATI MASTRAM JAISRAJ", type: "", signature: ""},
+            {srno: 307, seatNo: "M219104", stream: "COMMERCE", name: "SHAHI RAJ MRITUNJAY", type: "", signature: ""},
+            {srno: 308, seatNo: "M219105", stream: "COMMERCE", name: "IRABATTIN NANDANI SANTOSH", type: "", signature: ""},
+            {srno: 309, seatNo: "M219106", stream: "COMMERCE", name: "PRAJAPATI NARESH RAMESH", type: "", signature: ""},
+            {srno: 310, seatNo: "M219108", stream: "COMMERCE", name: "ISAMPALLI NAYAN SHYAMDAS", type: "", signature: ""},
+            {srno: 311, seatNo: "M219109", stream: "COMMERCE", name: "SHATALWAR OM RAMKISHAN", type: "", signature: ""},
+            {srno: 312, seatNo: "M219110", stream: "COMMERCE", name: "JHA SAHIL PARAS", type: "", signature: ""},
+            {srno: 313, seatNo: "M219111", stream: "COMMERCE", name: "PRAJAPATI PRABHAKAR GOPAL", type: "", signature: ""},
+            {srno: 314, seatNo: "M219112", stream: "COMMERCE", name: "LAKKAMWAR PRAGATI PRAKASH", type: "", signature: ""},
+            {srno: 315, seatNo: "M219113", stream: "COMMERCE", name: "JAGEERAPU PRATIK NARENDRA", type: "", signature: ""},
+            {srno: 316, seatNo: "M219115", stream: "COMMERCE", name: "KESARWANI PRITAM PRADIP", type: "", signature: ""},
+            {srno: 317, seatNo: "M219117", stream: "COMMERCE", name: "KESARWANI RAGINI KUMARI SHYAMLAL", type: "", signature: ""},
+            {srno: 318, seatNo: "M219118", stream: "COMMERCE", name: "KEWAT RAJ RAMNARESH", type: "", signature: ""},
+            {srno: 319, seatNo: "M219120", stream: "COMMERCE", name: "SHAIKH MO REHAN FARUK", type: "", signature: ""},
+            {srno: 320, seatNo: "M219122", stream: "COMMERCE", name: "KESARWANI RUCHI RAJENDRAPRASAD", type: "", signature: ""},
+            {srno: 321, seatNo: "M219124", stream: "COMMERCE", name: "KESARWANI SADHANA RAJESH", type: "", signature: ""},
+            {srno: 322, seatNo: "M219125", stream: "COMMERCE", name: "PRAJAPATI SATYAM CHANDRABHAN", type: "", signature: ""},
+            {srno: 323, seatNo: "M219127", stream: "COMMERCE", name: "NAIK AMEY SHASHIKANT", type: "", signature: ""},
+            {srno: 324, seatNo: "M219128", stream: "COMMERCE", name: "KANOJIYA SHIVPRASAD SURESH", type: "", signature: ""},
+            {srno: 325, seatNo: "M219129", stream: "COMMERCE", name: "PRAJAPATI SUJIT VIJAY", type: "", signature: ""},
+            {srno: 326, seatNo: "M219130", stream: "COMMERCE", name: "PRAJAPATI SUPRIYA MINESH", type: "", signature: ""},
+            {srno: 327, seatNo: "M219132", stream: "COMMERCE", name: "PRAJAPATI SURAJ MANGILAL", type: "", signature: ""},
+            {srno: 328, seatNo: "M219133", stream: "COMMERCE", name: "KANZARIYA VIKAS JITENDRA", type: "", signature: ""},
+            {srno: 329, seatNo: "M219134", stream: "COMMERCE", name: "JHA SURAJ VINAY", type: "", signature: ""},
+            {srno: 330, seatNo: "M219135", stream: "COMMERCE", name: "JHA AARTI VINAY", type: "", signature: ""},
+            {srno: 331, seatNo: "M219136", stream: "COMMERCE", name: "PATIL ARYA AJIT", type: "", signature: ""},
+            {srno: 332, seatNo: "M219137", stream: "COMMERCE", name: "KHAN SOFYA ATEEQUE", type: "", signature: ""},
+            {srno: 333, seatNo: "M219138", stream: "COMMERCE", name: "SHAH ALAHA MOHD HASIM", type: "", signature: ""},
+            {srno: 334, seatNo: "M219139", stream: "COMMERCE", name: "PATIL JIYA PUNDALIK", type: "", signature: ""},
+            {srno: 335, seatNo: "M219140", stream: "COMMERCE", name: "JOSHI RIYA SATISH", type: "", signature: ""},
+            {srno: 336, seatNo: "M219141", stream: "COMMERCE", name: "RAO ADITYA SHRAVANKUMAR", type: "", signature: ""},
+            {srno: 337, seatNo: "M219142", stream: "COMMERCE", name: "JHA SUJATA SUNIL", type: "", signature: ""},
+            {srno: 338, seatNo: "M219143", stream: "COMMERCE", name: "PAL SARIKA SURYABHAN", type: "", signature: ""},
+            {srno: 339, seatNo: "M219144", stream: "COMMERCE", name: "PALAGOKULA VANSHIKA SUDHAKAR", type: "", signature: ""},
+            {srno: 340, seatNo: "M219145", stream: "COMMERCE", name: "PATEL NEHA VIJAY", type: "", signature: ""},
+            {srno: 341, seatNo: "M219146", stream: "COMMERCE", name: "JHA ADITYA VIRENDRA", type: "", signature: ""},
+            {srno: 342, seatNo: "M219147", stream: "COMMERCE", name: "PAYKAR PRACHITI SANTOSH", type: "", signature: ""},
+            {srno: 343, seatNo: "M219148", stream: "COMMERCE", name: "MARTAND RADHIKA BABURAO", type: "", signature: ""},
+            {srno: 344, seatNo: "M219149", stream: "COMMERCE", name: "SHEVALE RAHUL SUGRIV", type: "", signature: ""},
+            {srno: 345, seatNo: "M219150", stream: "COMMERCE", name: "SHAIKH UMAIRA SHAHNAWAZ", type: "", signature: ""},
+            {srno: 346, seatNo: "M219151", stream: "COMMERCE", name: "SAIN DEVRAJ NARENDRA", type: "", signature: ""},
+            {srno: 347, seatNo: "M219152", stream: "COMMERCE", name: "GUPTA SURAJ SUBHASHCHANDRA", type: "", signature: ""},
+            {srno: 348, seatNo: "M219153", stream: "COMMERCE", name: "KENE PANKAJ VINOD", type: "", signature: ""},
+            {srno: 349, seatNo: "M219154", stream: "COMMERCE", name: "KADAM OMRAJ VISHWANATH", type: "", signature: ""},
+            {srno: 350, seatNo: "M219155", stream: "COMMERCE", name: "SAWANT PRAJWAL UJWAL", type: "", signature: ""},
+            {srno: 351, seatNo: "M219157", stream: "COMMERCE", name: "JAISWAL SAKSHI KAPIL", type: "", signature: ""},
+            {srno: 352, seatNo: "M219159", stream: "COMMERCE", name: "GUPTA PAYAL ASHOK", type: "", signature: ""},
+            {srno: 353, seatNo: "M219160", stream: "COMMERCE", name: "PATIL NEHAL RAJENDRA", type: "", signature: ""},
+            {srno: 354, seatNo: "M219161", stream: "COMMERCE", name: "PATEL KAJAL SUNIL", type: "", signature: ""},
+            {srno: 355, seatNo: "M219162", stream: "COMMERCE", name: "MANDAPE BALAJI SANTOSH", type: "", signature: ""},
+            {srno: 356, seatNo: "M219163", stream: "COMMERCE", name: "MAJHI ANJALI AJAY", type: "", signature: ""},
+            {srno: 357, seatNo: "M219164", stream: "COMMERCE", name: "PATIL MITALI ASHOK", type: "", signature: ""},
+            {srno: 358, seatNo: "M219165", stream: "COMMERCE", name: "JAISWAL RAM AJAY", type: "", signature: ""},
+            {srno: 359, seatNo: "M219166", stream: "COMMERCE", name: "JELJE NAGAMANI SRINIVAS", type: "", signature: ""},
+            {srno: 360, seatNo: "M219167", stream: "COMMERCE", name: "SHUKLA ANAMIKA ASHISH", type: "", signature: ""},
+            {srno: 361, seatNo: "M219169", stream: "COMMERCE", name: "MOMIN MOHAMMED NABEEL MOHD SHAKEEL", type: "", signature: ""},
+            {srno: 362, seatNo: "M219171", stream: "COMMERCE", name: "SAROJ RAJAN MITARAM", type: "", signature: ""},
+            {srno: 363, seatNo: "M219172", stream: "COMMERCE", name: "PATIL ARYAN SANDIP", type: "", signature: ""},
+            {srno: 364, seatNo: "M219173", stream: "COMMERCE", name: "MOURYA AMAN SHAILESH", type: "", signature: ""},
+            {srno: 365, seatNo: "M219174", stream: "COMMERCE", name: "PATEL ARYAN UDAL", type: "", signature: ""},
+            {srno: 366, seatNo: "M219175", stream: "COMMERCE", name: "SAKPAL AMAN VILAS", type: "", signature: ""},
+            {srno: 367, seatNo: "M219177", stream: "COMMERCE", name: "MUKADAM MANASVI LAHU", type: "", signature: ""},
+            {srno: 368, seatNo: "M219178", stream: "COMMERCE", name: "KHARWAR GANESH VIRENDRAPRATAP", type: "", signature: ""},
+            {srno: 369, seatNo: "M219179", stream: "COMMERCE", name: "JHA CHANDANI RAGHUBIR", type: "", signature: ""},
+            {srno: 370, seatNo: "M219180", stream: "COMMERCE", name: "GUPTA SUHANI VIRENDRA KUMAR", type: "", signature: ""},
+            {srno: 371, seatNo: "M219181", stream: "COMMERCE", name: "KHAROTE TANISH SATISH", type: "", signature: ""},
+            {srno: 372, seatNo: "M219182", stream: "COMMERCE", name: "SHIVARI SANIYA KASHINATH", type: "", signature: ""},
+            {srno: 373, seatNo: "M219183", stream: "COMMERCE", name: "MISHRA PRANJAI RAJU PRASAD", type: "", signature: ""},
+            {srno: 374, seatNo: "M219184", stream: "COMMERCE", name: "POTDAR PRANJAL NARENDRA", type: "", signature: ""},
+            {srno: 375, seatNo: "M219186", stream: "COMMERCE", name: "KANOJIYA ANJALI RAJESH", type: "", signature: ""},
+            {srno: 376, seatNo: "M219188", stream: "COMMERCE", name: "RAJBHOI SANKET AVINASH", type: "", signature: ""},
+            {srno: 377, seatNo: "M219189", stream: "COMMERCE", name: "PATIL VEDANT SANTOSH", type: "", signature: ""},
+            {srno: 378, seatNo: "M219190", stream: "COMMERCE", name: "PATEL SAGAR NARAYANLAL", type: "", signature: ""},
+            {srno: 379, seatNo: "M219191", stream: "COMMERCE", name: "PASWAN SHARDA JAIPRAKASH", type: "", signature: ""},
+            {srno: 380, seatNo: "M219192", stream: "COMMERCE", name: "KOLLA NEHARIKA KRISHNARAO", type: "", signature: ""},
+            {srno: 381, seatNo: "M219194", stream: "COMMERCE", name: "RAM DIVAKARKUMAR JAYPRAKASH", type: "", signature: ""},
+            {srno: 382, seatNo: "M219195", stream: "COMMERCE", name: "JAGDALE DARSHAN VIJAY", type: "", signature: ""},
+            {srno: 383, seatNo: "M219198", stream: "COMMERCE", name: "RUPAREL HARSHITA VISHAL", type: "", signature: ""},
+            {srno: 384, seatNo: "M219199", stream: "COMMERCE", name: "JADHAV UPASANA RAMDAS", type: "", signature: ""},
+            {srno: 385, seatNo: "M219200", stream: "COMMERCE", name: "PRASAD PRASHANT MANOJ", type: "", signature: ""},
+            {srno: 386, seatNo: "M219201", stream: "COMMERCE", name: "NYAMAN PRASHANT RAM", type: "", signature: ""},
+            {srno: 387, seatNo: "M219202", stream: "COMMERCE", name: "JADHAV PRASHIK NILESH", type: "", signature: ""},
+            {srno: 388, seatNo: "M219203", stream: "COMMERCE", name: "KINI MANYATA DIPESH", type: "", signature: ""},
+            {srno: 389, seatNo: "M219204", stream: "COMMERCE", name: "MORE SAINATH RAJU", type: "", signature: ""},
+            {srno: 390, seatNo: "M219205", stream: "COMMERCE", name: "PATIL NIYATI JITENDRA", type: "", signature: ""},
+            {srno: 391, seatNo: "M219206", stream: "COMMERCE", name: "PATIL KANAV HANUMAN", type: "", signature: ""},
+            {srno: 392, seatNo: "M219208", stream: "COMMERCE", name: "KOLI GAURAV MUKESH", type: "", signature: ""},
+            {srno: 393, seatNo: "M219209", stream: "COMMERCE", name: "MORE TANMAY JAYRAM", type: "", signature: ""},
+            {srno: 394, seatNo: "M219210", stream: "COMMERCE", name: "KALE AKSHAY PRAVIN", type: "", signature: ""},
+            {srno: 395, seatNo: "M219211", stream: "COMMERCE", name: "MARUTI AJAY RAMESH", type: "", signature: ""},
+            {srno: 396, seatNo: "M219213", stream: "COMMERCE", name: "RAVVA VINAY RAVI", type: "", signature: ""},
+            {srno: 397, seatNo: "M219215", stream: "COMMERCE", name: "SANGARE JAYESH MANOJ", type: "", signature: ""},
+            {srno: 398, seatNo: "M219216", stream: "COMMERCE", name: "RACHCHA ABHISHEK RAMESH", type: "", signature: ""},
+            {srno: 399, seatNo: "M219217", stream: "COMMERCE", name: "KOPPU SAICHARAN SANTOSHKUMAR", type: "", signature: ""},
+            {srno: 400, seatNo: "M219218", stream: "COMMERCE", name: "MISHRA SUCHITA DURGANAND", type: "", signature: ""},
+            {srno: 401, seatNo: "M219219", stream: "COMMERCE", name: "PATIL PRACHITI VINOD", type: "", signature: ""},
+            {srno: 402, seatNo: "M219220", stream: "COMMERCE", name: "PASWAN VICKY BRIJBHAN", type: "", signature: ""},
+            {srno: 403, seatNo: "M219221", stream: "COMMERCE", name: "PANDEY LUCKY RAJESH", type: "", signature: ""},
+            {srno: 404, seatNo: "M219222", stream: "COMMERCE", name: "SHAH JAVED AHMED MUKHTAR", type: "", signature: ""},
+            {srno: 405, seatNo: "M219226", stream: "COMMERCE", name: "PATNI MOHD AYAN ZUBAIR AHMED", type: "", signature: ""},
+            {srno: 406, seatNo: "M219227", stream: "COMMERCE", name: "NARVEKAR DAKSH SANTOSH", type: "", signature: ""},
+            {srno: 407, seatNo: "M219228", stream: "COMMERCE", name: "SHAIKH SADAN SALIM", type: "", signature: ""},
+            {srno: 408, seatNo: "M219229", stream: "COMMERCE", name: "JANGAM VEDANT SANDEEP", type: "", signature: ""},
+            {srno: 409, seatNo: "M219230", stream: "COMMERCE", name: "JITTAWAR DARSHANA PRAKASH", type: "", signature: ""},
+            {srno: 410, seatNo: "M219231", stream: "COMMERCE", name: "GURRAPU UDAY AMARENDER", type: "", signature: ""},
+            {srno: 411, seatNo: "M219232", stream: "COMMERCE", name: "SARDAR SIDDHARTH SANTOSH", type: "", signature: ""},
+            {srno: 412, seatNo: "M219233", stream: "COMMERCE", name: "SAKPAL SIDDHI SANDESH", type: "", signature: ""},
+            {srno: 413, seatNo: "M219234", stream: "COMMERCE", name: "GUPTA SANDEEP SHIVRAJ", type: "", signature: ""},
+            {srno: 414, seatNo: "M219235", stream: "COMMERCE", name: "GUPTA VANDEVI GANESH", type: "", signature: ""},
+            {srno: 415, seatNo: "M219236", stream: "COMMERCE", name: "MALI SHIVDHARAN ASHOK", type: "", signature: ""},
+            {srno: 416, seatNo: "M219237", stream: "COMMERCE", name: "JHA SANI DHARMESH", type: "", signature: ""},
+            {srno: 417, seatNo: "M219238", stream: "COMMERCE", name: "SAHANI SIDHI CHOTELAL", type: "", signature: ""},
+            {srno: 418, seatNo: "M219239", stream: "COMMERCE", name: "GUPTA RIDDHI LALCHAND", type: "", signature: ""},
+            {srno: 419, seatNo: "M219242", stream: "COMMERCE", name: "SHAIKH SADIK WAJID", type: "", signature: ""},
+            {srno: 420, seatNo: "M219243", stream: "COMMERCE", name: "GUPTA NANDINI SURENDRA", type: "", signature: ""},
+            {srno: 421, seatNo: "M219244", stream: "COMMERCE", name: "JADHAV RUDRA PRADEEP", type: "", signature: ""},
+            {srno: 422, seatNo: "M219245", stream: "COMMERCE", name: "MULLA MAGDUM CHANDBASHA", type: "", signature: ""},
+            {srno: 423, seatNo: "M219246", stream: "COMMERCE", name: "MOMIN ZAYED ZAKIR", type: "", signature: ""},
+            {srno: 424, seatNo: "M219248", stream: "COMMERCE", name: "SHELAKE VEDANT AVINASH", type: "", signature: ""},
+            {srno: 425, seatNo: "M219249", stream: "COMMERCE", name: "KAMBLE SNEHA BASWARAJ", type: "", signature: ""},
+            {srno: 426, seatNo: "M219250", stream: "COMMERCE", name: "KHEDARA NEHA SANJAY", type: "", signature: ""},
+            {srno: 427, seatNo: "M219251", stream: "COMMERCE", name: "RAJPUT SNEHA SANTOSH", type: "", signature: ""},
+            {srno: 428, seatNo: "M219253", stream: "COMMERCE", name: "KAMBLE SNEHA SATISH", type: "", signature: ""},
+            {srno: 429, seatNo: "M219254", stream: "COMMERCE", name: "SHRIMAL NEHARIKA CHANDRAKANT", type: "", signature: ""},
+            {srno: 430, seatNo: "M219257", stream: "COMMERCE", name: "KANCHANAPELLI SHREEBHAVAN RAJSHEKHAR", type: "", signature: ""},
+            {srno: 431, seatNo: "M219258", stream: "COMMERCE", name: "KADAM GANESH DHANAJI", type: "", signature: ""},
+            {srno: 432, seatNo: "M219259", stream: "COMMERCE", name: "PEDGE GANESH GOVINDRAO", type: "", signature: ""},
+            {srno: 433, seatNo: "M219260", stream: "COMMERCE", name: "KINI JIGNESH JAYDAS", type: "", signature: ""},
+            {srno: 434, seatNo: "M219261", stream: "COMMERCE", name: "JAIN BHAVESH NARESH", type: "", signature: ""},
+            {srno: 435, seatNo: "M219262", stream: "COMMERCE", name: "GUPTA NILESH PHULCHAND", type: "", signature: ""},
+            {srno: 436, seatNo: "M219263", stream: "COMMERCE", name: "PAWAR GANESH SANTOSH", type: "", signature: ""},
+            {srno: 437, seatNo: "M219264", stream: "COMMERCE", name: "PATIL JAYESH SUDAM", type: "", signature: ""},
+            {srno: 438, seatNo: "M219265", stream: "COMMERCE", name: "RATHOD UMESH TULSIRAM", type: "", signature: ""},
+            {srno: 439, seatNo: "M219268", stream: "COMMERCE", name: "SHAIKH AYESHA AYUB", type: "", signature: ""},
+            {srno: 440, seatNo: "M219269", stream: "COMMERCE", name: "MAHTO SWEETI RAMSUDHIR", type: "", signature: ""},
+            {srno: 441, seatNo: "M219271", stream: "COMMERCE", name: "RADHIKA REWARAM", type: "", signature: ""},
+            {srno: 442, seatNo: "M219274", stream: "COMMERCE", name: "GUPTA SHREYA SUNIL", type: "", signature: ""},
+            {srno: 443, seatNo: "M219275", stream: "COMMERCE", name: "JHA ANURAG AMARNATH", type: "", signature: ""},
+            {srno: 444, seatNo: "M219276", stream: "COMMERCE", name: "PATEL DURGA RAMAVTAR", type: "", signature: ""},
+            {srno: 445, seatNo: "M219277", stream: "COMMERCE", name: "SAHANI SAGAR AMARJEET", type: "", signature: ""},
+            {srno: 446, seatNo: "M219278", stream: "COMMERCE", name: "ROKADE SAGAR MACHCHHINDRA", type: "", signature: ""},
+            {srno: 447, seatNo: "M219279", stream: "COMMERCE", name: "JHA JIYA GAURIKANT", type: "", signature: ""},
+            {srno: 448, seatNo: "M219280", stream: "COMMERCE", name: "SHARMA YOGESH RAMVILAS", type: "", signature: ""},
+            {srno: 449, seatNo: "M219281", stream: "COMMERCE", name: "JADHAV YOGESH TANAJI", type: "", signature: ""},
+            {srno: 450, seatNo: "M219282", stream: "COMMERCE", name: "PUNDE YASH BALASHIRAM", type: "", signature: ""},
+            {srno: 451, seatNo: "M219283", stream: "COMMERCE", name: "JAIN AYUSH DINESH", type: "", signature: ""},
+            {srno: 452, seatNo: "M219284", stream: "COMMERCE", name: "GUPTA YASH GULABCHAND", type: "", signature: ""},
+            {srno: 453, seatNo: "M219285", stream: "COMMERCE", name: "MOURYA NEHA JAYPRAKASH", type: "", signature: ""},
+            {srno: 454, seatNo: "M219286", stream: "COMMERCE", name: "GUPTA SNEHA SHYAMJI", type: "", signature: ""},
+            {srno: 455, seatNo: "M219287", stream: "COMMERCE", name: "SHAIKH REHAAN MOHAMMED SIDDIQUE", type: "", signature: ""},
+            {srno: 456, seatNo: "M219288", stream: "COMMERCE", name: "PATIL RUSHABH JAYENDRA", type: "", signature: ""},
+            {srno: 457, seatNo: "M219290", stream: "COMMERCE", name: "KHAN NAUSHAD JAHIR", type: "", signature: ""},
+            {srno: 458, seatNo: "M219291", stream: "COMMERCE", name: "KAMAT KANHAIYA RAJKUMAR", type: "", signature: ""},
+            {srno: 459, seatNo: "M219292", stream: "COMMERCE", name: "NAYAK KANHAIYA SUSHANT", type: "", signature: ""},
+            {srno: 460, seatNo: "M219297", stream: "COMMERCE", name: "SHAH SHUBHAM CHOTTU", type: "", signature: ""},
+            {srno: 461, seatNo: "M219298", stream: "COMMERCE", name: "MORE MANTHAN SANDEEP", type: "", signature: ""},
+            {srno: 462, seatNo: "M219299", stream: "COMMERCE", name: "GUPTA KISHAN SANTOSH", type: "", signature: ""},
+            {srno: 463, seatNo: "M219300", stream: "COMMERCE", name: "JAISWAL CHANDRESH JAYPRAKASH", type: "", signature: ""},
+            {srno: 464, seatNo: "M219302", stream: "COMMERCE", name: "PATIL YASHARAJ VIKAS", type: "", signature: ""},
+            {srno: 465, seatNo: "M219303", stream: "COMMERCE", name: "PATIL JANHAVI CHANDRKANT", type: "", signature: ""},
+            {srno: 466, seatNo: "M219304", stream: "COMMERCE", name: "PATIL JANHAVI RAJESH", type: "", signature: ""},
+            {srno: 467, seatNo: "M219306", stream: "COMMERCE", name: "KUMAWAT BHAWIKA KUMARI", type: "", signature: ""},
+            {srno: 468, seatNo: "M219307", stream: "COMMERCE", name: "JAISWAR SHEJAL VIJAY", type: "", signature: ""},
+            {srno: 469, seatNo: "M219308", stream: "COMMERCE", name: "SHAIKH SOHEL SALIM", type: "", signature: ""},
+            {srno: 470, seatNo: "M219309", stream: "COMMERCE", name: "KAHAR NIDHI ANIL", type: "", signature: ""},
+            {srno: 471, seatNo: "M219310", stream: "COMMERCE", name: "JHA KHUSHI LALIT", type: "", signature: ""},
+            {srno: 472, seatNo: "M219311", stream: "COMMERCE", name: "GUPTA RAKHI MAHENDRA", type: "", signature: ""},
+            {srno: 473, seatNo: "M219312", stream: "COMMERCE", name: "KODAM ARSHIKA MANOHAR", type: "", signature: ""},
+            {srno: 474, seatNo: "M219313", stream: "COMMERCE", name: "KAMBLE SAHIL CHANDRAKANT", type: "", signature: ""},
+            {srno: 475, seatNo: "M219314", stream: "COMMERCE", name: "PATEL SACHIN RAMGOPAL", type: "", signature: ""},
+            {srno: 476, seatNo: "M219315", stream: "COMMERCE", name: "NANDAL ABHISHEK ANAND", type: "", signature: ""},
+            {srno: 477, seatNo: "M219317", stream: "COMMERCE", name: "MANDAL ABHISHEK MANTUN", type: "", signature: ""},
+            {srno: 478, seatNo: "M219318", stream: "COMMERCE", name: "PANDIT MOHIT HARISHANKAR", type: "", signature: ""},
+            {srno: 479, seatNo: "M219319", stream: "COMMERCE", name: "JADALA ROHIT SHANKAR", type: "", signature: ""},
+            {srno: 480, seatNo: "M219320", stream: "COMMERCE", name: "KONDA AKSHITA AMBADAS", type: "", signature: ""},
+            {srno: 481, seatNo: "M219321", stream: "COMMERCE", name: "PATIL ARCHITA KRUSHNA", type: "", signature: ""},
+            {srno: 482, seatNo: "M219322", stream: "COMMERCE", name: "JAISWAL SHIVAM SURESHCHANDRA", type: "", signature: ""},
+            {srno: 483, seatNo: "M219323", stream: "COMMERCE", name: "NAIK GRISHM JITENDRA", type: "", signature: ""},
+            {srno: 484, seatNo: "M219324", stream: "COMMERCE", name: "HULE PRATHMESH BABAN", type: "", signature: ""},
+            {srno: 485, seatNo: "M219325", stream: "COMMERCE", name: "MOMIN SHAHNAWAZ NAJIR", type: "", signature: ""},
+            {srno: 486, seatNo: "M219326", stream: "COMMERCE", name: "GUPTA ROSHNI DAYANAND", type: "", signature: ""},
+            {srno: 487, seatNo: "M219327", stream: "COMMERCE", name: "MOMIN NASHRA AKHTAR HUSAIN", type: "", signature: ""},
+            {srno: 488, seatNo: "M219328", stream: "COMMERCE", name: "JAISWAL SHREYA HANSRAJ", type: "", signature: ""},
+            {srno: 489, seatNo: "M219329", stream: "COMMERCE", name: "GUPTA MADHU RAMJIYAWAN", type: "", signature: ""},
+            {srno: 490, seatNo: "M219330", stream: "COMMERCE", name: "PANCHAL SHUBHAM MAHESH", type: "", signature: ""},
+            {srno: 491, seatNo: "M219331", stream: "COMMERCE", name: "KHAN SAMSHUDDIN ASGAR ALI", type: "", signature: ""},
+            {srno: 492, seatNo: "M219332", stream: "COMMERCE", name: "PATHAK ASHUTOSH PRAVIN", type: "", signature: ""},
+            {srno: 493, seatNo: "M219333", stream: "COMMERCE", name: "KESHARWANI AJAYKUMAR SURESHCHANDRA", type: "", signature: ""},
+            {srno: 494, seatNo: "M219334", stream: "COMMERCE", name: "IRABATTINI AKASH SHANKAR", type: "", signature: ""},
+            {srno: 495, seatNo: "M219335", stream: "COMMERCE", name: "KESHARWANI ARYAN BINDVASANI", type: "", signature: ""},
+            {srno: 496, seatNo: "M219338", stream: "COMMERCE", name: "KESHARWANI GOPAL RAJENDAR", type: "", signature: ""},
+            {srno: 497, seatNo: "M219339", stream: "COMMERCE", name: "KESHARWANI KHUSHI JAYKUMAR", type: "", signature: ""},
+            {srno: 498, seatNo: "M219340", stream: "COMMERCE", name: "KESHARWANI NISHUKUMARI RAJKUMAR", type: "", signature: ""},
+            {srno: 499, seatNo: "M219341", stream: "COMMERCE", name: "KESHARWANI PRACHI SURESH CHANDRA", type: "", signature: ""},
+            {srno: 500, seatNo: "M219342", stream: "COMMERCE", name: "JHA ROSHNI SANJAY", type: "", signature: ""},
+            {srno: 501, seatNo: "M219343", stream: "COMMERCE", name: "KESHERWANI SATYAM SURESH", type: "", signature: ""},
+            {srno: 502, seatNo: "M219344", stream: "COMMERCE", name: "KESHARWANI SHEETAL SANJAY", type: "", signature: ""},
+            {srno: 503, seatNo: "M219346", stream: "COMMERCE", name: "KESHARWANI SHRADHA SANTOSH", type: "", signature: ""},
+            {srno: 504, seatNo: "M219348", stream: "COMMERCE", name: "KESHARWANI SUMIT SHIVJI", type: "", signature: ""},
+            {srno: 505, seatNo: "M219349", stream: "COMMERCE", name: "MERGU HARIKA GANGADHAR", type: "", signature: ""},
+            {srno: 506, seatNo: "M219350", stream: "COMMERCE", name: "MALI BHAVIKA RAJENDRA", type: "", signature: ""},
+            {srno: 507, seatNo: "M219351", stream: "COMMERCE", name: "PATIL VEDIKA SANJAY", type: "", signature: ""},
+            {srno: 508, seatNo: "M219352", stream: "COMMERCE", name: "INGLE SAMIKSHA LAHU", type: "", signature: ""},
+            {srno: 509, seatNo: "M219353", stream: "COMMERCE", name: "GUPTA SAHIL SANJAYKUMAR", type: "", signature: ""},
+            {srno: 510, seatNo: "M219354", stream: "COMMERCE", name: "PATEL SAHIL SHIVKUMAR", type: "", signature: ""},
+            {srno: 511, seatNo: "M219355", stream: "COMMERCE", name: "MADUTHA DILIP YELLESH", type: "", signature: ""},
+            {srno: 512, seatNo: "M219357", stream: "COMMERCE", name: "LABRE RIDIMA RAM", type: "", signature: ""},
+            {srno: 513, seatNo: "M219359", stream: "COMMERCE", name: "KARRE NAVIN RAM", type: "", signature: ""},
+            {srno: 514, seatNo: "M219360", stream: "COMMERCE", name: "PITTAL VINAY TIRUMALLESH", type: "", signature: ""},
+            {srno: 515, seatNo: "M219362", stream: "COMMERCE", name: "POOJARI VINIT DINESH", type: "", signature: ""},
+            {srno: 516, seatNo: "M219364", stream: "COMMERCE", name: "KHAN HUZAIR SALIM", type: "", signature: ""},
+            {srno: 517, seatNo: "M219365", stream: "COMMERCE", name: "PATEL HARISH JIGNESH", type: "", signature: ""},
+            {srno: 518, seatNo: "M219366", stream: "COMMERCE", name: "PATEL MANISH KAMLESH", type: "", signature: ""},
+            {srno: 519, seatNo: "M219367", stream: "COMMERCE", name: "MUKADAM DISHA ANKUSH", type: "", signature: ""},
+            {srno: 520, seatNo: "M219368", stream: "COMMERCE", name: "MEARGU VAISHANVI SRINIVAS", type: "", signature: ""},
+            {srno: 521, seatNo: "M219369", stream: "COMMERCE", name: "PATEL ABHISHEK VIVEKANAND", type: "", signature: ""},
+            {srno: 522, seatNo: "M219370", stream: "COMMERCE", name: "PATEL ABHISHEKH MAHENDRA", type: "", signature: ""},
+            {srno: 523, seatNo: "M219371", stream: "COMMERCE", name: "JAISWAR VISHESH VIJAY", type: "", signature: ""},
+            {srno: 524, seatNo: "M219372", stream: "COMMERCE", name: "PATIL NIMISHKA NAGESH", type: "", signature: ""},
+            {srno: 525, seatNo: "M219373", stream: "COMMERCE", name: "SHINDE AVISHKAR SUNIL", type: "", signature: ""},
+            {srno: 526, seatNo: "M219374", stream: "COMMERCE", name: "PASWAN KRISHNA RAKESH", type: "", signature: ""},
+            {srno: 527, seatNo: "M219375", stream: "COMMERCE", name: "RATHOD VAISHNAVI RAMESH", type: "", signature: ""},
+            {srno: 528, seatNo: "M219376", stream: "COMMERCE", name: "GUPTA ROHIT CHHEDILAL", type: "", signature: ""},
+            {srno: 529, seatNo: "M219377", stream: "COMMERCE", name: "PATIL RONIT MAHADEV", type: "", signature: ""},
+            {srno: 530, seatNo: "M219378", stream: "COMMERCE", name: "KODI SUJIT PENTAIAH", type: "", signature: ""},
+            {srno: 531, seatNo: "M219379", stream: "COMMERCE", name: "NAKUM TOHIT SANJAY", type: "", signature: ""},
+            {srno: 532, seatNo: "M219380", stream: "COMMERCE", name: "JAMAL VINIT SATISH", type: "", signature: ""},
+            {srno: 533, seatNo: "M219381", stream: "COMMERCE", name: "NAJRE ROHIT SUBHASH", type: "", signature: ""},
+            {srno: 534, seatNo: "M219382", stream: "COMMERCE", name: "PATEL ANKITA ANIL", type: "", signature: ""},
+            {srno: 535, seatNo: "M219383", stream: "COMMERCE", name: "MANE SANGITA BABAN", type: "", signature: ""},
+            {srno: 536, seatNo: "M219384", stream: "COMMERCE", name: "GUPTA NIKITA BAIJNATH", type: "", signature: ""},
+            {srno: 537, seatNo: "M219386", stream: "COMMERCE", name: "PATIL NIKITA HEMANT", type: "", signature: ""},
+            {srno: 538, seatNo: "M219387", stream: "COMMERCE", name: "GUPTA SUNITA RAMSHREE", type: "", signature: ""},
+            {srno: 539, seatNo: "M219388", stream: "COMMERCE", name: "PAWAR ANKITA SATISH", type: "", signature: ""},
+            {srno: 540, seatNo: "M219390", stream: "COMMERCE", name: "NISAL ASMITA VISHNU", type: "", signature: ""},
+            {srno: 541, seatNo: "M219391", stream: "COMMERCE", name: "MISHRA ADITYA MADHUSUDAN", type: "", signature: ""},
+            {srno: 542, seatNo: "M219392", stream: "COMMERCE", name: "MISHRA ADITYA MUKESH", type: "", signature: ""},
+            {srno: 543, seatNo: "M219394", stream: "COMMERCE", name: "NISHAD SHIVAM BHAGWAT", type: "", signature: ""},
+            {srno: 544, seatNo: "M219396", stream: "COMMERCE", name: "SHARMA DIVIKSHA SUNIL", type: "", signature: ""},
+            {srno: 545, seatNo: "M219397", stream: "COMMERCE", name: "MAURYA PRIYA VIJAYBAHADUR", type: "", signature: ""},
+            {srno: 546, seatNo: "M219399", stream: "COMMERCE", name: "MAHATO PRIYANSHUKUMARI SUNUL", type: "", signature: ""},
+            {srno: 547, seatNo: "M219400", stream: "COMMERCE", name: "PATIL DWIJ MILIND", type: "", signature: ""},
+            {srno: 548, seatNo: "M219401", stream: "COMMERCE", name: "MHATRE RAJ SATISH", type: "", signature: ""},
+            {srno: 549, seatNo: "M219403", stream: "COMMERCE", name: "OVHALE RAJA RAMLING", type: "", signature: ""},
+            {srno: 550, seatNo: "M219405", stream: "COMMERCE", name: "JADHAV TEJAL MAHENDRA", type: "", signature: ""},
+            {srno: 551, seatNo: "M219406", stream: "COMMERCE", name: "SAROJ SANJANA RAMLAKHAN", type: "", signature: ""},
+            {srno: 552, seatNo: "M219407", stream: "COMMERCE", name: "SHINDE SUJATA SHIVRAM", type: "", signature: ""},
+            {srno: 553, seatNo: "M219409", stream: "COMMERCE", name: "KAMBLE VIJAY MARUTI", type: "", signature: ""},
+            {srno: 554, seatNo: "M219410", stream: "COMMERCE", name: "MAURYA RAJESH RAJKUMAR", type: "", signature: ""},
+            {srno: 555, seatNo: "M219411", stream: "COMMERCE", name: "MISHRA ARJUN UDAY", type: "", signature: ""},
+            {srno: 556, seatNo: "M219412", stream: "COMMERCE", name: "MASKE PRAJWAL KHAJEPPA", type: "", signature: ""},
+            {srno: 557, seatNo: "M219413", stream: "COMMERCE", name: "RAI ANSHIKA KRIPASHANKAR", type: "", signature: ""},
+            {srno: 558, seatNo: "M219415", stream: "COMMERCE", name: "MISHRA OMKAR ASHOK KUMAR", type: "", signature: ""},
+            {srno: 559, seatNo: "M219416", stream: "COMMERCE", name: "SAROJ ANIKET SURAJ", type: "", signature: ""},
+            {srno: 560, seatNo: "M219418", stream: "COMMERCE", name: "GUPTA SHIKHA BABALU", type: "", signature: ""},
+            {srno: 561, seatNo: "M219419", stream: "COMMERCE", name: "SAHANI NIKHIL RAJU", type: "", signature: ""},
+            {srno: 562, seatNo: "M219420", stream: "COMMERCE", name: "SAHU RAVIKISHAN ASHOK", type: "", signature: ""},
+            {srno: 563, seatNo: "M219421", stream: "COMMERCE", name: "JONDHALE KISHOR SANJAY", type: "", signature: ""},
+            {srno: 564, seatNo: "M219422", stream: "COMMERCE", name: "SAWANT ANKITA CHINTAMANI", type: "", signature: ""},
+            {srno: 565, seatNo: "M219423", stream: "COMMERCE", name: "PASWAN ANKITAKUMARI ASHOK", type: "", signature: ""},
+            {srno: 566, seatNo: "M219424", stream: "COMMERCE", name: "PATIL UPEKSHA BALARAM", type: "", signature: ""},
+            {srno: 567, seatNo: "M219425", stream: "COMMERCE", name: "KAMDAR DIKSHA MUKESH", type: "", signature: ""},
+            {srno: 568, seatNo: "M219427", stream: "COMMERCE", name: "RAMGIRI AKSHARA SHRINIWAS", type: "", signature: ""},
+            {srno: 569, seatNo: "M219431", stream: "COMMERCE", name: "KAMDAR DIKSHITA MUKESH", type: "", signature: ""},
+            {srno: 570, seatNo: "M219432", stream: "COMMERCE", name: "SHAH ANJALI MANOJ", type: "", signature: ""},
+            {srno: 571, seatNo: "M219433", stream: "COMMERCE", name: "SHAH FENILKUMAR RAKESHBHAI", type: "", signature: ""},
+            {srno: 572, seatNo: "M219434", stream: "COMMERCE", name: "MISHRA SALONI VINOD", type: "", signature: ""},
+            {srno: 573, seatNo: "M219436", stream: "COMMERCE", name: "MAHATO BALRAM RAMLAKHAN", type: "", signature: ""},
+            {srno: 574, seatNo: "M219437", stream: "COMMERCE", name: "MANGALARAM BHAVIKA BALAJI", type: "", signature: ""},
+            {srno: 575, seatNo: "M219438", stream: "COMMERCE", name: "PATIL PREM KAILAS", type: "", signature: ""},
+            {srno: 576, seatNo: "M219441", stream: "COMMERCE", name: "RAO SHIVAM RANAPRATAP", type: "", signature: ""},
+            {srno: 577, seatNo: "M219442", stream: "COMMERCE", name: "NALGESHI MANSA AMBADAS", type: "", signature: ""},
+            {srno: 578, seatNo: "M219444", stream: "COMMERCE", name: "MISHRA HIMANSHU MANISH", type: "", signature: ""},
+            {srno: 579, seatNo: "M219445", stream: "COMMERCE", name: "PATIL TANMAY ANIL", type: "", signature: ""},
+            {srno: 580, seatNo: "M219447", stream: "COMMERCE", name: "MHATRE HIMESH DASHRATH", type: "", signature: ""},
+            {srno: 581, seatNo: "M219448", stream: "COMMERCE", name: "PATIL BHUMI SANJAY", type: "", signature: ""},
+            {srno: 582, seatNo: "M219449", stream: "COMMERCE", name: "MULIYA YAMINI SHRINIWAS", type: "", signature: ""},
+            {srno: 583, seatNo: "M219450", stream: "COMMERCE", name: "RAJBHAR AMIT JAGDISH", type: "", signature: ""},
+            {srno: 584, seatNo: "M219451", stream: "COMMERCE", name: "PAREEK SUMITKUMAR SANWARMAL", type: "", signature: ""},
+            {srno: 585, seatNo: "M219453", stream: "COMMERCE", name: "PENTI LAXMIVARSHINI RAVIKUMAR", type: "", signature: ""},
+            {srno: 586, seatNo: "M219455", stream: "COMMERCE", name: "PATHAN SIMRAN FIROJ", type: "", signature: ""},
+            {srno: 587, seatNo: "M219456", stream: "COMMERCE", name: "KENE JATIN JAYENDRA", type: "", signature: ""},
+            {srno: 588, seatNo: "M219457", stream: "COMMERCE", name: "NAIK KARAN SAINATH", type: "", signature: ""},
+            {srno: 589, seatNo: "M219458", stream: "COMMERCE", name: "MOMIN AJAN SIKANDAR", type: "", signature: ""},
+            {srno: 590, seatNo: "M219460", stream: "COMMERCE", name: "MOMIN MD NAIM MD NAZIM", type: "", signature: ""},
+            {srno: 591, seatNo: "M219461", stream: "COMMERCE", name: "SHELKE SONALI MANAJI", type: "", signature: ""},
+            {srno: 592, seatNo: "M219462", stream: "COMMERCE", name: "PATIL MRUNALI MANOHAR", type: "", signature: ""},
+            {srno: 593, seatNo: "M219464", stream: "COMMERCE", name: "GUPTA RAJNANDINI CHANDRADEV", type: "", signature: ""},
+            {srno: 594, seatNo: "M219466", stream: "COMMERCE", name: "GUPTA PRINCE SANTOSH", type: "", signature: ""},
+            {srno: 595, seatNo: "M219467", stream: "COMMERCE", name: "SAROJ ANAND HARENDRA", type: "", signature: ""},
+            {srno: 596, seatNo: "M219469", stream: "COMMERCE", name: "PATEL ANAND JAGATNARAYAN", type: "", signature: ""},
+            {srno: 597, seatNo: "M219470", stream: "COMMERCE", name: "PUJARI GANGADHAR MALAPPA", type: "", signature: ""},
+            {srno: 598, seatNo: "M219471", stream: "COMMERCE", name: "RAUT RAGINI GANESH", type: "", signature: ""},
+            {srno: 599, seatNo: "M219472", stream: "COMMERCE", name: "KESHARAWANI SHUBHAM SHIVSHANKAR", type: "", signature: ""},
+            {srno: 600, seatNo: "M219473", stream: "COMMERCE", name: "SAW SHIVANI VIJAY", type: "", signature: ""},
+            {srno: 601, seatNo: "M219474", stream: "COMMERCE", name: "PAREEK MANISH PURUSHOTTAM", type: "", signature: ""},
+            {srno: 602, seatNo: "M219475", stream: "COMMERCE", name: "PATIL PRANJAL HARESHWAR", type: "", signature: ""},
+            {srno: 603, seatNo: "M219476", stream: "COMMERCE", name: "SHARMA SANJANA BABLU", type: "", signature: ""},
+            {srno: 604, seatNo: "M219477", stream: "COMMERCE", name: "MAURYA SANJANA JAGDISH", type: "", signature: ""},
+            {srno: 605, seatNo: "M219479", stream: "COMMERCE", name: "METKEL SANJAY MANOJ", type: "", signature: ""},
+            {srno: 606, seatNo: "M219481", stream: "COMMERCE", name: "JANGAM TANMAY SANTOSH", type: "", signature: ""},
+            {srno: 607, seatNo: "M219482", stream: "COMMERCE", name: "PAL DEEPANSHU RAMKUMAR", type: "", signature: ""},
+            {srno: 608, seatNo: "M219483", stream: "COMMERCE", name: "JHA PRIYANSHU SANJAY", type: "", signature: ""},
+            {srno: 609, seatNo: "M219485", stream: "COMMERCE", name: "RAMDIN MANSI SATISH", type: "", signature: ""},
+            {srno: 610, seatNo: "M219486", stream: "COMMERCE", name: "GUPTA SUNNY SUNILKUMAR", type: "", signature: ""},
+            {srno: 611, seatNo: "M219488", stream: "COMMERCE", name: "PATIL LAVNYA MAHENDRA", type: "", signature: ""},
+            {srno: 612, seatNo: "M219490", stream: "COMMERCE", name: "SHAIKH MOHD HUZAIFA FAIYAZ AHMED", type: "", signature: ""},
+            {srno: 613, seatNo: "M219491", stream: "COMMERCE", name: "SALVI SHLOK SURESH", type: "", signature: ""},
+            {srno: 614, seatNo: "M219494", stream: "COMMERCE", name: "LOLEWAR MOKSH MAHESH", type: "", signature: ""},
+            {srno: 615, seatNo: "M219495", stream: "COMMERCE", name: "JAISWAR SONU DHARMVIR", type: "", signature: ""},
+            {srno: 616, seatNo: "M219497", stream: "COMMERCE", name: "SHAH MAHFOOJ NASRUDDIN", type: "", signature: ""},
+            {srno: 617, seatNo: "M219498", stream: "COMMERCE", name: "MOURYA RUPESH ISHWAR", type: "", signature: ""},
+            {srno: 618, seatNo: "M219499", stream: "COMMERCE", name: "PASWAN GOPI SANJAY", type: "", signature: ""},
+            {srno: 619, seatNo: "M219500", stream: "COMMERCE", name: "JADHAV DIPIKA DINESH", type: "", signature: ""},
+            {srno: 620, seatNo: "M219501", stream: "COMMERCE", name: "MISHRA ARPIT PRADIP", type: "", signature: ""},
+            {srno: 621, seatNo: "M219502", stream: "COMMERCE", name: "RAVIRALA PRADEEP VENKATESH", type: "", signature: ""},
+            {srno: 622, seatNo: "M219503", stream: "COMMERCE", name: "GYANESHWAR KONDIYAL UDAY", type: "", signature: ""},
+            {srno: 623, seatNo: "M219504", stream: "COMMERCE", name: "MOMIN UMAR NASEERUDDEEN", type: "", signature: ""},
+            {srno: 624, seatNo: "M219505", stream: "COMMERCE", name: "KHODKE SURAJ BALIRAM", type: "", signature: ""},
+            {srno: 625, seatNo: "M219506", stream: "COMMERCE", name: "SAHU JAYPRAKASH KASHIPRASAD", type: "", signature: ""},
+            {srno: 626, seatNo: "M219509", stream: "COMMERCE", name: "KOSHTI GORAKHNATH SANTOSH", type: "", signature: ""},
+            {srno: 627, seatNo: "M219510", stream: "COMMERCE", name: "PASWAN AARATI JAYKUMAR", type: "", signature: ""},
+            {srno: 628, seatNo: "M219511", stream: "COMMERCE", name: "LIKHAR SHRAVANI MUKESH", type: "", signature: ""},
+            {srno: 629, seatNo: "M219512", stream: "COMMERCE", name: "POTHUL SHREELAXMI RAJU", type: "", signature: ""},
+            {srno: 630, seatNo: "M219513", stream: "COMMERCE", name: "PANDEY SHREYA SANTOSH", type: "", signature: ""},
+            {srno: 631, seatNo: "M219515", stream: "COMMERCE", name: "KAMTAM GIRIJA TIRUPATI", type: "", signature: ""},
+            {srno: 632, seatNo: "M219516", stream: "COMMERCE", name: "KHARIK PRINCE CHETAN", type: "", signature: ""},
+            {srno: 633, seatNo: "M219518", stream: "COMMERCE", name: "NAGPURI KRISHNA RAJU", type: "", signature: ""},
+            {srno: 634, seatNo: "M219520", stream: "COMMERCE", name: "GURRAM KARTIK DURGAIYA", type: "", signature: ""},
+            {srno: 635, seatNo: "M219521", stream: "COMMERCE", name: "MAURYA AARUSHI RAVISHANKAR", type: "", signature: ""},
+            {srno: 636, seatNo: "M219522", stream: "COMMERCE", name: "MISHRA PURUSHOTTAM MUKESH", type: "", signature: ""},
+            {srno: 637, seatNo: "M219523", stream: "COMMERCE", name: "RACCHA AMRUTA MOHAN", type: "", signature: ""},
+            {srno: 638, seatNo: "M219524", stream: "COMMERCE", name: "JADHAV SHRUTI SUNIL", type: "", signature: ""},
+            {srno: 639, seatNo: "M219525", stream: "COMMERCE", name: "SHARMA SHRUTIKA VINAYKUMAR", type: "", signature: ""},
+            {srno: 640, seatNo: "M219526", stream: "COMMERCE", name: "MHATRE DHRUV MACHCHHINDRA", type: "", signature: ""},
+            {srno: 641, seatNo: "M219527", stream: "COMMERCE", name: "SAHANI SURYEST UMESH", type: "", signature: ""},
+            {srno: 642, seatNo: "M219528", stream: "COMMERCE", name: "MALI VIKAS RAJU RAJAN", type: "", signature: ""},
+            {srno: 643, seatNo: "M219529", stream: "COMMERCE", name: "RODDEWAR SADHANA RAJU", type: "", signature: ""},
+            {srno: 644, seatNo: "M219530", stream: "COMMERCE", name: "PUROHIT SALONI RAJENDRA", type: "", signature: ""},
+            {srno: 645, seatNo: "M219532", stream: "COMMERCE", name: "JHA AMAN SANJAY", type: "", signature: ""},
+            {srno: 646, seatNo: "M219533", stream: "COMMERCE", name: "PATIL KRISH BINDU", type: "", signature: ""},
+            {srno: 647, seatNo: "M219535", stream: "COMMERCE", name: "RAI MANISH KUMAR BIRENDRA", type: "", signature: ""},
+            {srno: 648, seatNo: "M219536", stream: "COMMERCE", name: "NAVIK AKASH RAJKUMAR", type: "", signature: ""},
+            {srno: 649, seatNo: "M219537", stream: "COMMERCE", name: "SAKPAL YASH SANTOSH", type: "", signature: ""},
+            {srno: 650, seatNo: "M219539", stream: "COMMERCE", name: "MAHTO AMISHA KUMARI VINOD", type: "", signature: ""},
+            {srno: 651, seatNo: "M219542", stream: "COMMERCE", name: "GUPTA VARSHA SUJEET", type: "", signature: ""},
+            {srno: 652, seatNo: "M219543", stream: "COMMERCE", name: "GUPTA VAISHALI SUNIL", type: "", signature: ""},
+            {srno: 653, seatNo: "M219544", stream: "COMMERCE", name: "MADHAVI ISHANT MANOHAR", type: "", signature: ""},
+            {srno: 654, seatNo: "M219545", stream: "COMMERCE", name: "PORANDLA SHATAAYU VILAS", type: "", signature: ""},
+            {srno: 655, seatNo: "M219546", stream: "COMMERCE", name: "PATEL KHUSHBU JEETBAHADUR", type: "", signature: ""},
+            {srno: 656, seatNo: "M219547", stream: "COMMERCE", name: "KAHAR KHUSHI BABLU", type: "", signature: ""},
+            {srno: 657, seatNo: "M219549", stream: "COMMERCE", name: "PATIL SAKSHI DATTATREY", type: "", signature: ""},
+            {srno: 658, seatNo: "M219550", stream: "COMMERCE", name: "MAURYA ANSHIKA RAMACHAL", type: "", signature: ""},
+            {srno: 659, seatNo: "M219552", stream: "COMMERCE", name: "KHARAT RUSHIKESH RAJENDRA", type: "", signature: ""},
+            {srno: 660, seatNo: "M219553", stream: "COMMERCE", name: "PANDIT NISHIKUMARI DHANANJAY", type: "", signature: ""},
+            {srno: 661, seatNo: "M219554", stream: "COMMERCE", name: "KESARI KASHISH MANNULAL", type: "", signature: ""},
+            {srno: 662, seatNo: "M219555", stream: "COMMERCE", name: "JOSHI DAKSHIT VIKAS", type: "", signature: ""},
+            {srno: 663, seatNo: "M219556", stream: "COMMERCE", name: "PATIL PRESHITA RUSHIKESH", type: "", signature: ""},
+            {srno: 664, seatNo: "M219557", stream: "COMMERCE", name: "SHARMA VISHNUKUMAR RANJAYKUMAR", type: "", signature: ""},
+            {srno: 665, seatNo: "M219558", stream: "COMMERCE", name: "KUMBHARE SHUBHANGI BALARAM", type: "", signature: ""},
+            {srno: 666, seatNo: "M219560", stream: "COMMERCE", name: "SHARMA VISHWAJEET BALDEV", type: "", signature: ""},
+            {srno: 667, seatNo: "M219561", stream: "COMMERCE", name: "SHUKLA AASTHA VIJAY SHANKAR", type: "", signature: ""},
+            {srno: 668, seatNo: "M219562", stream: "COMMERCE", name: "RAJPUROHIT LIPSA JABARSINGH", type: "", signature: ""},
+            {srno: 669, seatNo: "M219563", stream: "COMMERCE", name: "SABLE AMIT PINTU", type: "", signature: ""},
+            {srno: 670, seatNo: "M219564", stream: "COMMERCE", name: "PATIL SMIT SANJEEV", type: "", signature: ""},
+            {srno: 671, seatNo: "M219565", stream: "COMMERCE", name: "PATEL AMIT SURENDRA", type: "", signature: ""},
+            {srno: 672, seatNo: "M219566", stream: "COMMERCE", name: "KOTE NIKITA BALARAM", type: "", signature: ""},
+            {srno: 673, seatNo: "M219567", stream: "COMMERCE", name: "POGUL GEETA SANJAYKUMAR", type: "", signature: ""},
+            {srno: 674, seatNo: "M219568", stream: "COMMERCE", name: "LOKHANDE TANMAY SANJAY", type: "", signature: ""},
+            {srno: 675, seatNo: "M219569", stream: "COMMERCE", name: "PRADHAN TANUSHREE ANIL", type: "", signature: ""},
+            {srno: 676, seatNo: "M219570", stream: "COMMERCE", name: "MHATRE GITESH MAHESH", type: "", signature: ""},
+            {srno: 677, seatNo: "M219572", stream: "COMMERCE", name: "SAPATE NITESH YASHAWANT", type: "", signature: ""},
+            {srno: 678, seatNo: "M219574", stream: "COMMERCE", name: "PATIL PARTH NANDU", type: "", signature: ""},
+            {srno: 679, seatNo: "M219575", stream: "COMMERCE", name: "MAHTO JYOTI RAVINDAR", type: "", signature: ""},
+            {srno: 680, seatNo: "M219577", stream: "COMMERCE", name: "JHA PRAGATI SANTOSH", type: "", signature: ""},
+            {srno: 681, seatNo: "M219578", stream: "COMMERCE", name: "JHA SHRUSTI VIJAY", type: "", signature: ""},
+            {srno: 682, seatNo: "M219579", stream: "COMMERCE", name: "JHA RIYA TRILOKNATH", type: "", signature: ""},
+            {srno: 683, seatNo: "M219580", stream: "COMMERCE", name: "JADHAV RUTUJA JANARDAN", type: "", signature: ""},
+            {srno: 684, seatNo: "M219581", stream: "COMMERCE", name: "JUKAR PIYU SUDAM", type: "", signature: ""},
+            {srno: 685, seatNo: "M219582", stream: "COMMERCE", name: "JAISWAR LUCKYKUMAR HARENDRA", type: "", signature: ""},
+            {srno: 686, seatNo: "M219583", stream: "COMMERCE", name: "MADHAVI RUDRA NAGNATH", type: "", signature: ""},
+            {srno: 687, seatNo: "M219584", stream: "COMMERCE", name: "LOLEWAR RUDRA SUDAM", type: "", signature: ""},
+            {srno: 688, seatNo: "M219585", stream: "COMMERCE", name: "SALMANI RUKSAR MOHAMMAD ILIYAS", type: "", signature: ""},
+            {srno: 689, seatNo: "M219586", stream: "COMMERCE", name: "GUPTA RAHUL MAHESH", type: "", signature: ""},
+            {srno: 690, seatNo: "M219588", stream: "COMMERCE", name: "JHA RAJAKUMAR MANOJ", type: "", signature: ""},
+            {srno: 691, seatNo: "M219589", stream: "COMMERCE", name: "RAJBHAR SURYVANSH MUNEEBKUMAR", type: "", signature: ""},
+            {srno: 692, seatNo: "M219590", stream: "COMMERCE", name: "PANDEY AYUSH KUMAR SANTOSH KUMAR", type: "", signature: ""},
+            {srno: 693, seatNo: "M219591", stream: "COMMERCE", name: "JADHAV ARUSH VANESH", type: "", signature: ""},
+            {srno: 694, seatNo: "M219592", stream: "COMMERCE", name: "KARNANI TUSHAR OMPRAKASH", type: "", signature: ""},
+            {srno: 695, seatNo: "M219593", stream: "COMMERCE", name: "KUMHAR KHUSHI RAMESH", type: "", signature: ""},
+            {srno: 696, seatNo: "M219594", stream: "COMMERCE", name: "MOURYA KHUSHI SANTOSH", type: "", signature: ""},
+            {srno: 697, seatNo: "M219595", stream: "COMMERCE", name: "JADHAV ANUSHKA DHARAMDAS", type: "", signature: ""},
+            {srno: 698, seatNo: "M219596", stream: "COMMERCE", name: "MUNGEL ANUSHRI PRAMOD", type: "", signature: ""},
+            {srno: 699, seatNo: "M219599", stream: "COMMERCE", name: "KEELLA SRUTHI LAXMINARAYANA", type: "", signature: ""},
+            {srno: 700, seatNo: "M219600", stream: "COMMERCE", name: "JHA RAGHAV RAVINDRA", type: "", signature: ""},
+            {srno: 701, seatNo: "M219601", stream: "COMMERCE", name: "SHRIVASTAV UDIT DHARMENDRA", type: "", signature: ""},
+            {srno: 702, seatNo: "M219602", stream: "COMMERCE", name: "GUPTA SHIVAM DINESH", type: "", signature: ""},
+            {srno: 703, seatNo: "M219603", stream: "COMMERCE", name: "GUPTA SHIVAM JAYPRAKASH", type: "", signature: ""},
+            {srno: 704, seatNo: "M219605", stream: "COMMERCE", name: "GUPTA SHIVANI SANTOSH", type: "", signature: ""},
+            {srno: 705, seatNo: "M219606", stream: "COMMERCE", name: "RASALKAR VEDIKA SANDEEP", type: "", signature: ""},
+            {srno: 706, seatNo: "M219607", stream: "COMMERCE", name: "MERUGU NAVEENA MURALIDHAR", type: "", signature: ""},
+            {srno: 707, seatNo: "M219608", stream: "COMMERCE", name: "SHAIKH AAVESH AKEEL AHMED", type: "", signature: ""},
+            {srno: 708, seatNo: "M219609", stream: "COMMERCE", name: "PAWAR BHAVESH JAGANNATH", type: "", signature: ""},
+            {srno: 709, seatNo: "M219611", stream: "COMMERCE", name: "JADHAV DEVESH SANJU", type: "", signature: ""},
+            {srno: 710, seatNo: "M219612", stream: "COMMERCE", name: "RAICHA YUVRAJ MITUL", type: "", signature: ""},
+            {srno: 711, seatNo: "M219614", stream: "COMMERCE", name: "SABALE DIVYA MANOHER", type: "", signature: ""},
+            {srno: 712, seatNo: "M219615", stream: "COMMERCE", name: "MAHAJAN SWAPNIL KAILAS", type: "", signature: ""},
+            {srno: 713, seatNo: "M219616", stream: "COMMERCE", name: "MHASKAR SWARA NARAYAN", type: "", signature: ""},
+            {srno: 714, seatNo: "M219617", stream: "COMMERCE", name: "MAURYA SHWETA GULABCHAND", type: "", signature: ""},
+            {srno: 715, seatNo: "M219619", stream: "COMMERCE", name: "JAISWAL SWETA RAKSHARAM", type: "", signature: ""},
+            {srno: 716, seatNo: "M219620", stream: "COMMERCE", name: "LAGISHETTY GANESH BHUMESH", type: "", signature: ""},
+            {srno: 717, seatNo: "M219623", stream: "COMMERCE", name: "SAROJ AJAY KALLAN", type: "", signature: ""},
+            {srno: 718, seatNo: "M219625", stream: "COMMERCE", name: "MOURYA RIYA RAVINDRA KUMAR", type: "", signature: ""},
+            {srno: 719, seatNo: "M219626", stream: "COMMERCE", name: "LANGHI PAYAL ROHIDAS", type: "", signature: ""},
+            {srno: 720, seatNo: "M219627", stream: "COMMERCE", name: "GUPTA SATYAM OMPRAKASH", type: "", signature: ""},
+            {srno: 721, seatNo: "M219628", stream: "COMMERCE", name: "SHAH NARAYAN UMESH", type: "", signature: ""},
+            {srno: 722, seatNo: "M219629", stream: "COMMERCE", name: "GUPTA PRIYANKA SHIVKUMAR", type: "", signature: ""},
+            {srno: 723, seatNo: "M219631", stream: "COMMERCE", name: "GUPTA PRIYANSHU BHAGAVATI PRASAD", type: "", signature: ""},
+            {srno: 724, seatNo: "M219632", stream: "COMMERCE", name: "KAMBLE JAYESH MALLESH", type: "", signature: ""},
+            {srno: 725, seatNo: "M219633", stream: "COMMERCE", name: "MHATRE AAYUSH MANOHAR", type: "", signature: ""},
+            {srno: 726, seatNo: "M219634", stream: "COMMERCE", name: "SHARMA AAYUSHI ASHOK", type: "", signature: ""},
+            {srno: 727, seatNo: "M219635", stream: "COMMERCE", name: "MANDAL AAYUSHI HIRALAL", type: "", signature: ""},
+            {srno: 728, seatNo: "M219636", stream: "COMMERCE", name: "KHAN ARBAZ MAHBOOB", type: "", signature: ""},
+            {srno: 729, seatNo: "M219637", stream: "COMMERCE", name: "TOSHNIWAL SAHAS SHAMSUNDER", type: "", signature: ""},
+            {srno: 730, seatNo: "M219638", stream: "COMMERCE", name: "SIRIPURAM ANIK KISHOR", type: "", signature: ""},
+            {srno: 731, seatNo: "M219639", stream: "COMMERCE", name: "SONPASARE ANUSHKA RAGHUNATH", type: "", signature: ""},
+            {srno: 732, seatNo: "M219640", stream: "COMMERCE", name: "TARE DEEP GANESH", type: "", signature: ""},
+            {srno: 733, seatNo: "M219641", stream: "COMMERCE", name: "SINGARWAR GAURI RAMESH", type: "", signature: ""},
+            {srno: 734, seatNo: "M219642", stream: "COMMERCE", name: "SONI PREM KUMAR UMESH KUMAR", type: "", signature: ""},
+            {srno: 735, seatNo: "M219643", stream: "COMMERCE", name: "TAPKIR OM RAJENDRA", type: "", signature: ""},
+            {srno: 736, seatNo: "M219644", stream: "COMMERCE", name: "SRIVASTAV SOYAM MANOJ", type: "", signature: ""},
+            {srno: 737, seatNo: "M219645", stream: "COMMERCE", name: "SINGARWAR TEJASH RAMKRISHNA", type: "", signature: ""},
+            {srno: 738, seatNo: "M219646", stream: "COMMERCE", name: "SIRIMALLA VAISHNAVI VEERASWAMI", type: "", signature: ""},
+            {srno: 739, seatNo: "M219647", stream: "COMMERCE", name: "VADICHERLA AKASH LAXMINARAYAN", type: "", signature: ""},
+            {srno: 740, seatNo: "M219648", stream: "COMMERCE", name: "VADLAKONDA ASMITHA RAVINDAR", type: "", signature: ""},
+            {srno: 741, seatNo: "M219649", stream: "COMMERCE", name: "SONI DISHA LAVKUMAR", type: "", signature: ""},
+            {srno: 742, seatNo: "M219650", stream: "COMMERCE", name: "TAMBADE SAI RAJENDRA", type: "", signature: ""},
+            {srno: 743, seatNo: "M219652", stream: "COMMERCE", name: "SONY SATYAM DABLOO", type: "", signature: ""},
+            {srno: 744, seatNo: "M219653", stream: "COMMERCE", name: "TITKARE MANYTA SUDHAKAR", type: "", signature: ""},
+            {srno: 745, seatNo: "M219654", stream: "COMMERCE", name: "SONAWADEKAR ANSHIKA AMOL", type: "", signature: ""},
+            {srno: 746, seatNo: "M219655", stream: "COMMERCE", name: "SINGH AADARSH ABHIMANYU", type: "", signature: ""},
+            {srno: 747, seatNo: "M219656", stream: "COMMERCE", name: "SIDDUL AKASH NARSING", type: "", signature: ""},
+            {srno: 748, seatNo: "M219657", stream: "COMMERCE", name: "THAKUR PRATHAM GURUNATH", type: "", signature: ""},
+            {srno: 749, seatNo: "M219659", stream: "COMMERCE", name: "TAPPE MAYAUDIN DASTGEER", type: "", signature: ""},
+            {srno: 750, seatNo: "M219660", stream: "COMMERCE", name: "SHUKLA PRAVESH SHRIKRISHNA", type: "", signature: ""},
+            {srno: 751, seatNo: "M219661", stream: "COMMERCE", name: "SURA SANJAY MARKANDI", type: "", signature: ""},
+            {srno: 752, seatNo: "M219662", stream: "COMMERCE", name: "SOLANKI MAYANK DILIP", type: "", signature: ""},
+            {srno: 753, seatNo: "M219663", stream: "COMMERCE", name: "SINGH SHUBHI SURENDRAPRATAP", type: "", signature: ""},
+            {srno: 754, seatNo: "M219664", stream: "COMMERCE", name: "SURVE SANCHIT DATTATREY", type: "", signature: ""},
+            {srno: 755, seatNo: "M219666", stream: "COMMERCE", name: "THAKUR VEDANT JITENDAR", type: "", signature: ""},
+            {srno: 756, seatNo: "M219667", stream: "COMMERCE", name: "SONAWANE DEVANK YOGESH", type: "", signature: ""},
+            {srno: 757, seatNo: "M219668", stream: "COMMERCE", name: "UBALE SANDIP RAJU", type: "", signature: ""},
+            {srno: 758, seatNo: "M219669", stream: "COMMERCE", name: "SUNKA NAVEEN RAJU", type: "", signature: ""},
+            {srno: 759, seatNo: "M219670", stream: "COMMERCE", name: "THAKUR SWEETY PRAVIN", type: "", signature: ""},
+            {srno: 760, seatNo: "M219671", stream: "COMMERCE", name: "THAKRE SNEHA SURESH", type: "", signature: ""},
+            {srno: 761, seatNo: "M219672", stream: "COMMERCE", name: "SUTHAR NEELAM GHISARAM", type: "", signature: ""},
+            {srno: 762, seatNo: "M219673", stream: "COMMERCE", name: "SINGH RITESH CHANDRASHEKHAR", type: "", signature: ""},
+            {srno: 763, seatNo: "M219674", stream: "COMMERCE", name: "SINGH PREETI RAMESH", type: "", signature: ""},
+            {srno: 764, seatNo: "M219675", stream: "COMMERCE", name: "TIWARI YOGESH RAMESH", type: "", signature: ""},
+            {srno: 765, seatNo: "M219676", stream: "COMMERCE", name: "SRIRAM VIGNESH RAMESH", type: "", signature: ""},
+            {srno: 766, seatNo: "M219677", stream: "COMMERCE", name: "UBALE SUDHA RAJU", type: "", signature: ""},
+            {srno: 767, seatNo: "M219678", stream: "COMMERCE", name: "SINGH VISHAL PRAMOD", type: "", signature: ""},
+            {srno: 768, seatNo: "M219679", stream: "COMMERCE", name: "THAKUR ESHANT TUSHAR", type: "", signature: ""},
+            {srno: 769, seatNo: "M219680", stream: "COMMERCE", name: "SURYAWANSHI ISHWAR AATISH", type: "", signature: ""},
+            {srno: 770, seatNo: "M219682", stream: "COMMERCE", name: "SURYAWANSHI TUSHAR RAJU", type: "", signature: ""},
+            {srno: 771, seatNo: "M219683", stream: "COMMERCE", name: "SURVASE BHUSHAN DAYANAND", type: "", signature: ""},
+            {srno: 772, seatNo: "M219685", stream: "COMMERCE", name: "SURAM AISHWARYA RAJASHEKHAR", type: "", signature: ""},
+            {srno: 773, seatNo: "M219686", stream: "COMMERCE", name: "VADDEPELLI RAKSHITHA BHIKSHAPATHI", type: "", signature: ""},
+            {srno: 774, seatNo: "M219687", stream: "COMMERCE", name: "SREERAM NIKHITA NAGARAJU", type: "", signature: ""},
+            {srno: 775, seatNo: "M219688", stream: "COMMERCE", name: "SONI KASHISH GURUPRASAD", type: "", signature: ""},
+            {srno: 776, seatNo: "M219689", stream: "COMMERCE", name: "SINGH PUNIT JAGDISHPRASAD", type: "", signature: ""},
+            {srno: 777, seatNo: "M219691", stream: "COMMERCE", name: "TIWARI PRIYAM MANOJ", type: "", signature: ""},
+            {srno: 778, seatNo: "M219692", stream: "COMMERCE", name: "SINGH ALOK SUMIT", type: "", signature: ""},
+            {srno: 779, seatNo: "M219693", stream: "COMMERCE", name: "SINGH MUSKAN UMESH", type: "", signature: ""},
+            {srno: 780, seatNo: "M219695", stream: "COMMERCE", name: "UPADHYAY KHUSHI INDRAMANI", type: "", signature: ""},
+            {srno: 781, seatNo: "M219696", stream: "COMMERCE", name: "UPADHYAY LAXMI DEVENDRA", type: "", signature: ""},
+            {srno: 782, seatNo: "M219698", stream: "COMMERCE", name: "SINGH LAXMAN KRISHNA PRASAD", type: "", signature: ""},
+            {srno: 783, seatNo: "M219699", stream: "COMMERCE", name: "SONI ARYAN RAJ", type: "", signature: ""},
+            {srno: 784, seatNo: "M219700", stream: "COMMERCE", name: "SUTHAR TANEET SURESHKUMAR", type: "", signature: ""},
+            {srno: 785, seatNo: "M219701", stream: "COMMERCE", name: "THAKUR MANISHA PRAVIN", type: "", signature: ""},
+            {srno: 786, seatNo: "M219702", stream: "COMMERCE", name: "TIWARI TANIYA MANOJ", type: "", signature: ""},
+            {srno: 787, seatNo: "M219703", stream: "COMMERCE", name: "TANTI DHANJAYKUMAR VIRENDRA", type: "", signature: ""},
+            {srno: 788, seatNo: "M219704", stream: "COMMERCE", name: "SONKAR RINKI SANJAY", type: "", signature: ""},
+            {srno: 789, seatNo: "M219705", stream: "COMMERCE", name: "TIWARI TANNYA PINTU", type: "", signature: ""},
+            {srno: 790, seatNo: "M219706", stream: "COMMERCE", name: "TAWARE VANSHIKA RAJESH", type: "", signature: ""},
+            {srno: 791, seatNo: "M219707", stream: "COMMERCE", name: "THAKUR MANSWI NILESH", type: "", signature: ""},
+            {srno: 792, seatNo: "M219709", stream: "COMMERCE", name: "THAKUR SONU GUDDU", type: "", signature: ""},
+            {srno: 793, seatNo: "M219710", stream: "COMMERCE", name: "THAKUR KARAN JAMUNAPRASAD", type: "", signature: ""},
+            {srno: 794, seatNo: "M219711", stream: "COMMERCE", name: "SINGH RUDRAPRATAP ANIL", type: "", signature: ""},
+            {srno: 795, seatNo: "M219712", stream: "COMMERCE", name: "SINGH BHIRGURAJ JAGDISH", type: "", signature: ""},
+            {srno: 796, seatNo: "M219713", stream: "COMMERCE", name: "THAKUR PARI VIKAS", type: "", signature: ""},
+            {srno: 797, seatNo: "M219714", stream: "COMMERCE", name: "UBALE ATISH DINESH", type: "", signature: ""},
+            {srno: 798, seatNo: "M219715", stream: "COMMERCE", name: "TARE RITESH PRAVIN", type: "", signature: ""},
+            {srno: 799, seatNo: "M219716", stream: "COMMERCE", name: "SINGH HARSHENDRA PRATAP VIRENDRABAHADUR", type: "", signature: ""},
+            {srno: 800, seatNo: "M219717", stream: "COMMERCE", name: "SINGH KHUSHI BHUPENDRA", type: "", signature: ""},
+            {srno: 801, seatNo: "M219718", stream: "COMMERCE", name: "TIWARI ANSHIKA DINESH", type: "", signature: ""},
+            {srno: 802, seatNo: "M219719", stream: "COMMERCE", name: "SINGH KRISHNA MUNNA", type: "", signature: ""},
+            {srno: 803, seatNo: "M219720", stream: "COMMERCE", name: "SINGH LAKSHYA SURAJ", type: "", signature: ""},
+            {srno: 804, seatNo: "M219722", stream: "COMMERCE", name: "TELAWANE SMARAN RAKESH", type: "", signature: ""},
+            {srno: 805, seatNo: "M219724", stream: "COMMERCE", name: "SWAMI PRITAM KANARAM", type: "", signature: ""},
+            {srno: 806, seatNo: "M219725", stream: "COMMERCE", name: "SINGH NAITIK JITENDRA", type: "", signature: ""},
+            {srno: 807, seatNo: "M219726", stream: "COMMERCE", name: "SONKAR SATISH SANJAY", type: "", signature: ""},
+            {srno: 808, seatNo: "M219728", stream: "COMMERCE", name: "TAMBE PRATUL VIJAY", type: "", signature: ""},
+            {srno: 809, seatNo: "M219729", stream: "COMMERCE", name: "THAKUR ANURAG KUMAR BHARAT", type: "", signature: ""},
+            {srno: 810, seatNo: "M219731", stream: "COMMERCE", name: "SONAWANE URMILA SANJAY", type: "", signature: ""},
+            {srno: 811, seatNo: "M219732", stream: "COMMERCE", name: "TIWARI KHUSHI SURENDRA", type: "", signature: ""},
+            {srno: 812, seatNo: "M219733", stream: "COMMERCE", name: "SOKALWAR VAIBHAV PENTAJI", type: "", signature: ""},
+            {srno: 813, seatNo: "M219734", stream: "COMMERCE", name: "SINGH JANVI PRAVEEN", type: "", signature: ""},
+            {srno: 814, seatNo: "M219735", stream: "COMMERCE", name: "THAKUR DIVYA HEERASING", type: "", signature: ""},
+            {srno: 815, seatNo: "M219736", stream: "COMMERCE", name: "SONI ABHAY MAHESH", type: "", signature: ""},
+            {srno: 816, seatNo: "M219737", stream: "COMMERCE", name: "VAVILALA ARYAN TIRUPATI", type: "", signature: ""},
+            {srno: 817, seatNo: "M219738", stream: "COMMERCE", name: "VENAGANTI VIJAYA SATISH", type: "", signature: ""},
+            {srno: 818, seatNo: "M219739", stream: "COMMERCE", name: "YADAV JAYA HARIVANSH", type: "", signature: ""},
+            {srno: 819, seatNo: "M219740", stream: "COMMERCE", name: "VELDANDI AISHWARYA SAMPATH", type: "", signature: ""},
+            {srno: 820, seatNo: "M219741", stream: "COMMERCE", name: "VALPADAS AKHILA SRINIVAS", type: "", signature: ""},
+            {srno: 821, seatNo: "M219742", stream: "COMMERCE", name: "YADAV ANJALI BHIMPRATAP", type: "", signature: ""},
+            {srno: 822, seatNo: "M219743", stream: "COMMERCE", name: "YADAV ANJALI KRISHNA", type: "", signature: ""},
+            {srno: 823, seatNo: "M219744", stream: "COMMERCE", name: "YADAV ROHAN SUBHASHCHANDRA", type: "", signature: ""},
+            {srno: 824, seatNo: "M219745", stream: "COMMERCE", name: "VARMA SAGAR RAMU", type: "", signature: ""},
+            {srno: 825, seatNo: "M219746", stream: "COMMERCE", name: "VAKHARE PARI VILAS", type: "", signature: ""},
+            {srno: 826, seatNo: "M219748", stream: "COMMERCE", name: "VEDAK ATHARVA MANOJ", type: "", signature: ""},
+            {srno: 827, seatNo: "M219749", stream: "COMMERCE", name: "WAGHMARE BALAJI DILIP", type: "", signature: ""},
+            {srno: 828, seatNo: "M219750", stream: "COMMERCE", name: "VAKHARE VED VINOD", type: "", signature: ""},
+            {srno: 829, seatNo: "M219752", stream: "COMMERCE", name: "YELLE SHREEVENI MADHUKAR", type: "", signature: ""},
+            {srno: 830, seatNo: "M219753", stream: "COMMERCE", name: "YADAV VISHAL MOHAN", type: "", signature: ""},
+            {srno: 831, seatNo: "M219754", stream: "COMMERCE", name: "YADAV RAGHAVENDRA RAJESH", type: "", signature: ""},
+            {srno: 832, seatNo: "M219755", stream: "COMMERCE", name: "YADAV RAKHI KUMARI RAJKUMAR", type: "", signature: ""},
+            {srno: 833, seatNo: "M219756", stream: "COMMERCE", name: "YENGAL ROHINI GANESH", type: "", signature: ""},
+            {srno: 834, seatNo: "M219758", stream: "COMMERCE", name: "YADAV RANI KAMLESH", type: "", signature: ""},
+            {srno: 835, seatNo: "M219759", stream: "COMMERCE", name: "VARMA SUNIL RAMNARESH", type: "", signature: ""},
+            {srno: 836, seatNo: "M219760", stream: "COMMERCE", name: "VARMA VIPIN DINESH", type: "", signature: ""},
+            {srno: 837, seatNo: "M219761", stream: "COMMERCE", name: "VEERABATHINI SHRAVAN RAMESH", type: "", signature: ""},
+            {srno: 838, seatNo: "M219762", stream: "COMMERCE", name: "VAIDYA KRISH ASHOK", type: "", signature: ""},
+            {srno: 839, seatNo: "M219763", stream: "COMMERCE", name: "YADAV ARPIT AWADHESH", type: "", signature: ""},
+            {srno: 840, seatNo: "M219764", stream: "COMMERCE", name: "YADAV NIKITA SAMARJEET", type: "", signature: ""},
+            {srno: 841, seatNo: "M219765", stream: "COMMERCE", name: "VARMA ANKITKUMAR LAXMI NARAYAN", type: "", signature: ""},
+            {srno: 842, seatNo: "M219766", stream: "COMMERCE", name: "YADAV POOJA DASHRATH", type: "", signature: ""},
+            {srno: 843, seatNo: "M219767", stream: "COMMERCE", name: "YADAV SANJANA SHRIKANT", type: "", signature: ""},
+            {srno: 844, seatNo: "M219768", stream: "COMMERCE", name: "YADAV RANJEET NANKAN", type: "", signature: ""},
+            {srno: 845, seatNo: "M219769", stream: "COMMERCE", name: "YADAV SHIKHA VIRENDRA", type: "", signature: ""},
+            {srno: 846, seatNo: "M219770", stream: "COMMERCE", name: "YANAGANDULA JANVI CHANDRASHEKHAR", type: "", signature: ""},
+            {srno: 847, seatNo: "M219771", stream: "COMMERCE", name: "VISHWAKARMA CHHAYA JAGDISH", type: "", signature: ""},
+            {srno: 848, seatNo: "M219772", stream: "COMMERCE", name: "VISHWAKARMA MONU KANHAIYALAL", type: "", signature: ""},
+            {srno: 849, seatNo: "M219774", stream: "COMMERCE", name: "VISHWAKARMA RUBI MANOJ", type: "", signature: ""},
+            {srno: 850, seatNo: "M219775", stream: "COMMERCE", name: "VISHWAKARMA SHRADDHA RAJENDRA", type: "", signature: ""},
+            {srno: 851, seatNo: "M219776", stream: "COMMERCE", name: "VISHWAKARMA SURAJ RAMESH", type: "", signature: ""},
+            {srno: 852, seatNo: "M219777", stream: "COMMERCE", name: "YADAV SANNI BACCHARAM", type: "", signature: ""},
+            {srno: 853, seatNo: "M219778", stream: "COMMERCE", name: "WAGHMARE NISHA SATISH", type: "", signature: ""},
+            {srno: 854, seatNo: "M219779", stream: "COMMERCE", name: "YARRA DEEPIKA GOPI", type: "", signature: ""},
+            {srno: 855, seatNo: "M219780", stream: "COMMERCE", name: "YEWATE SHRADHA GOVIND", type: "", signature: ""},
+            {srno: 856, seatNo: "M219781", stream: "COMMERCE", name: "YENGAL PARMESHWAR MANOHAR", type: "", signature: ""},
+            {srno: 857, seatNo: "M219782", stream: "COMMERCE", name: "WAGHMARE ROHAN SIDDHESHWAR", type: "", signature: ""},
+            {srno: 858, seatNo: "M219783", stream: "COMMERCE", name: "VADNALA RUCHITA SRINIVAS", type: "", signature: ""},
+            {srno: 859, seatNo: "M219784", stream: "COMMERCE", name: "VISHE HARSH SANTOSH", type: "", signature: ""},
+            {srno: 860, seatNo: "M219785", stream: "COMMERCE", name: "YADAV AYUSH VINOD KUMAR", type: "", signature: ""},
+            {srno: 861, seatNo: "M219786", stream: "COMMERCE", name: "VERMA KHUSHBOO CHINTARAM", type: "", signature: ""},
+            {srno: 862, seatNo: "M219787", stream: "COMMERCE", name: "YADAV KOUSHIK JILEDAR", type: "", signature: ""},
+            {srno: 863, seatNo: "M219788", stream: "COMMERCE", name: "YADAV HARSHITA LALMAN", type: "", signature: ""},
+            {srno: 864, seatNo: "M219789", stream: "COMMERCE", name: "WAGHMARE SONAM VIJAY", type: "", signature: ""},
+            {srno: 865, seatNo: "M219790", stream: "COMMERCE", name: "WAGHMARE SUPRIYA VIJAY", type: "", signature: ""},
+            {srno: 866, seatNo: "M219791", stream: "COMMERCE", name: "YADAV JYOTI GULABCHAND", type: "", signature: ""},
+            {srno: 867, seatNo: "M219792", stream: "COMMERCE", name: "YADAV NAITIK HAWALDAR", type: "", signature: ""},
+            {srno: 868, seatNo: "M219793", stream: "COMMERCE", name: "YADAV NEETU ALAKHRAM", type: "", signature: ""},
+            {srno: 869, seatNo: "M219794", stream: "COMMERCE", name: "YADAV RAHUL GULABCHAND", type: "", signature: ""},
+            {srno: 870, seatNo: "M219795", stream: "COMMERCE", name: "YADAV ARJUN VINAYAK", type: "", signature: ""},
+            {srno: 871, seatNo: "M219796", stream: "COMMERCE", name: "YADAV TANVI VINOD", type: "", signature: ""},
+            {srno: 872, seatNo: "M219797", stream: "COMMERCE", name: "VALLAL LAVYESH SHRINIVAS", type: "", signature: ""},
+            {srno: 873, seatNo: "M219798", stream: "COMMERCE", name: "YADAV PRIYANSHU RAMBABU", type: "", signature: ""},
+            {srno: 874, seatNo: "M219799", stream: "COMMERCE", name: "YARJHAL AYUSHI AMBADAS", type: "", signature: ""},
+            {srno: 875, seatNo: "M219800", stream: "COMMERCE", name: "YADAV SATYWAN SHRIKANT", type: "", signature: ""}
+        ];
+        
+        // Function to render table rows
+        function renderTable(students) {
+            const tableBody = document.getElementById('tableBody');
+            const resultCount = document.getElementById('resultCount');
+            
+            // Clear existing rows
+            tableBody.innerHTML = '';
+            
+            // Update result count
+            const count = students.length;
+            resultCount.textContent = `Showing ${count} student${count !== 1 ? 's' : ''}`;
+            
+            if (count === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="no-results">
+                            <i class="fas fa-search"></i>
+                            No students found matching your search. Try different keywords.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            // Add student rows
+            students.forEach(student => {
+                const row = document.createElement('tr');
+                
+                // Format the name properly (remove extra spaces)
+                const formattedName = student.name.replace(/\s+/g, ' ').trim();
+                
+                row.innerHTML = `
+                    <td class="sr-no">${student.srno}</td>
+                    <td class="seat-no">${student.seatNo}</td>
+                    <td class="stream">${student.stream}</td>
+                    <td class="student-name">${formattedName}</td>
+                    <td class="type">${student.type || '-'}</td>
+                    <td class="signature">${student.signature || '-'}</td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+        }
+        
+        // Function to highlight search terms in text
+        function highlightText(text, searchTerm) {
+            if (!searchTerm.trim()) return text;
+            
+            // Escape special regex characters in search term
+            const escapedTerm = searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(`(${escapedTerm})`, 'gi');
+            return text.replace(regex, '<span class="highlight">$1</span>');
+        }
+        
+        // Function to filter students based on search term
+        function filterStudents(searchTerm) {
+            if (!searchTerm.trim()) {
+                return studentData;
+            }
+            
+            const lowerSearchTerm = searchTerm.toLowerCase();
+            
+            return studentData.filter(student => {
+                return (
+                    student.name.toLowerCase().includes(lowerSearchTerm) ||
+                    student.seatNo.toLowerCase().includes(lowerSearchTerm) ||
+                    student.stream.toLowerCase().includes(lowerSearchTerm) ||
+                    student.srno.toString().includes(lowerSearchTerm) ||
+                    student.type.toLowerCase().includes(lowerSearchTerm)
+                );
+            });
+        }
+        
+        // Function to handle search
+        function handleSearch() {
+            const searchTerm = document.getElementById('searchBar').value;
+            const filteredStudents = filterStudents(searchTerm);
+            renderTable(filteredStudents);
+            
+            // Highlight search terms in the table
+            if (searchTerm.trim()) {
+                const rows = document.querySelectorAll('#tableBody tr');
+                const escapedTerm = searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    cells.forEach((cell, index) => {
+                        // Skip highlighting for serial number column (index 0)
+                        if (index === 0) return;
+                        
+                        const originalText = cell.textContent;
+                        cell.innerHTML = highlightText(originalText, escapedTerm);
+                    });
+                });
+            }
+        }
+        
+        // Debounce function to limit how often search is performed
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initial render with all students
+            renderTable(studentData);
+            
+            // Add event listener to search bar with debouncing
+            const searchBar = document.getElementById('searchBar');
+            const debouncedSearch = debounce(handleSearch, 300);
+            searchBar.addEventListener('input', debouncedSearch);
+            
+            // Add event listener to reset button
+            const resetBtn = document.getElementById('resetBtn');
+            resetBtn.addEventListener('click', function() {
+                searchBar.value = '';
+                renderTable(studentData);
+                searchBar.focus();
+            });
+            
+            // Focus on search bar for better mobile UX
+            searchBar.focus();
+            
+            // Add keyboard shortcut (Ctrl+F or Cmd+F) to focus search
+            document.addEventListener('keydown', function(e) {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+                    e.preventDefault();
+                    searchBar.focus();
+                    searchBar.select();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
