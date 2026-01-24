@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Academic Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --accent-color: #4cc9f0;
+            --success-color: #4ade80;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --light-bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 580px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 0 10px;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        h1 {
+            font-size: 28px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 16px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-box {
+            background: var(--card-bg);
+            border-radius: var(--radius-xl);
+            padding: 30px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .form-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        .form-step {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .step-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .step-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .step-description {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-top: 3px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            font-size: 15px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: var(--light-bg);
+            color: var(--text-primary);
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+            background-color: white;
+        }
+
+        input:read-only {
+            background-color: #f1f5f9;
+            color: var(--text-secondary);
+            cursor: not-allowed;
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .name-display-container {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            margin-top: 12px;
+            border: 1px dashed var(--accent-color);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .name-display-container.active {
+            background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+            border-color: var(--success-color);
+        }
+
+        .name-display-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        #combinedName {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .hall-ticket-preview {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-radius: var(--radius-lg);
+            padding: 14px;
+            margin-top: 12px;
+            border: 1px dashed var(--warning-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .preview-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .preview-value {
+            font-family: monospace;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 1px;
+        }
+
+        /* Enhanced Review Section Styles */
+        .review-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: var(--radius-lg);
+            padding: 25px;
+            margin-top: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .review-header-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            margin-right: 15px;
+        }
+
+        .review-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .review-subtitle {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-top: 3px;
+        }
+
+        .summary-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 10px;
+            overflow: hidden;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .summary-table thead {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .summary-table th {
+            padding: 18px 20px;
+            text-align: left;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .summary-table th:last-child {
+            border-right: none;
+        }
+
+        .summary-table tbody tr {
+            transition: all 0.2s ease;
+            background-color: white;
+        }
+
+        .summary-table tbody tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .summary-table tbody tr:hover {
+            background-color: #f0f9ff;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .summary-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 15px;
+            vertical-align: top;
+        }
+
+        .summary-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .field-label {
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .field-label i {
+            color: var(--primary-color);
+            width: 20px;
+            text-align: center;
+        }
+
+        .field-value {
+            color: var(--text-primary);
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .field-value.empty {
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .field-value.highlight {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .field-value.ticket {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            padding: 6px 12px;
+            border-radius: var(--radius-sm);
+            display: inline-block;
+            border: 1px solid var(--warning-color);
+        }
+
+        .summary-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .summary-action-btn {
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+        }
+
+        .summary-action-btn:hover {
+            background-color: #f8fafc;
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .summary-action-btn i {
+            font-size: 14px;
+        }
+
+        .form-progress {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            position: relative;
+        }
+
+        .form-progress::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--border-color);
+            z-index: 1;
+        }
+
+        .progress-step {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 33.33%;
+        }
+
+        .progress-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: white;
+            border: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .progress-step.active .progress-circle {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        .progress-step.completed .progress-circle {
+            background-color: var(--success-color);
+            border-color: var(--success-color);
+            color: white;
+        }
+
+        .progress-label {
+            margin-top: 8px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .progress-step.active .progress-label {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border-radius: var(--radius-lg);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            box-shadow: 0 4px 6px rgba(67, 97, 238, 0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(67, 97, 238, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: #f8fafc;
+            border-color: var(--primary-color);
+        }
+
+        .btn-icon {
+            font-size: 14px;
+        }
+
+        .btn-next {
+            max-width: 140px;
+        }
+
+        .btn-prev {
+            max-width: 140px;
+        }
+
+        .btn-submit {
+            width: 100%;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 16px 24px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1000;
+            transform: translateX(120%);
+            transition: transform 0.4s ease;
+            max-width: 400px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            border-left: 4px solid var(--success-color);
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, #fee2e2, #fecaca);
+            border-left: 4px solid var(--danger-color);
+        }
+
+        .notification-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .notification.success .notification-icon {
+            color: var(--success-color);
+        }
+
+        .notification.error .notification-icon {
+            color: var(--danger-color);
+        }
+
+        .notification-content h4 {
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .notification-content p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .char-counter {
+            text-align: right;
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+                align-items: flex-start;
+            }
+            
+            .form-container {
+                max-width: 100%;
+            }
+            
+            .form-box {
+                padding: 25px 20px;
+                border-radius: var(--radius-lg);
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .subtitle {
+                font-size: 15px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .form-row .form-group {
+                margin-bottom: 22px;
+            }
+            
+            .review-section {
+                padding: 20px;
+            }
+            
+            .summary-table th,
+            .summary-table td {
+                padding: 14px 16px;
+                font-size: 14px;
+            }
+            
+            .summary-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .summary-table thead {
+                display: table-header-group;
+            }
+            
+            .summary-table tbody {
+                display: table-row-group;
+            }
+            
+            .summary-table tr {
+                display: table-row;
+            }
+            
+            .summary-table th,
+            .summary-table td {
+                display: table-cell;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .btn-next, .btn-prev {
+                max-width: 100%;
+                order: 2;
+            }
+            
+            .btn-submit {
+                order: 1;
+                margin-bottom: 10px;
+            }
+            
+            .progress-label {
+                font-size: 11px;
+            }
+            
+            input, textarea, .btn {
+                padding: 16px;
+            }
+            
+            .notification {
+                left: 20px;
+                right: 20px;
+                max-width: calc(100% - 40px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-box {
+                padding: 20px 16px;
+            }
+            
+            h1 {
+                font-size: 22px;
+            }
+            
+            .step-title {
+                font-size: 18px;
+            }
+            
+            .step-icon {
+                width: 36px;
+                height: 36px;
+                margin-right: 12px;
+            }
+            
+            .review-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .review-header-icon {
+                margin-right: 0;
+            }
+            
+            .summary-table {
+                font-size: 13px;
+            }
+            
+            .summary-table th,
+            .summary-table td {
+                padding: 12px 14px;
+                font-size: 13px;
+            }
+            
+            .form-progress {
+                margin-top: 25px;
+            }
+            
+            .progress-circle {
+                width: 26px;
+                height: 26px;
+                font-size: 12px;
+            }
+            
+            .name-display-container, .hall-ticket-preview {
+                padding: 14px;
+            }
+            
+            .summary-actions {
+                flex-direction: column;
+            }
+            
+            .summary-action-btn {
+                justify-content: center;
+            }
+        }
+
+        /* Tablet specific adjustments */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .form-container {
+                max-width: 650px;
+            }
+            
+            .form-box {
+                padding: 30px 25px;
+            }
+            
+            .summary-table th,
+            .summary-table td {
+                padding: 16px 18px;
+            }
+        }
+
+        /* Animation for input validation */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        .input-error {
+            border-color: var(--danger-color) !important;
+            animation: shake 0.5s ease;
+        }
+
+        .error-message {
+            color: var(--danger-color);
+            font-size: 14px;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <div class="header">
+            <div class="logo-container">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+            </div>
+            <h1>Student Hall Ticket</h1>
+            <p class="subtitle">Complete the form to generate your hall ticket and academic record</p>
+        </div>
+
+        <div class="form-box">
+            <div class="form-progress">
+                <div class="progress-step active" id="step1-progress">
+                    <div class="progress-circle">1</div>
+                    <div class="progress-label">Personal Details</div>
+                </div>
+                <div class="progress-step" id="step2-progress">
+                    <div class="progress-circle">2</div>
+                    <div class="progress-label">Academic Info</div>
+                </div>
+                <div class="progress-step" id="step3-progress">
+                    <div class="progress-circle">3</div>
+                    <div class="progress-label">Review & Submit</div>
+                </div>
+            </div>
+
+            <form id="studentForm">
+                <!-- REQUIRED BY GOOGLE SCRIPT -->
+                <input type="hidden" name="spreadsheetId" value="1JE6DlYLyu_rm-D6qhlJgusEPGTFA7v2jvpdF-ouyV9k">
+                <input type="hidden" name="sheetName" value="Hall Ticket">
+
+                <!-- Step 1: Personal Details -->
+                <div class="form-step active" id="step1">
+                    <div class="step-header">
+                        <div class="step-icon">1</div>
+                        <div>
+                            <h3 class="step-title">Personal Information</h3>
+                            <p class="step-description">Enter your personal details as per official records</p>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName"><i class="fas fa-user"></i> First Name</label>
+                            <div class="input-wrapper">
+                                <input type="text" id="firstName" placeholder="Enter your first name" required>
+                                <div class="input-icon">
+                                    <i class="fas fa-user-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName"><i class="fas fa-user"></i> Last Name</label>
+                            <div class="input-wrapper">
+                                <input type="text" id="lastName" placeholder="Enter your last name" required>
+                                <div class="input-icon">
+                                    <i class="fas fa-user-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="name-display-container" id="nameDisplayContainer">
+                        <div class="name-display-label">Full Name</div>
+                        <div id="combinedName">Not entered yet</div>
+                    </div>
+
+                    <input type="hidden" name="Name of Student" id="combinedNameInput">
+
+                    <div class="form-group">
+                        <label for="motherName"><i class="fas fa-female"></i> Mother's Name</label>
+                        <div class="input-wrapper">
+                            <input type="text" name="Mother Name" id="motherName" placeholder="Enter your mother's full name" required>
+                            <div class="input-icon">
+                                <i class="fas fa-user-friends"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="button" class="btn btn-secondary btn-prev" disabled>
+                            <i class="fas fa-arrow-left btn-icon"></i> Previous
+                        </button>
+                        <button type="button" class="btn btn-primary btn-next" id="nextToStep2">
+                            Next <i class="fas fa-arrow-right btn-icon"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Academic Information -->
+                <div class="form-step" id="step2">
+                    <div class="step-header">
+                        <div class="step-icon">2</div>
+                        <div>
+                            <h3 class="step-title">Academic Information</h3>
+                            <p class="step-description">Enter your academic and hall ticket details</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="academicYear"><i class="fas fa-calendar-alt"></i> Academic Year</label>
+                        <div class="input-wrapper">
+                            <input type="text" name="Academic Year" id="academicYear" readonly>
+                            <div class="input-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="hallTicketInput"><i class="fas fa-ticket-alt"></i> Hall Ticket Number</label>
+                        <div class="input-wrapper">
+                            <input type="text" name="Hall Ticket No" id="hallTicketInput" placeholder="e.g., A12345 or M67890" required>
+                            <div class="input-icon">
+                                <i class="fas fa-id-card"></i>
+                            </div>
+                        </div>
+                        <div class="hall-ticket-preview">
+                            <div class="preview-label">Formatted Ticket No:</div>
+                            <div class="preview-value" id="hallTicketPreview">Not entered yet</div>
+                        </div>
+                        <div class="char-counter">
+                            <span id="hallTicketCounter">0</span> characters
+                        </div>
+                        <input type="hidden" name="Hall Ticket No" id="hallTicketFinal">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="note"><i class="fas fa-sticky-note"></i> Additional Notes (Optional)</label>
+                        <textarea name="Note" id="note" placeholder="Any additional information or special requests..."></textarea>
+                        <div class="char-counter">
+                            <span id="noteCounter">0</span> / 500 characters
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="button" class="btn btn-secondary btn-prev" id="prevToStep1">
+                            <i class="fas fa-arrow-left btn-icon"></i> Previous
+                        </button>
+                        <button type="button" class="btn btn-primary btn-next" id="nextToStep3">
+                            Next <i class="fas fa-arrow-right btn-icon"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Review and Submit -->
+                <div class="form-step" id="step3">
+                    <div class="step-header">
+                        <div class="step-icon">3</div>
+                        <div>
+                            <h3 class="step-title">Review & Submit</h3>
+                            <p class="step-description">Verify all information before submitting</p>
+                        </div>
+                    </div>
+
+                    <div class="review-section">
+                        <div class="review-header">
+                            <div class="review-header-icon">
+                                <i class="fas fa-clipboard-check"></i>
+                            </div>
+                            <div>
+                                <h3 class="review-title">Form Summary</h3>
+                                <p class="review-subtitle">Please review all details carefully before submission</p>
+                            </div>
+                        </div>
+
+                        <table class="summary-table">
+                            <thead>
+                                <tr>
+                                    <th width="40%">Field</th>
+                                    <th width="60%">Entered Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="field-label">
+                                            <i class="fas fa-user"></i>
+                                            <span>Full Name</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="field-value highlight" id="reviewName">
+                                            Not entered yet
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="field-label">
+                                            <i class="fas fa-female"></i>
+                                            <span>Mother's Name</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="field-value" id="reviewMotherName">
+                                            Not entered yet
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="field-label">
+                                            <i class="fas fa-calendar-alt"></i>
+                                            <span>Academic Year</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="field-value" id="reviewAcademicYear">
+                                            Not entered yet
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="field-label">
+                                            <i class="fas fa-ticket-alt"></i>
+                                            <span>Hall Ticket Number</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="field-value ticket" id="reviewHallTicket">
+                                            Not entered yet
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="field-label">
+                                            <i class="fas fa-sticky-note"></i>
+                                            <span>Additional Notes</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="field-value" id="reviewNote">
+                                            No notes provided
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="summary-actions">
+                            <button type="button" class="summary-action-btn" onclick="window.print()">
+                                <i class="fas fa-print"></i> Print Summary
+                            </button>
+                            <button type="button" class="summary-action-btn" id="downloadSummary">
+                                <i class="fas fa-download"></i> Save Summary
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="button" class="btn btn-secondary btn-prev" id="prevToStep2">
+                            <i class="fas fa-edit btn-icon"></i> Edit Details
+                        </button>
+                        <button type="submit" class="btn btn-primary btn-submit" id="submitForm">
+                            <i class="fas fa-paper-plane btn-icon"></i> Submit Form
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="notification" id="notification">
+            <div class="notification-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="notification-content">
+                <h4 id="notificationTitle">Success!</h4>
+                <p id="notificationMessage">Your form has been submitted successfully.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const scriptUrl = "https://script.google.com/macros/s/AKfycbz6J_9Tx5Rdj_t1iEMW2t9iJvKLZIZvB-V1swiiYN20U1Xu1pZ7Ot8hl07BNNHenWU3/exec";
+        
+        // DOM Elements
+        const steps = document.querySelectorAll('.form-step');
+        const progressSteps = document.querySelectorAll('.progress-step');
+        const nextBtnStep1 = document.getElementById('nextToStep2');
+        const nextBtnStep2 = document.getElementById('nextToStep3');
+        const prevBtnStep1 = document.getElementById('prevToStep1');
+        const prevBtnStep2 = document.getElementById('prevToStep2');
+        const submitBtn = document.getElementById('submitForm');
+        const notification = document.getElementById('notification');
+        
+        // Form Elements
+        const firstNameInput = document.getElementById('firstName');
+        const lastNameInput = document.getElementById('lastName');
+        const motherNameInput = document.getElementById('motherName');
+        const hallTicketInput = document.getElementById('hallTicketInput');
+        const academicYearInput = document.getElementById('academicYear');
+        const noteInput = document.getElementById('note');
+        const combinedNameDisplay = document.getElementById('combinedName');
+        const hallTicketPreview = document.getElementById('hallTicketPreview');
+        const combinedNameInput = document.getElementById('combinedNameInput');
+        const hallTicketFinalInput = document.getElementById('hallTicketFinal');
+        
+        // Review Elements
+        const reviewName = document.getElementById('reviewName');
+        const reviewMotherName = document.getElementById('reviewMotherName');
+        const reviewAcademicYear = document.getElementById('reviewAcademicYear');
+        const reviewHallTicket = document.getElementById('reviewHallTicket');
+        const reviewNote = document.getElementById('reviewNote');
+        
+        // Counter Elements
+        const hallTicketCounter = document.getElementById('hallTicketCounter');
+        const noteCounter = document.getElementById('noteCounter');
+        
+        // Current step tracking
+        let currentStep = 1;
+        
+        /* ========== INITIALIZATION ========== */
+        
+        // Set academic year on page load
+        function setAcademicYear() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = today.getMonth() + 1;
+            let academicYear;
+
+            if (month >= 6) {
+                academicYear = `${year}-${(year + 1).toString().slice(-2)}`;
+            } else {
+                academicYear = `${year - 1}-${year.toString().slice(-2)}`;
+            }
+
+            academicYearInput.value = academicYear;
+        }
+        
+        // Initialize the form
+        function initializeForm() {
+            setAcademicYear();
+            updateCombinedName();
+            updateHallTicketPreview();
+            updateCounters();
+            setupEventListeners();
+        }
+        
+        /* ========== STEP NAVIGATION ========== */
+        
+        function goToStep(stepNumber) {
+            // Hide all steps
+            steps.forEach(step => step.classList.remove('active'));
+            progressSteps.forEach(step => {
+                step.classList.remove('active', 'completed');
+            });
+            
+            // Show the current step
+            document.getElementById(`step${stepNumber}`).classList.add('active');
+            
+            // Update progress indicators
+            for (let i = 1; i <= stepNumber; i++) {
+                const stepElement = document.getElementById(`step${i}-progress`);
+                if (i === stepNumber) {
+                    stepElement.classList.add('active');
+                } else {
+                    stepElement.classList.add('completed');
+                }
+            }
+            
+            currentStep = stepNumber;
+            
+            // Update review section if going to step 3
+            if (stepNumber === 3) {
+                updateReviewSection();
+            }
+        }
+        
+        /* ========== FORM VALIDATION ========== */
+        
+        function validateStep(step) {
+            let isValid = true;
+            
+            if (step === 1) {
+                // Validate personal details
+                if (!firstNameInput.value.trim()) {
+                    showError(firstNameInput, "First name is required");
+                    isValid = false;
+                } else {
+                    clearError(firstNameInput);
+                }
+                
+                if (!lastNameInput.value.trim()) {
+                    showError(lastNameInput, "Last name is required");
+                    isValid = false;
+                } else {
+                    clearError(lastNameInput);
+                }
+                
+                if (!motherNameInput.value.trim()) {
+                    showError(motherNameInput, "Mother's name is required");
+                    isValid = false;
+                } else {
+                    clearError(motherNameInput);
+                }
+                
+                // Update combined name display
+                updateCombinedName();
+            }
+            
+            if (step === 2) {
+                // Validate academic details
+                if (!hallTicketInput.value.trim()) {
+                    showError(hallTicketInput, "Hall ticket number is required");
+                    isValid = false;
+                } else if (hallTicketInput.value.trim().length < 2) {
+                    showError(hallTicketInput, "Hall ticket must be at least 2 characters");
+                    isValid = false;
+                } else {
+                    clearError(hallTicketInput);
+                }
+            }
+            
+            return isValid;
+        }
+        
+        function showError(inputElement, message) {
+            inputElement.classList.add('input-error');
+            
+            // Remove existing error message
+            let existingError = inputElement.parentNode.nextElementSibling;
+            if (existingError && existingError.classList.contains('error-message')) {
+                existingError.remove();
+            }
+            
+            // Create error message
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+            
+            inputElement.parentNode.parentNode.appendChild(errorDiv);
+        }
+        
+        function clearError(inputElement) {
+            inputElement.classList.remove('input-error');
+            
+            // Remove error message if exists
+            let existingError = inputElement.parentNode.parentNode.querySelector('.error-message');
+            if (existingError) {
+                existingError.remove();
+            }
+        }
+        
+        /* ========== NAME HANDLING ========== */
+        
+        function updateCombinedName() {
+            const firstName = firstNameInput.value.trim();
+            const lastName = lastNameInput.value.trim();
+            const combinedName = `${firstName} ${lastName}`.trim();
+            
+            combinedNameDisplay.textContent = combinedName || 'Not entered yet';
+            combinedNameInput.value = combinedName;
+            
+            // Update name display container styling
+            const nameDisplayContainer = document.getElementById('nameDisplayContainer');
+            if (firstName && lastName) {
+                nameDisplayContainer.classList.add('active');
+            } else {
+                nameDisplayContainer.classList.remove('active');
+            }
+        }
+        
+        /* ========== HALL TICKET FORMATTING ========== */
+        
+        function formatHallTicket(input) {
+            // Remove any non-alphanumeric characters
+            let value = input.replace(/[^A-Za-z0-9]/g, '');
+            
+            if (value.length > 0) {
+                // Ensure first character is uppercase alphabet
+                let firstChar = value.charAt(0);
+                if (!/[A-Za-z]/.test(firstChar)) {
+                    // If first character is not a letter, prepend with 'A'
+                    value = 'A' + value;
+                } else {
+                    // Convert first character to uppercase
+                    value = firstChar.toUpperCase() + value.slice(1);
+                }
+            }
+            
+            return value;
+        }
+        
+        function updateHallTicketPreview() {
+            const formatted = formatHallTicket(hallTicketInput.value);
+            hallTicketPreview.textContent = formatted || 'Not entered yet';
+            hallTicketCounter.textContent = formatted.length;
+        }
+        
+        /* ========== COUNTER UPDATES ========== */
+        
+        function updateCounters() {
+            // Hall ticket counter
+            hallTicketCounter.textContent = hallTicketInput.value.length;
+            
+            // Note counter
+            noteCounter.textContent = noteInput.value.length;
+            
+            // Validate note length
+            if (noteInput.value.length > 500) {
+                noteInput.value = noteInput.value.substring(0, 500);
+                noteCounter.textContent = 500;
+            }
+        }
+        
+        /* ========== ENHANCED REVIEW SECTION ========== */
+        
+        function updateReviewSection() {
+            // Get values
+            const fullName = combinedNameInput.value || 'Not entered yet';
+            const motherName = motherNameInput.value || 'Not entered yet';
+            const academicYear = academicYearInput.value || 'Not entered yet';
+            const hallTicket = formatHallTicket(hallTicketInput.value) || 'Not entered yet';
+            const note = noteInput.value.trim() || 'No notes provided';
+            
+            // Update review table
+            reviewName.textContent = fullName;
+            reviewMotherName.textContent = motherName;
+            reviewAcademicYear.textContent = academicYear;
+            reviewHallTicket.textContent = hallTicket;
+            reviewNote.textContent = note;
+            
+            // Add styling classes based on content
+            if (fullName === 'Not entered yet') {
+                reviewName.classList.remove('highlight');
+                reviewName.classList.add('empty');
+            } else {
+                reviewName.classList.add('highlight');
+                reviewName.classList.remove('empty');
+            }
+            
+            if (motherName === 'Not entered yet') {
+                reviewMotherName.classList.add('empty');
+            } else {
+                reviewMotherName.classList.remove('empty');
+            }
+            
+            if (hallTicket === 'Not entered yet') {
+                reviewHallTicket.classList.remove('ticket');
+                reviewHallTicket.classList.add('empty');
+            } else {
+                reviewHallTicket.classList.add('ticket');
+                reviewHallTicket.classList.remove('empty');
+            }
+            
+            if (note === 'No notes provided') {
+                reviewNote.classList.add('empty');
+            } else {
+                reviewNote.classList.remove('empty');
+            }
+        }
+        
+        /* ========== DOWNLOAD SUMMARY FUNCTION ========== */
+        
+        function downloadSummary() {
+            const summaryData = {
+                "Full Name": combinedNameInput.value || "Not entered",
+                "Mother's Name": motherNameInput.value || "Not entered",
+                "Academic Year": academicYearInput.value || "Not entered",
+                "Hall Ticket Number": formatHallTicket(hallTicketInput.value) || "Not entered",
+                "Additional Notes": noteInput.value.trim() || "No notes provided",
+                "Submission Date": new Date().toLocaleDateString(),
+                "Submission Time": new Date().toLocaleTimeString()
+            };
+            
+            let summaryText = "STUDENT ACADEMIC FORM SUMMARY\n";
+            summaryText += "==============================\n\n";
+            
+            for (const [key, value] of Object.entries(summaryData)) {
+                summaryText += `${key}: ${value}\n`;
+            }
+            
+            summaryText += "\n---\n";
+            summaryText += "This is an automated summary generated from the Student Academic Form.\n";
+            
+            const blob = new Blob([summaryText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Student_Form_Summary_${new Date().getTime()}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+        
+        /* ========== NOTIFICATION SYSTEM ========== */
+        
+        function showNotification(type, title, message) {
+            // Set notification content
+            document.getElementById('notificationTitle').textContent = title;
+            document.getElementById('notificationMessage').textContent = message;
+            
+            // Set notification type
+            notification.className = 'notification';
+            notification.classList.add(type);
+            
+            // Show notification
+            notification.classList.add('show');
+            
+            // Auto hide after 5 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 5000);
+        }
+        
+        /* ========== FORM SUBMISSION ========== */
+        
+        function submitForm() {
+            // Disable submit button to prevent double submission
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin btn-icon"></i> Processing...';
+            
+            // Update the final hall ticket value
+            const formattedHallTicket = formatHallTicket(hallTicketInput.value);
+            hallTicketFinalInput.value = formattedHallTicket;
+            
+            // Prepare form data
+            const formData = new FormData(document.getElementById('studentForm'));
+            
+            // Submit to Google Sheets
+            fetch(scriptUrl, {
+                method: "POST",
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === "success") {
+                    showNotification('success', 'Success!', data.message || 'Form submitted successfully!');
+                    
+                    // Reset form after a delay
+                    setTimeout(() => {
+                        document.getElementById('studentForm').reset();
+                        goToStep(1);
+                        updateCombinedName();
+                        updateHallTicketPreview();
+                        updateCounters();
+                        
+                        // Re-enable submit button
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<i class="fas fa-paper-plane btn-icon"></i> Submit Form';
+                    }, 2000);
+                } else {
+                    showNotification('error', 'Error!', data.message || 'There was an error submitting the form.');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane btn-icon"></i> Submit Form';
+                }
+            })
+            .catch(err => {
+                console.error('Submission error:', err);
+                showNotification('error', 'Network Error', 'Unable to connect to server. Please check your connection.');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane btn-icon"></i> Submit Form';
+            });
+        }
+        
+        /* ========== EVENT LISTENERS ========== */
+        
+        function setupEventListeners() {
+            // Step navigation
+            nextBtnStep1.addEventListener('click', () => {
+                if (validateStep(1)) {
+                    goToStep(2);
+                }
+            });
+            
+            nextBtnStep2.addEventListener('click', () => {
+                if (validateStep(2)) {
+                    goToStep(3);
+                }
+            });
+            
+            prevBtnStep1.addEventListener('click', () => goToStep(1));
+            prevBtnStep2.addEventListener('click', () => goToStep(2));
+            
+            // Name field updates
+            firstNameInput.addEventListener('input', updateCombinedName);
+            lastNameInput.addEventListener('input', updateCombinedName);
+            
+            // Hall ticket field updates
+            hallTicketInput.addEventListener('input', function(e) {
+                const formatted = formatHallTicket(e.target.value);
+                if (formatted !== e.target.value) {
+                    e.target.value = formatted;
+                }
+                updateHallTicketPreview();
+                updateCounters();
+            });
+            
+            // Note field updates
+            noteInput.addEventListener('input', updateCounters);
+            
+            // Download summary button
+            document.getElementById('downloadSummary').addEventListener('click', downloadSummary);
+            
+            // Form submission
+            document.getElementById('studentForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Final validation before submission
+                if (!validateStep(1) || !validateStep(2)) {
+                    showNotification('error', 'Validation Error', 'Please fix all errors before submitting.');
+                    goToStep(1);
+                    return;
+                }
+                
+                submitForm();
+            });
+            
+            // Real-time validation for name fields
+            firstNameInput.addEventListener('blur', () => validateStep(1));
+            lastNameInput.addEventListener('blur', () => validateStep(1));
+            motherNameInput.addEventListener('blur', () => validateStep(1));
+            hallTicketInput.addEventListener('blur', () => validateStep(2));
+        }
+        
+        /* ========== INITIALIZE FORM ========== */
+        
+        document.addEventListener('DOMContentLoaded', initializeForm);
+    </script>
+</body>
+</html>
